@@ -2086,8 +2086,8 @@
             }
 
             nav a {
-                font-size: 1.1rem;
-                padding: calc(var(--spacing) * 0.65) calc(var(--spacing) * 1.1);
+                font-size: 1rem;
+                padding: calc(var(--spacing) * 0.6) calc(var(--spacing) * 1);
             }
 
             nav .container {
@@ -2099,13 +2099,9 @@
 
             nav ul {
                 width: 100%;
-                flex-wrap: nowrap;
-                overflow-x: auto;
-                padding-bottom: 2px;
-            }
-
-            nav ul::-webkit-scrollbar {
-                display: none;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: calc(var(--spacing) * 0.75) calc(var(--spacing) * 1.25);
             }
 
             .hero-intro {
@@ -2258,13 +2254,14 @@
 <body>
     <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <!-- Navigation -->
-    <nav>
+    <nav aria-label="Primary">
         <div class="container">
             <a href="#home" class="logo" data-page="home">Keming Liu</a>
             <ul>
                 <li><a href="#home" data-page="home">Home</a></li>
                 <li><a href="#projects" data-page="projects">Projects</a></li>
                 <li><a href="#reflections" data-page="reflections">Reflections</a></li>
+                <li><a href="#mentorship" data-page="mentorship">Mentorship</a></li>
                 <li><a href="#about" data-page="about">About</a></li>
                 <li><a href="#contact" data-page="contact">Contact</a></li>
             </ul>
@@ -2286,7 +2283,7 @@
                     </p>
                     <div class="cta-buttons">
                         <a href="#projects" class="btn btn-primary" data-page="projects">View Projects</a>
-                        <a href="#contact" class="btn" data-page="contact" onclick="event.preventDefault(); alert('Contact for detailed information at this stage.');">Download CV</a>
+                        <a href="#contact" class="btn" data-page="contact">CV on request</a>
                         <a href="#contact" class="btn" data-page="contact">Get in Touch</a>
                     </div>
                 </div>
@@ -3810,6 +3807,58 @@
                 token.addEventListener('mouseenter', () => selectToken(token));
                 token.addEventListener('focus', () => selectToken(token));
                 token.setAttribute('tabindex', '0');
+            });
+        })();
+
+        // --- Modal accessibility: dialog semantics + focus management ---
+        (function setupModalA11y() {
+            const dialogs = Array.from(document.querySelectorAll('.detail-modal, .project-detail'));
+            if (!dialogs.length) return;
+            const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, video[controls], [tabindex]:not([tabindex="-1"])';
+            const isOpen = (d) => d.classList.contains('active');
+
+            dialogs.forEach(d => {
+                d.setAttribute('role', 'dialog');
+                d.setAttribute('aria-modal', 'true');
+                const h1 = d.querySelector('h1');
+                if (h1) {
+                    if (!h1.id) h1.id = d.id + '-title';
+                    d.setAttribute('aria-labelledby', h1.id);
+                }
+            });
+
+            // Remember what opened a dialog so focus can return there on close
+            let lastTrigger = null;
+            document.addEventListener('pointerdown', (e) => {
+                const t = e.target.closest('.clickable-card, .project-card, .focus-card-link, [data-project]');
+                if (t) lastTrigger = t;
+            }, true);
+
+            // Move focus in on open, return focus on close
+            const obs = new MutationObserver((muts) => {
+                muts.forEach(m => {
+                    const d = m.target;
+                    if (isOpen(d)) {
+                        const target = d.querySelector('.detail-close, .close-btn') || d;
+                        setTimeout(() => target.focus({ preventScroll: true }), 40);
+                    } else if (lastTrigger) {
+                        const t = lastTrigger; lastTrigger = null;
+                        setTimeout(() => { if (t && t.focus) t.focus({ preventScroll: true }); }, 40);
+                    }
+                });
+            });
+            dialogs.forEach(d => obs.observe(d, { attributes: true, attributeFilter: ['class'] }));
+
+            // Trap Tab within the open dialog
+            document.addEventListener('keydown', (e) => {
+                if (e.key !== 'Tab') return;
+                const open = dialogs.find(isOpen);
+                if (!open) return;
+                const f = Array.from(open.querySelectorAll(FOCUSABLE)).filter(el => el.offsetParent !== null);
+                if (!f.length) return;
+                const first = f[0], last = f[f.length - 1];
+                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
             });
         })();
     </script>
