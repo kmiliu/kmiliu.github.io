@@ -979,31 +979,6 @@
             position: relative;
         }
 
-        .clickable-card::after {
-            content: 'Read \2192';
-            position: absolute;
-            right: calc(var(--spacing) * 2);
-            bottom: calc(var(--spacing) * 2);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.92rem;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            color: var(--forest);
-            opacity: 0.5;
-            transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
-        }
-
-        .clickable-card:hover::after {
-            opacity: 1;
-            color: var(--accent);
-            transform: translateX(4px);
-        }
-
-        /* Align "View details" with right padding (same as cover image edge) in reflections */
-        #reflections .writing-item.clickable-card::after {
-            right: calc(var(--spacing) * 4);
-        }
-
         .clickable-card:focus-visible {
             outline: 3px solid var(--forest);
             outline-offset: 3px;
@@ -1125,10 +1100,6 @@
             #reflections .writing-item .reflection-thumb {
                 width: 100%;
                 max-width: 320px;
-            }
-
-            #reflections .writing-item.clickable-card::after {
-                right: calc(var(--spacing) * 2);
             }
         }
 
