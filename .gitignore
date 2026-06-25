@@ -1,0 +1,10 @@
+# macOS
+.DS_Store
+
+# Office/editor temp lock files
+~$*
+
+# Local HTML working backups
+index.html.bak-*
+bak-*/
+narrative-staging/

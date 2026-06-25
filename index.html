@@ -11,7 +11,8 @@
     <meta property="og:url" content="https://kmiliu.github.io/">
     <meta property="og:image" content="https://kmiliu.github.io/assets/profile-photo.png">
     <meta name="twitter:card" content="summary_large_image">
-    <link rel="icon" href="assets/profile-photo.png" type="image/png">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="alternate icon" href="assets/profile-photo.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -25,34 +26,34 @@
         :root {
             --forest: #1f5a38;
             --forest-light: #2f744a;
-            --background: #f2f5ef;
+            --background: #f4f2ec;
+            --background-soft: #fbf9f4;
             --text: #1d201d;
             --text-secondary: #5a615b;
-            --border: #dbe1d8;
-            --card-bg: #ffffff;
+            --border: rgba(29, 32, 29, 0.08);
+            --card-bg: rgba(255, 255, 255, 0.64);
             --accent: #af7a42;
             --spacing: 8px;
-            --content-max: 1180px;
+            --content-max: 1360px;
+            --reading-max: 680px;
             --radius-sm: 10px;
             --radius-md: 14px;
             --radius-lg: 18px;
-            --radius-xl: 26px;
-            --shadow-soft: 0 10px 30px rgba(19, 42, 27, 0.08);
-            --shadow-hover: 0 16px 38px rgba(19, 42, 27, 0.12);
+            --radius-xl: 30px;
+            --shadow-soft: 0 10px 28px rgba(19, 42, 27, 0.04);
+            --shadow-hover: 0 16px 36px rgba(19, 42, 27, 0.08);
         }
 
         body {
             font-family: 'Crimson Pro', serif;
-            font-size: 20px;
+            font-size: 17px;
             line-height: 1.72;
             color: var(--text);
             background:
-                radial-gradient(circle at 10% 0%, rgba(31, 90, 56, 0.08), transparent 36%),
-                radial-gradient(circle at 92% 12%, rgba(60, 92, 71, 0.06), transparent 42%),
-                linear-gradient(150deg, rgba(175, 122, 66, 0.035), transparent 30%),
+                radial-gradient(1200px 760px at 50% -12%, rgba(31, 90, 56, 0.05), transparent 62%),
                 var(--background);
-            font-weight: 300;
-            letter-spacing: 0.002em;
+            font-weight: 400;
+            letter-spacing: 0.003em;
             overflow-x: hidden;
             position: relative;
         }
@@ -72,7 +73,7 @@
             height: 340px;
             right: -120px;
             top: 22vh;
-            background: radial-gradient(circle, rgba(175, 122, 66, 0.09), rgba(175, 122, 66, 0));
+            background: radial-gradient(circle, rgba(175, 122, 66, 0.05), rgba(175, 122, 66, 0));
             animation: floatGlow1 48s ease-in-out infinite alternate;
         }
 
@@ -81,14 +82,28 @@
             height: 420px;
             left: -180px;
             bottom: 4vh;
-            background: radial-gradient(circle, rgba(31, 90, 56, 0.12), rgba(31, 90, 56, 0));
+            background: radial-gradient(circle, rgba(31, 90, 56, 0.06), rgba(31, 90, 56, 0));
             animation: floatGlow2 52s ease-in-out infinite alternate;
         }
 
         .mono {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-weight: 300;
+        }
+
+        /* Scroll progress bar */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0;
+            z-index: 1100;
+            background: linear-gradient(90deg, var(--forest), var(--accent));
+            border-radius: 0 3px 3px 0;
+            transition: width 0.1s linear;
+            pointer-events: none;
         }
 
         /* Navigation */
@@ -101,22 +116,22 @@
             border-bottom: none;
             box-shadow: none;
             z-index: 1000;
-            padding: calc(var(--spacing) * 2) 0;
+            padding: calc(var(--spacing) * 3) 0;
         }
 
         nav .container {
-            max-width: 1360px;
+            max-width: 1420px;
             width: 100%;
             margin: 0 auto;
-            padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
+            padding: calc(var(--spacing) * 2.25) calc(var(--spacing) * 4.5);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(252, 255, 250, 0.85);
-            border: 1px solid rgba(31, 90, 56, 0.16);
+            background: rgba(252, 250, 245, 0.68);
+            border: 1px solid rgba(31, 90, 56, 0.08);
             border-radius: 999px;
-            backdrop-filter: blur(14px);
-            box-shadow: 0 12px 26px rgba(19, 42, 27, 0.08);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 10px 24px rgba(19, 42, 27, 0.04);
         }
 
         nav .logo {
@@ -125,7 +140,7 @@
             color: var(--forest);
             text-decoration: none;
             letter-spacing: -0.02em;
-            font-size: 1.25rem;
+            font-size: 1.05rem;
         }
 
         nav ul {
@@ -138,7 +153,7 @@
             color: var(--text);
             text-decoration: none;
             transition: color 0.22s, background-color 0.22s;
-            font-size: 20px;
+            font-size: 1.05rem;
             padding: calc(var(--spacing) * 0.75) calc(var(--spacing) * 1.5);
             border-radius: 999px;
         }
@@ -159,7 +174,7 @@
             max-width: var(--content-max);
             width: 100%;
             margin: 0 auto;
-            padding: 0 calc(var(--spacing) * 6);
+            padding: 0 calc(var(--spacing) * 8);
         }
 
         .narrow {
@@ -167,12 +182,12 @@
         }
 
         section {
-            padding: calc(var(--spacing) * 13) 0;
-            min-height: 100vh;
+            padding: calc(var(--spacing) * 17) 0;
+            min-height: auto;
         }
 
         section:first-of-type {
-            padding-top: calc(var(--spacing) * 18);
+            padding-top: calc(var(--spacing) * 22);
         }
 
         /* Thread decoration */
@@ -196,21 +211,22 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: calc(var(--spacing) * 4);
+            gap: calc(var(--spacing) * 8);
+            min-height: calc(100vh - 180px);
         }
 
         .hero-intro {
             display: flex;
             align-items: stretch;
-            gap: calc(var(--spacing) * 6);
+            gap: calc(var(--spacing) * 11);
             flex-wrap: wrap;
         }
 
         .hero-photo {
-            width: 300px;
+            width: 360px;
             flex-shrink: 0;
             align-self: stretch;
-            border-radius: var(--radius-lg);
+            border-radius: 24px;
             object-fit: cover;
             object-position: top center;
             box-shadow: var(--shadow-soft);
@@ -224,16 +240,17 @@
 
         .hero-text {
             flex: 1;
-            min-width: 280px;
+            min-width: 320px;
+            max-width: 760px;
         }
 
         h1 {
             font-family: 'Fraunces', serif;
-            font-size: 3.5rem;
+            font-size: 3.6rem;
             font-weight: 300;
-            line-height: 1.07;
-            letter-spacing: -0.03em;
-            margin-bottom: calc(var(--spacing) * 2);
+            line-height: 1.02;
+            letter-spacing: -0.038em;
+            margin-bottom: calc(var(--spacing) * 4);
         }
 
         h1 strong {
@@ -244,14 +261,15 @@
         .subtitle {
             font-size: 1.3rem;
             color: var(--text-secondary);
-            max-width: 48ch;
-            line-height: 1.6;
+            max-width: 30ch;
+            line-height: 1.8;
         }
 
         .cta-buttons {
             display: flex;
-            gap: calc(var(--spacing) * 2);
-            margin-top: calc(var(--spacing) * 4);
+            gap: calc(var(--spacing) * 2.5);
+            margin-top: calc(var(--spacing) * 6);
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -261,7 +279,7 @@
             color: var(--text);
             text-decoration: none;
             transition: all 0.24s;
-            font-size: 20px;
+            font-size: 1.05rem;
             font-family: 'Crimson Pro', serif;
             cursor: pointer;
             display: inline-block;
@@ -308,17 +326,17 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             overflow: visible;
-            background: rgba(255, 255, 255, 0.72);
-            box-shadow: var(--shadow-soft);
+            background: var(--background-soft);
+            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 12px 26px rgba(19, 42, 27, 0.04);
         }
 
         .timeline-theme-title {
             cursor: pointer;
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-weight: 400;
             color: var(--forest);
             padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
-            background: var(--card-bg);
+            background: transparent;
             list-style: none;
         }
 
@@ -339,7 +357,7 @@
         }
 
         .timeline-section h3 {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-weight: 400;
             margin-bottom: calc(var(--spacing) * 4);
             color: var(--forest);
@@ -359,8 +377,7 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: linear-gradient(to bottom, var(--forest) 0%, var(--forest) 100%);
-            opacity: 0.4;
+            background: linear-gradient(to bottom, rgba(31, 90, 56, 0.35), rgba(31, 90, 56, 0.08));
         }
 
         .timeline-node {
@@ -388,7 +405,7 @@
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            background: var(--card-bg);
+            background: var(--background-soft);
             border: 2px solid var(--forest);
             transition: all 0.3s;
         }
@@ -402,8 +419,8 @@
 
         .timeline-node .node-header {
             padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            background: #fff;
+            border: 1px solid rgba(19, 42, 27, 0.07);
             border-radius: var(--radius-sm);
             transition: all 0.3s;
         }
@@ -416,14 +433,14 @@
 
         .timeline-node .node-year {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             color: var(--forest);
             margin-bottom: calc(var(--spacing) * 0.5);
         }
 
         .timeline-node .node-title {
             font-weight: 400;
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             color: var(--text);
         }
 
@@ -443,7 +460,7 @@
             background: var(--background);
             border-radius: var(--radius-sm);
             border-left: 3px solid var(--forest);
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
             line-height: 1.6;
         }
@@ -455,17 +472,17 @@
         /* Focus Cards */
         .focus-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: calc(var(--spacing) * 3);
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: calc(var(--spacing) * 5);
             margin-top: calc(var(--spacing) * 6);
         }
 
         .focus-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: calc(var(--spacing) * 4);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-soft);
+            background: var(--background-soft);
+            border: 1px solid rgba(19, 42, 27, 0.07);
+            padding: calc(var(--spacing) * 5);
+            border-radius: 16px;
+            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.05);
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
@@ -501,9 +518,9 @@
         }
 
         .focus-card:hover {
-            border-color: var(--forest);
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px);
+            border-color: rgba(31, 90, 56, 0.18);
+            box-shadow: 0 2px 4px rgba(19, 42, 27, 0.04), 0 22px 44px rgba(19, 42, 27, 0.09);
+            transform: translateY(-3px);
         }
 
         .focus-card h3 {
@@ -514,7 +531,7 @@
         }
 
         .focus-card p {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
             line-height: 1.6;
         }
@@ -522,12 +539,12 @@
         /* Section Headers */
         h2 {
             font-family: 'Fraunces', serif;
-            font-size: 2.2rem;
+            font-size: 2.25rem;
             font-weight: 400;
-            margin-bottom: calc(var(--spacing) * 6);
+            margin-bottom: calc(var(--spacing) * 9);
             letter-spacing: -0.02em;
             position: relative;
-            padding-bottom: calc(var(--spacing) * 2);
+            padding-bottom: calc(var(--spacing) * 3);
         }
 
         h2::after {
@@ -536,8 +553,22 @@
             left: 0;
             bottom: 0;
             width: 92px;
-            height: 1px;
+            height: 2px;
             background: linear-gradient(90deg, var(--forest), var(--accent));
+            transform-origin: left center;
+        }
+
+        .page-section.active h2::after {
+            animation: underlineDraw 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes underlineDraw {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .page-section.active h2::after { animation: none; }
         }
 
         h3 {
@@ -549,7 +580,7 @@
         .project-filters {
             display: flex;
             gap: calc(var(--spacing) * 2);
-            margin-bottom: calc(var(--spacing) * 6);
+            margin-bottom: calc(var(--spacing) * 8);
             flex-wrap: wrap;
         }
 
@@ -559,7 +590,7 @@
             background: var(--card-bg);
             cursor: pointer;
             transition: all 0.2s;
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-family: 'IBM Plex Mono', monospace;
             user-select: none;
             border-radius: 999px;
@@ -580,16 +611,16 @@
 
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: calc(var(--spacing) * 4);
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: calc(var(--spacing) * 6);
         }
 
         .project-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: calc(var(--spacing) * 4);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-soft);
+            background: var(--background-soft);
+            border: 1px solid rgba(19, 42, 27, 0.07);
+            padding: calc(var(--spacing) * 5);
+            border-radius: 16px;
+            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.05);
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             cursor: pointer;
             text-decoration: none;
@@ -612,9 +643,9 @@
         }
 
         .project-card:hover {
-            border-color: var(--forest);
-            box-shadow: var(--shadow-hover);
-            transform: translateY(-2px) rotateX(1deg) rotateY(-1deg);
+            border-color: rgba(31, 90, 56, 0.18);
+            box-shadow: 0 2px 4px rgba(19, 42, 27, 0.04), 0 22px 44px rgba(19, 42, 27, 0.09);
+            transform: translateY(-3px);
         }
 
         .project-card:focus-visible {
@@ -624,7 +655,7 @@
         }
 
         .project-card h3 {
-            font-size: 1.4rem;
+            font-size: 1.25rem;
             font-weight: 400;
             margin-bottom: calc(var(--spacing) * 2);
             color: var(--forest);
@@ -659,7 +690,7 @@
         .project-summary {
             color: var(--text-secondary);
             margin-bottom: calc(var(--spacing) * 3);
-            font-size: 1.25rem;
+            font-size: 1.05rem;
         }
 
         .project-tags {
@@ -673,19 +704,19 @@
             background: var(--background);
             border: 1px solid var(--border);
             border-radius: 999px;
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-family: 'IBM Plex Mono', monospace;
             color: var(--text-secondary);
         }
 
         /* Brand reel (home) */
         .brand-reel {
-            margin-top: calc(var(--spacing) * 6);
-            padding: calc(var(--spacing) * 3);
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-soft);
+            margin-top: calc(var(--spacing) * 8);
+            padding: calc(var(--spacing) * 4.5);
+            background: var(--background-soft);
+            border: 1px solid rgba(19, 42, 27, 0.07);
+            border-radius: 18px;
+            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.04);
             overflow: hidden;
             position: relative;
         }
@@ -694,8 +725,8 @@
             content: '';
             position: absolute;
             inset: 0;
-            background: radial-gradient(1000px 420px at 10% 0%, rgba(175, 122, 66, 0.10), transparent 60%),
-                        radial-gradient(900px 420px at 95% 20%, rgba(31, 90, 56, 0.10), transparent 58%);
+            background: radial-gradient(1000px 420px at 10% 0%, rgba(175, 122, 66, 0.05), transparent 62%),
+                        radial-gradient(900px 420px at 95% 20%, rgba(31, 90, 56, 0.05), transparent 60%);
             pointer-events: none;
             opacity: 1;
         }
@@ -713,7 +744,7 @@
 
         .brand-reel-title {
             margin: 0;
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-weight: 400;
             color: var(--forest);
         }
@@ -821,7 +852,7 @@
             cursor: pointer;
             z-index: 2001;
             font-family: 'Crimson Pro', serif;
-            font-size: 20px;
+            font-size: 1.05rem;
             border-radius: 999px;
             box-shadow: var(--shadow-soft);
         }
@@ -846,12 +877,12 @@
         }
 
         .project-content h1 {
-            font-size: 2.5rem;
+            font-size: 2.05rem;
             margin-bottom: calc(var(--spacing) * 3);
         }
 
         .project-content h4 {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-weight: 400;
             margin: calc(var(--spacing) * 6) 0 calc(var(--spacing) * 2);
             color: var(--forest);
@@ -881,7 +912,7 @@
         }
 
         .research-section h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 400;
             margin-bottom: calc(var(--spacing) * 4);
             color: var(--forest);
@@ -889,12 +920,12 @@
 
         .research-item,
         .writing-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            padding: calc(var(--spacing) * 4);
-            margin-bottom: calc(var(--spacing) * 3);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-soft);
+            background: var(--background-soft);
+            border: 1px solid rgba(19, 42, 27, 0.07);
+            padding: calc(var(--spacing) * 4.5);
+            margin-bottom: calc(var(--spacing) * 4);
+            border-radius: 16px;
+            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.05);
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
@@ -925,13 +956,23 @@
         }
 
         .clickable-card::after {
-            content: 'View details';
+            content: 'Read \2192';
             position: absolute;
             right: calc(var(--spacing) * 2);
             bottom: calc(var(--spacing) * 2);
-            font-size: 1.25rem;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.92rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
             color: var(--forest);
-            opacity: 0.65;
+            opacity: 0.5;
+            transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+        }
+
+        .clickable-card:hover::after {
+            opacity: 1;
+            color: var(--accent);
+            transform: translateX(4px);
         }
 
         /* Align "View details" with right padding (same as cover image edge) in reflections */
@@ -947,7 +988,7 @@
 
         .research-item h4,
         .writing-item h4 {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-weight: 400;
             margin-bottom: calc(var(--spacing) * 1.5);
             color: var(--forest);
@@ -956,7 +997,7 @@
         .research-item p,
         .writing-item p {
             color: var(--text-secondary);
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             line-height: 1.6;
         }
 
@@ -1067,7 +1108,7 @@
         }
 
         .reflection-caption {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
             text-align: center;
             margin-top: calc(var(--spacing) * -2);
@@ -1078,7 +1119,9 @@
         .detail-modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(15, 26, 19, 0.55);
+            backdrop-filter: blur(7px);
+            -webkit-backdrop-filter: blur(7px);
             display: none;
             align-items: flex-start;
             justify-content: center;
@@ -1089,29 +1132,40 @@
 
         .detail-modal.active {
             display: flex;
+            animation: fadeIn 0.28s ease both;
         }
 
         .detail-content {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            background: var(--background-soft);
+            border: 1px solid rgba(19, 42, 27, 0.08);
             max-width: 900px;
             width: 100%;
-            padding: calc(var(--spacing) * 5);
-            box-shadow: 0 24px 48px rgba(9, 19, 12, 0.16);
-            border-radius: var(--radius-md);
+            padding: calc(var(--spacing) * 6);
+            box-shadow: 0 32px 70px rgba(9, 19, 12, 0.28);
+            border-radius: var(--radius-lg);
             position: relative;
+            animation: modalRise 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        @keyframes modalRise {
+            from { opacity: 0; transform: translateY(22px) scale(0.985); }
+            to { opacity: 1; transform: none; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .detail-content { animation: none; }
         }
 
         .detail-close {
             position: absolute;
             top: calc(var(--spacing) * 2);
             right: calc(var(--spacing) * 2);
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            background: #fff;
+            border: 1px solid rgba(19, 42, 27, 0.12);
             padding: calc(var(--spacing)) calc(var(--spacing) * 2);
             cursor: pointer;
             font-family: 'Crimson Pro', serif;
-            font-size: 20px;
+            font-size: 1.05rem;
             border-radius: 999px;
         }
 
@@ -1122,7 +1176,7 @@
         }
 
         .detail-content h1 {
-            font-size: 2rem;
+            font-size: 1.7rem;
             margin-bottom: calc(var(--spacing) * 2);
         }
 
@@ -1226,18 +1280,47 @@
 
         /* Right now ticker */
         .right-now {
-            margin-top: calc(var(--spacing) * 2);
-            font-size: 1.25rem;
-            color: var(--text-secondary);
+            margin-top: calc(var(--spacing) * 5);
+            padding-top: calc(var(--spacing) * 3);
+            border-top: 1px solid rgba(19, 42, 27, 0.12);
+            font-size: 1.35rem;
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--spacing) * 1.25);
+            max-width: 48ch;
         }
 
         .right-now-label {
+            display: block;
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 1.1rem;
+            font-size: 0.82rem;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--forest);
-            margin-right: calc(var(--spacing));
+            letter-spacing: 0.2em;
+            color: var(--accent);
+        }
+
+        .right-now-label::before {
+            content: '';
+            display: inline-block;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #4caf6e;
+            margin-right: calc(var(--spacing) * 1.25);
+            vertical-align: middle;
+            box-shadow: 0 0 0 0 rgba(76, 175, 110, 0.5);
+            animation: livePulse 2.4s ease-out infinite;
+        }
+
+        @keyframes livePulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 175, 110, 0.45); }
+            70% { box-shadow: 0 0 0 7px rgba(76, 175, 110, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 175, 110, 0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .right-now-label::before { animation: none; }
         }
 
         .right-now-text {
@@ -1251,16 +1334,74 @@
         }
 
         .about-stickers {
-            margin-top: calc(var(--spacing) * 4);
+            margin-top: calc(var(--spacing) * 3);
             display: flex;
             flex-wrap: wrap;
-            gap: calc(var(--spacing) * 2);
+            align-items: center;
+            gap: calc(var(--spacing) * 2.5);
         }
 
         .about-stickers img {
-            width: 70px;
-            height: 70px;
+            width: 64px;
+            height: 64px;
             object-fit: contain;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: default;
+        }
+
+        .about-stickers img:hover {
+            transform: translateY(-6px) rotate(-6deg) scale(1.08);
+        }
+
+        .stickers-label {
+            display: block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--text-secondary);
+            margin: calc(var(--spacing) * 5) 0 0;
+        }
+
+        /* Skills definition rows */
+        .skill-rows {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+
+        .skill-row {
+            display: grid;
+            grid-template-columns: minmax(180px, 220px) 1fr;
+            gap: calc(var(--spacing) * 4);
+            padding: calc(var(--spacing) * 2.5) 0;
+            border-top: 1px solid rgba(19, 42, 27, 0.1);
+        }
+
+        .skill-row:last-child {
+            border-bottom: 1px solid rgba(19, 42, 27, 0.1);
+        }
+
+        .skill-row dt {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.92rem;
+            letter-spacing: 0.04em;
+            color: var(--forest);
+            line-height: 1.5;
+        }
+
+        .skill-row dd {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 640px) {
+            .skill-row {
+                grid-template-columns: 1fr;
+                gap: calc(var(--spacing) * 1);
+            }
         }
 
         .reflection-thumb {
@@ -1356,7 +1497,7 @@
 
         .shap-sentence {
             margin-top: calc(var(--spacing) * 3);
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             line-height: 1.7;
         }
 
@@ -1381,7 +1522,7 @@
             border: 1px solid var(--border);
             background: var(--card-bg);
             box-shadow: var(--shadow-soft);
-            font-size: 1.15rem;
+            font-size: 1.05rem;
         }
 
         .shap-panel-line {
@@ -1531,25 +1672,26 @@
         /* About Section */
         .about-grid {
             display: grid;
-            gap: calc(var(--spacing) * 6);
+            gap: calc(var(--spacing) * 10);
         }
 
         .about-block {
-            padding-left: calc(var(--spacing) * 3);
+            padding-left: calc(var(--spacing) * 4);
             position: relative;
+            max-width: 1120px;
         }
 
         .about-block h3 {
             font-size: 1.3rem;
             font-weight: 400;
-            margin-bottom: calc(var(--spacing) * 2);
+            margin-bottom: calc(var(--spacing) * 3);
             color: var(--forest);
         }
 
         .about-block p {
             color: var(--text-secondary);
-            line-height: 1.7;
-            margin-bottom: calc(var(--spacing) * 2);
+            line-height: 1.92;
+            margin-bottom: calc(var(--spacing) * 3);
         }
 
         .about-block ul {
@@ -1577,7 +1719,7 @@
 
         .about-collapsible summary {
             cursor: pointer;
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-weight: 400;
             color: var(--forest);
             padding: calc(var(--spacing) * 2) 0;
@@ -1603,8 +1745,8 @@
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: calc(var(--spacing) * 3);
-            margin-top: calc(var(--spacing) * 4);
+            gap: calc(var(--spacing) * 4);
+            margin-top: calc(var(--spacing) * 5);
         }
 
         .contact-item {
@@ -1629,12 +1771,12 @@
         }
 
         .contact-cta {
-            margin-top: calc(var(--spacing) * 6);
-            padding: calc(var(--spacing) * 4);
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-soft);
+            margin-top: calc(var(--spacing) * 8);
+            padding: calc(var(--spacing) * 5.5);
+            background: var(--background-soft);
+            border: 1px solid rgba(19, 42, 27, 0.07);
+            border-radius: 16px;
+            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.05);
             font-style: italic;
             color: var(--text-secondary);
         }
@@ -1645,7 +1787,7 @@
             padding: calc(var(--spacing) * 6) 0;
             text-align: center;
             color: var(--text-secondary);
-            font-size: 1.25rem;
+            font-size: 1.05rem;
         }
 
         .footer-inner {
@@ -1673,23 +1815,23 @@
         }
 
         .home-panel {
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-soft);
+            border-radius: 0;
+            box-shadow: none;
         }
 
         .home-panel-title {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             font-weight: 400;
-            margin-bottom: calc(var(--spacing) * 3);
+            margin-bottom: calc(var(--spacing) * 4);
             color: var(--forest);
         }
 
         .home-panel-list {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
-            line-height: 1.8;
+            line-height: 2.05;
             margin: 0;
-            padding-left: 1.25em;
+            padding-left: 1.35em;
         }
 
         /* Hero AMA micro panel */
@@ -1724,7 +1866,7 @@
 
         .hero-gallery-caption {
             padding: calc(var(--spacing) * 1.5);
-            font-size: 1.15rem;
+            font-size: 1.05rem;
             color: var(--text-secondary);
         }
 
@@ -1734,11 +1876,11 @@
         }
 
         .home-focus {
-            margin-top: calc(var(--spacing) * 6);
+            margin-top: calc(var(--spacing) * 11);
         }
 
         .home-focus-meta {
-            font-size: 1.25rem;
+            font-size: 1.05rem;
             margin-bottom: calc(var(--spacing) * 2);
             color: var(--text-secondary);
         }
@@ -1749,8 +1891,8 @@
         }
 
         .home-highlight {
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-soft);
+            border-radius: 28px;
+            box-shadow: 0 14px 30px rgba(19, 42, 27, 0.08);
             background: linear-gradient(140deg, var(--forest), #275f3f 46%, #3a6f4a 100%) !important;
         }
 
@@ -1760,13 +1902,131 @@
         }
 
         .page-section:not(#home).active > .container {
-            background: rgba(255, 255, 255, 0.58);
-            border: 1px solid rgba(31, 90, 56, 0.12);
-            border-radius: var(--radius-xl);
-            padding-top: calc(var(--spacing) * 5);
-            padding-bottom: calc(var(--spacing) * 5);
-            box-shadow: 0 18px 38px rgba(19, 42, 27, 0.08);
-            backdrop-filter: blur(2px);
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding-top: calc(var(--spacing) * 2);
+            padding-bottom: calc(var(--spacing) * 4);
+            box-shadow: none;
+            backdrop-filter: none;
+        }
+
+        .section-block {
+            margin-top: calc(var(--spacing) * 12);
+            padding-top: calc(var(--spacing) * 6);
+            border-top: 1px solid rgba(31, 90, 56, 0.1);
+        }
+
+        .section-block--soft {
+            background: rgba(255, 255, 255, 0.24);
+            border: 1px solid rgba(31, 90, 56, 0.06);
+            border-radius: 26px;
+            padding: calc(var(--spacing) * 5.5);
+        }
+
+        .section-text {
+            max-width: var(--reading-max);
+        }
+
+        .fact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: calc(var(--spacing) * 5);
+        }
+
+        .fact-card {
+            padding: calc(var(--spacing) * 3.5) 0 0;
+            border-top: 1px solid rgba(19, 42, 27, 0.18);
+            background: transparent;
+        }
+
+        .fact-card strong {
+            display: block;
+            margin-bottom: calc(var(--spacing) * 1.25);
+            font-family: 'Fraunces', serif;
+            font-weight: 400;
+            font-size: 1.3rem;
+            letter-spacing: -0.01em;
+            color: var(--text);
+        }
+
+        .fact-card p {
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        /* Shared mono kicker for rule-style blocks */
+        .rule-kicker {
+            display: block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82rem;
+            font-weight: 400;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: calc(var(--spacing) * 1.75);
+        }
+
+        /* Core Expertise grid */
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: calc(var(--spacing) * 5);
+            margin-top: calc(var(--spacing) * 4);
+        }
+
+        .expertise-item {
+            padding-top: calc(var(--spacing) * 3.5);
+            border-top: 1px solid rgba(19, 42, 27, 0.18);
+        }
+
+        .expertise-item p {
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--text-secondary);
+        }
+
+        .focus-areas-box {
+            margin-top: calc(var(--spacing) * 5);
+            padding: calc(var(--spacing) * 5);
+            background: var(--background-soft);
+            border: 1px solid rgba(19, 42, 27, 0.07);
+            border-radius: 16px;
+            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.05);
+        }
+
+        .focus-areas-box ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: calc(var(--spacing) * 2.5);
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .focus-areas-box li {
+            display: flex;
+            align-items: flex-start;
+            gap: calc(var(--spacing));
+            margin: 0;
+        }
+
+        .section-split {
+            display: grid;
+            grid-template-columns: minmax(280px, 0.85fr) minmax(320px, 1.15fr);
+            gap: calc(var(--spacing) * 8);
+            align-items: center;
+        }
+
+        .section-split img {
+            width: 100%;
+            max-width: 360px;
+            height: auto;
+            border-radius: 22px;
+            box-shadow: var(--shadow-soft);
         }
 
         .projects-grid,
@@ -1788,12 +2048,12 @@
         /* Responsive */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.1rem;
+                font-size: 2.2rem;
                 line-height: 1.12;
             }
 
             .subtitle {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
                 max-width: 34ch;
             }
 
@@ -1830,7 +2090,7 @@
             }
 
             .hero-photo {
-                width: min(58vw, 220px);
+                width: min(72vw, 280px);
                 display: block;
                 margin: 0 auto;
             }
@@ -1858,17 +2118,20 @@
             }
 
             .container {
-                padding: 0 calc(var(--spacing) * 3);
+                padding: 0 calc(var(--spacing) * 4.5);
             }
 
             section {
-                padding: calc(var(--spacing) * 7) 0;
+                padding: calc(var(--spacing) * 10) 0;
             }
 
             .page-section:not(#home).active > .container {
-                border-radius: var(--radius-lg);
-                padding-top: calc(var(--spacing) * 4);
+                padding-top: calc(var(--spacing) * 3);
                 padding-bottom: calc(var(--spacing) * 4);
+            }
+
+            .section-split {
+                grid-template-columns: 1fr;
             }
 
             #reflections.page-section {
@@ -1909,7 +2172,7 @@
             }
 
             section {
-                padding: calc(var(--spacing) * 6) 0;
+                padding: calc(var(--spacing) * 7) 0;
             }
 
             nav .container {
@@ -1925,9 +2188,9 @@
         /* Hide sections by default for SPA behavior */
         .page-section {
             display: none;
-            min-height: 100vh;
+            min-height: calc(100vh - 48px);
             width: 100%;
-            padding: calc(var(--spacing) * 12) 0;
+            padding: calc(var(--spacing) * 14) 0;
         }
 
         .page-section.active {
@@ -1956,7 +2219,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-start;
         }
 
         @media (prefers-reduced-motion: reduce) {
@@ -1969,6 +2232,7 @@
     </style>
 </head>
 <body>
+    <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <!-- Navigation -->
     <nav>
         <div class="container">
@@ -2004,18 +2268,26 @@
                 </div>
             </div>
 
-            <!-- Core Expertise -->
-            <div class="home-panel reveal" style="margin-top: calc(var(--spacing) * 8); padding: calc(var(--spacing) * 4); background: var(--card-bg); border: 1px solid var(--border);">
+            <div class="section-block reveal">
                 <h3 class="home-panel-title">Core Expertise</h3>
-                <ul class="home-panel-list">
-                    <li>Neural signal processing (LFP, coherence, PAC)</li>
-                    <li>Interpretable ML for biological data</li>
-                    <li>Reproducible pipelines on HPC</li>
-                </ul>
+                <div class="expertise-grid">
+                    <div class="expertise-item">
+                        <span class="rule-kicker">01 — Signals</span>
+                        <p>Neural signal processing across LFP, coherence, and phase-amplitude coupling.</p>
+                    </div>
+                    <div class="expertise-item">
+                        <span class="rule-kicker">02 — Models</span>
+                        <p>Interpretable machine learning for biological and behavioral data.</p>
+                    </div>
+                    <div class="expertise-item">
+                        <span class="rule-kicker">03 — Workflows</span>
+                        <p>Reproducible research pipelines that scale from laptops to HPC clusters.</p>
+                    </div>
+                </div>
             </div>
 
             <!-- Experience Reel -->
-            <div class="brand-reel reveal" aria-label="Experience reel">
+            <div class="brand-reel reveal section-block--soft" aria-label="Experience reel">
                 <div class="brand-reel-header">
                     <h3 class="brand-reel-title">Experience Reel</h3>
                     <p class="brand-reel-subtitle">A rolling strip of moments across labs, classrooms, and hackathons. Hover or tap to pause.</p>
@@ -2045,14 +2317,16 @@
             </div>
 
             <!-- Recent Research Projects -->
-            <div class="home-focus reveal" style="margin-top: calc(var(--spacing) * 6);">
-                <h3 class="home-panel-title">Recent Research Projects</h3>
+            <div class="home-focus reveal section-block">
+                <div class="section-text" style="margin-bottom: calc(var(--spacing) * 2);">
+                    <h3 class="home-panel-title">Recent Research Projects</h3>
+                </div>
                 <div class="focus-grid">
                     <a href="#projects" class="focus-card-link" data-focus-project="creativity">
                         <div class="focus-card">
                             <h3>Interpretable ML for Creativity</h3>
                             <p class="mono home-focus-meta">Laverghetta Lab, Wesleyan</p>
-                            <p>SHAP/LOFO pipelines on HPC clusters for transformer models. Token-level attribution to identify linguistic drivers of creativity scores.</p>
+                            <p>SHAP and LOFO pipelines on HPC clusters for transformer models. Token-level attribution to identify linguistic drivers of creativity scores.</p>
                             <div class="mini-chart mini-chart--creativity">
                                 <div class="mini-bar"></div>
                                 <div class="mini-bar"></div>
@@ -2064,7 +2338,7 @@
                         <div class="focus-card">
                             <h3>Motor Intention Decoding</h3>
                             <p class="mono home-focus-meta">Neuromatch Academy & Personal Projects</p>
-                            <p>LSTM motor decoding, CNN-BiGRU audio classification, Steinmetz Neuropixels analysis with PyTorch architectures.</p>
+                            <p>LSTM motor decoding, CRNN audio classification, Steinmetz Neuropixels analysis with PyTorch architectures.</p>
                             <div class="mini-chart mini-chart--motor">
                                 <div class="mini-bar"></div>
                                 <div class="mini-bar"></div>
@@ -2076,7 +2350,7 @@
                         <div class="focus-card">
                             <h3>Neural Oscillation and Social Interaction</h3>
                             <p class="mono home-focus-meta">Melón Lab, Wesleyan</p>
-                            <p>Built end-to-end pipelines for PSD, coherence, PAC, Granger causality. Discovered ethanol-induced theta-gamma coupling changes during social behavior.</p>
+                            <p>Built end-to-end pipelines for PSD, coherence, PAC, and Granger causality. Discovered ethanol-induced theta-gamma coupling changes during social behavior.</p>
                             <div class="mini-chart mini-chart--vta">
                                 <div class="mini-bar"></div>
                                 <div class="mini-bar"></div>
@@ -2088,20 +2362,36 @@
             </div>
 
             <!-- Experience Overview -->
-            <div class="home-panel reveal" style="margin-top: calc(var(--spacing) * 8); padding: calc(var(--spacing) * 4); background: var(--card-bg); border: 1px solid var(--border);">
-                <p style="font-size: 1.25rem; color: var(--text-secondary); line-height: 1.7; margin: 0;">Experience across neuroscience labs, interpretable ML research, and teaching roles at Wesleyan and beyond.</p>
+            <div class="section-block reveal">
+                <div class="fact-grid">
+                    <div class="fact-card">
+                        <span class="rule-kicker">Past</span>
+                        <strong>Research</strong>
+                        <p>Experience across neuroscience labs, interpretable ML research, and experimental workflows that connect data to behavior.</p>
+                    </div>
+                    <div class="fact-card">
+                        <span class="rule-kicker">Present</span>
+                        <strong>Teaching</strong>
+                        <p>Course assistant and mentor roles that keep communication, feedback, and pedagogy central to how I work.</p>
+                    </div>
+                    <div class="fact-card">
+                        <span class="rule-kicker">Next</span>
+                        <strong>Direction</strong>
+                        <p>Looking for computational neuroscience and AI-for-biology work with room for both rigor and creative problem framing.</p>
+                    </div>
+                </div>
             </div>
 
             <!-- What I'm Looking For -->
-            <div class="home-highlight" style="margin-top: calc(var(--spacing) * 6); padding: calc(var(--spacing) * 4); background: var(--forest); color: white;">
-                <div style="display: flex; gap: calc(var(--spacing) * 3); align-items: center; flex-wrap: wrap;">
+            <div class="home-highlight section-block reveal" style="padding: calc(var(--spacing) * 6); color: white;">
+                <div class="section-split">
                     <img src="images/seeking_opportunities.png"
                          alt="Cartoon illustration for research opportunities"
-                         style="width: 280px; height: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-soft); flex-shrink: 0;">
-                    <div style="flex: 1; min-width: 220px;">
-                        <h3 style="font-size: 1.25rem; font-weight: 400; margin-bottom: calc(var(--spacing) * 2); color: white;">Seeking Research Opportunities</h3>
-                        <p style="line-height: 1.6; margin-bottom: calc(var(--spacing) * 2);">I'm seeking research assistant or internship opportunities in computational neuroscience and AI-for-biology, especially projects combining neural data, behavior, and interpretability.</p>
-                        <p style="font-size: 1.25rem; opacity: 0.9;">Graduating May 2027 • Planning graduate school in computational neuroscience</p>
+                         style="flex-shrink: 0;">
+                    <div>
+                        <h3 style="font-size: 1.05rem; font-weight: 400; margin-bottom: calc(var(--spacing) * 2); color: white;">Seeking Research Opportunities</h3>
+                        <p style="line-height: 1.85; margin-bottom: calc(var(--spacing) * 3); max-width: 52ch;">I'm seeking research assistant or internship opportunities in computational neuroscience and AI-for-biology — especially projects combining neural data, behavior, and interpretability.</p>
+                        <p style="font-size: 1.05rem; opacity: 0.9;">Graduating May 2027 • Planning graduate school in computational neuroscience</p>
                     </div>
                 </div>
             </div>
@@ -2335,7 +2625,7 @@
             <ul>
                 <li><strong>Data:</strong> Machine Psychometrics and Computational Creativity Lab dataset</li>
                 <li><strong>Code:</strong> Python scripts for SHAP/LOFO analysis, HPC job submissions</li>
-                <li><strong>Environment:</strong> Python 3.10, scikit-learn, TensorFlow, Slurm HPC</li>
+                <li><strong>Environment:</strong> Python 3.10, scikit-learn, PyTorch, Slurm HPC</li>
             </ul>
 
             <h4>Next Steps & Reflection</h4>
@@ -2350,7 +2640,7 @@
             
             <div class="highlight-box">
                 <p><strong>Problem:</strong> Can raw audio cough data reliably distinguish COVID-19 positive cases?</p>
-                <p><strong>Approach:</strong> CNN-BiGRU architecture with MFCC features, dataset balancing, and uncertainty analysis.</p>
+                <p><strong>Approach:</strong> CRNN architecture with MFCC features, dataset balancing, and uncertainty analysis.</p>
                 <p><strong>Result:</strong> Achieved robust classification with optimized feature representations and model uncertainty quantification.</p>
             </div>
 
@@ -2358,7 +2648,7 @@
             <ul>
                 <li>Developed end-to-end audio classification pipeline from raw recordings</li>
                 <li>Preprocessed audio data: MFCC extraction, noise reduction, feature engineering</li>
-                <li>Designed CNN-BiGRU (Bidirectional GRU) architecture for temporal audio features</li>
+                <li>Designed a CRNN (Convolutional Recurrent Neural Network) architecture for temporal audio features</li>
                 <li>Balanced dataset and explored model uncertainty quantification</li>
                 <li>Optimized feature representations for acoustic classification</li>
             </ul>
@@ -2371,7 +2661,7 @@
             <h4>Methods & Tools</h4>
             <ul>
                 <li><strong>Preprocessing:</strong> MFCC (Mel-Frequency Cepstral Coefficients), noise reduction</li>
-                <li><strong>Model:</strong> CNN-BiGRU (Convolutional layers + Bidirectional Gated Recurrent Units)</li>
+                <li><strong>Model:</strong> CRNN (Convolutional Recurrent Neural Network)</li>
                 <li><strong>Validation:</strong> k-fold cross-validation, ROC-AUC, PR-AUC, confusion matrices</li>
                 <li><strong>Tools:</strong> TensorFlow/Keras, librosa for audio processing, Python</li>
                 <li><strong>Focus areas:</strong> Model uncertainty, feature optimization, data imbalance handling</li>
@@ -2387,7 +2677,7 @@
                 <div class="feature-card">
                     <div class="feature-card-title">MFCC spectrogram</div>
                     <div class="feature-card-body feature-card-body--mfcc"></div>
-                    <p class="feature-card-caption">Mel-frequency cepstral coefficients, a time-frequency representation that the CNN-BiGRU actually uses to separate COVID-positive and control samples.</p>
+                    <p class="feature-card-caption">Mel-frequency cepstral coefficients, a time-frequency representation that the CRNN actually uses to separate COVID-positive and control samples.</p>
                 </div>
             </div>
 
@@ -2396,7 +2686,7 @@
 
             <h4>Reproducibility</h4>
             <ul>
-                <li><strong>Training:</strong> Ignite AI Accelerator, AI4ALL (September 2025 to Present)</li>
+                <li><strong>Training:</strong> AI4ALL Ignite (Sept 2025 to Present)</li>
                 <li><strong>Code:</strong> GitHub repository with version control</li>
                 <li><strong>Environment:</strong> Python 3.10, TensorFlow, librosa</li>
             </ul>
@@ -2419,7 +2709,7 @@
 
             <h4>My Role</h4>
             <ul>
-                <li>Developed motor intention decoding pipeline with international peer cohort</li>
+                <li>Developed a motor intention decoding pipeline with an international peer cohort</li>
                 <li>Trained LSTM networks to predict movement decisions from cortical spike data</li>
                 <li>Optimized neural network architecture in PyTorch</li>
                 <li>Applied backpropagation, regularization, and batch normalization techniques</li>
@@ -2434,7 +2724,7 @@
             </ul>
 
             <h4>Training Context</h4>
-            <p class="mono">Completed through Neuromatch Academy (July 2025), an intensive deep learning curriculum covering optimization, CNNs, RNNs, attention/transformers, self-supervised learning, and reinforcement learning. Built and optimized neural networks using modern optimization algorithms and architectural innovations.</p>
+            <p class="mono">Completed through Neuromatch Academy (Jul 2025), an intensive deep learning curriculum covering optimization, CNNs, RNNs, attention/transformers, self-supervised learning, and reinforcement learning. Built and optimized neural networks using modern optimization algorithms and architectural innovations.</p>
 
             <img src="images/projects/LSTM/flow_chart.png"
                  alt="Flow chart of LSTM-based motor intention decoding pipeline"
@@ -2492,7 +2782,7 @@
 
             <h4>Dissemination</h4>
             <ul>
-                <li>Presented at Jiangsu High School Students' Science Symposium</li>
+                <li>Presented at Jiangsu K-12 Education Conference</li>
                 <li>Communicated findings to provincial-level audience through poster presentation</li>
                 <li>Audience included high school students and university faculty</li>
             </ul>
@@ -2501,7 +2791,7 @@
                  alt="Poster presentation on capsaicin anxiolytic effects"
                  class="project-media"
                  data-story="Presenting my first full animal-behavior project in front of a large audience.">
-            <p class="reflection-caption">Presenting my work at the Jiangsu K-12 Education Conference as the Yingcai Project student representative.</p>
+            <p class="reflection-caption">Presenting my work at the Jiangsu K-12 Education Conference as the Yingcai Program student representative.</p>
 
             <img src="images/projects/capsaicin/reported.JPG"
                  alt="News coverage of high school student research"
@@ -2517,7 +2807,7 @@
 
             <h4>Reproducibility</h4>
             <ul>
-                <li><strong>Lab:</strong> Zhuang Lab, Nanjing University (March - October 2022)</li>
+                <li><strong>Lab:</strong> Zhuang Lab, Nanjing University (Mar 2022 to Oct 2022)</li>
                 <li><strong>Analysis:</strong> GraphPad Prism for statistical testing</li>
                 <li><strong>Protocol:</strong> Standardized stress induction and behavioral testing</li>
             </ul>
@@ -2535,7 +2825,7 @@
             <div class="highlight-box">
                 <p><strong>Problem:</strong> How sensitive are genetic regulatory networks to mutations across different attractor states?</p>
                 <p><strong>Approach:</strong> Simulated Kauffman Boolean networks with mutation sensitivity analysis on local machines.</p>
-                <p><strong>Result:</strong> Revealed attractor-dependent vulnerability patterns and explored computational tradeoffs for larger simulations.</p>
+                <p><strong>Result:</strong> Revealed attractor-dependent vulnerability patterns and explored computational trade-offs for larger simulations.</p>
             </div>
 
             <h4>My Role</h4>
@@ -2630,59 +2920,14 @@
         </div>
     </section>
 
-    <!-- Research/Writing Detail Modals -->
-    <div id="modal-research-neural" class="detail-modal">
-        <div class="detail-content">
-            <button class="detail-close" data-close>×</button>
-            <h1>Statistical Approaches for Neural Oscillation and Social Behavior Analysis</h1>
-            <p class="mono">Summer Symposium 2025 & Research Pathway 2026, Wesleyan University</p>
-            <h4>What I shared</h4>
-            <p>Presented a full VTA-PFC LFP pipeline: preprocessing, coherence, phase-amplitude coupling, Granger causality, and mixed-effects models linking oscillatory dynamics to social behavior and ethanol intake.</p>
-            <h4>Impact</h4>
-            <p>Engaged 200+ students and faculty; highlighted how statistical choices influence biological interpretation and reproducibility.</p>
-            <h4>Tools</h4>
-            <p class="mono">MATLAB • Python (NumPy, SciPy, statsmodels) • Brainstorm • mixed-effects modeling</p>
-        </div>
-    </div>
-
-    <div id="modal-research-creativity" class="detail-modal">
-        <div class="detail-content">
-            <button class="detail-close" data-close>×</button>
-            <h1>Disentangling Creativity from Statistical Artifacts</h1>
-            <p class="mono">Data Insights Speaker Series, March 2026, Wesleyan University</p>
-            <h4>Core Idea</h4>
-            <p>Demonstrated SHAP- and LOFO-based interpretability for creativity prediction models, separating genuine linguistic signals from dataset artifacts.</p>
-            <h4>Takeaways</h4>
-            <ul>
-                <li>Attribution stability across model families is essential to trust “creative” signal.</li>
-                <li>Token-level explanations reveal bias patterns early in dataset design.</li>
-            </ul>
-            <h4>Stack</h4>
-            <p class="mono">Python • PyTorch • SHAP • scikit-learn • transformer embeddings</p>
-        </div>
-    </div>
-
-    <div id="modal-research-capsaicin" class="detail-modal">
-        <div class="detail-content">
-            <button class="detail-close" data-close>×</button>
-            <h1>Remission of Anxiety by Capsaicin Treatment</h1>
-            <p class="mono">Jiangsu High School Students' Science Symposium, 2022</p>
-            <h4>Study Design</h4>
-            <p>Built a 21-day chronic restraint stress mouse model; applied Elevated Plus Maze and Open Field tests; measured ROS fluorescence to link behavioral outcomes with oxidative stress.</p>
-            <h4>Result</h4>
-            <p>Observed reduced anxiety-like behavior and lowered oxidative markers with capsaicin treatment, suggesting an antioxidative pathway.</p>
-            <h4>My Role</h4>
-            <p>Ran behavioral assays, processed fluorescence data, and presented findings to a provincial audience.</p>
-        </div>
-    </div>
-
+    <!-- Reflection Detail Modals -->
     <div id="modal-writing-multitask" class="detail-modal">
         <div class="detail-content">
             <button class="detail-close" data-close>×</button>
             <h1>Living Multitasked, Living Alive</h1>
             <p>Since getting into Wesleyan, I've realized that multitasking has quietly become both my greatest challenge and my way of living.</p>
             <p>During my first semester, I was taking eight credits across ten departments, including Biology, Chemistry, Art Studio, Music, and the College for the Study of Public Life, among others. At the same time, I joined the K-pop Dance Crew (KDC), worked for IMS, and served as a Chinese Language Partner. Beyond coursework and jobs, I also spent late nights writing a fairy-tale research paper for myself, simply because I wanted to.</p>
-            <p>In my second semester, I took seven credits, again across multiple departments, this time including QAC (Quantitative Analysis Center at Wesleyan University), COL (College of Letters, a major for the study of European literature, history, and philosophy from antiquity to the present at Wesleyan University), and DDC (Digital Design Commons at Wesleyan University). I continued dancing with KDC and working for IMS, while also mentoring for AFS and interning for an AI startup, TMind. I even tried tutoring at Traverse Square, which helped me learn that not every opportunity fits me, and that balance is just as important as ambition.</p>
+            <p>In my second semester, I took seven credits, again across multiple departments, this time including QAC (Quantitative Analysis Center at Wesleyan University), COL (College of Letters — the study of European literature, history, and philosophy from antiquity to the present), and DDC (Digital Design Commons). I continued dancing with KDC and working for IMS, while also mentoring for AFS and interning for an AI startup, TMind. I even tried tutoring at Traverse Square, which helped me learn that not every opportunity fits me, and that balance is just as important as ambition.</p>
             <p>Now, my life hasn't slowed down. If anything, it's become more layered. But I've come to see multitasking not as chaos, but as rhythm. My Google Calendar, filled with color-coded classes, meetings, and projects, feels like a visual diary of my interests and curiosities. I enjoy the feeling of constantly learning, working, and creating; each task connects to a different part of who I am. Although it can be tiring, I find meaning in being busy with a purpose.</p>
             <p>I don't think I could ever live a single-threaded life. Multitasking keeps me alert, adaptable, and alive, and it's how I explore and live in the world at the current stage.</p>
         </div>
@@ -2693,11 +2938,11 @@
             <button class="detail-close" data-close>×</button>
             <h1>Mastering Machine</h1>
             <img src="images/reflections/mastering-machine-1.jpg" alt="Workflow and analysis setup for neuroscience and machine learning projects" class="reflection-photo" onerror="this.style.display='none'">
-            <p>My technical strength lies in establishing an end-to-end workflow that transforms disorganized data to reproducible evidence with clear visualization. In neuroscience projects at the lab, I routinely process LFP and behavioral data from the VTA-PFC pathway, translating statistical analyses into charts and conclusions that support evidence-based arguments. Specifically for signal processing, I bridge Brainstorm and MATLAB by performing frequency/harmonic suppression and bandpass filtering, event-based epoch segmentation (e.g., social vs. non-social, EtOH vs. saline), and baseline correction, followed by PSD using Welch's method. I conduct coherence and Granger causality analyses on VTA-PFC connections, distinguishing between intra-area phase-amplitude coupling (iPAC) and inter-area phase-amplitude coupling (irPAC). Finally, a structured export of results for review and visualization in R.</p>
+            <p>My technical strength lies in establishing an end-to-end workflow that transforms disorganized data into reproducible evidence with clear visualization. In neuroscience projects at the lab, I routinely process LFP and behavioral data from the VTA-PFC pathway, translating statistical analyses into charts and conclusions that support evidence-based arguments. Specifically for signal processing, I bridge Brainstorm and MATLAB by performing frequency/harmonic suppression and bandpass filtering, event-based epoch segmentation (e.g., social vs. non-social, EtOH vs. saline), and baseline correction, followed by PSD using Welch's method. I conduct coherence and Granger causality analyses on VTA-PFC connections, distinguishing between intra-area phase-amplitude coupling (iPAC) and inter-area phase-amplitude coupling (irPAC). Finally, I export the results in a structured form for review and visualization in R.</p>
             <p>I began with coursework and lab training, translating classroom statistics and signal processing knowledge into real-world data; subsequently, I participated in Neuromatch Academy's deep learning boot camp, systematically filling gaps in modeling and evaluation frameworks. In my daily research, I continuously review the literature, reproduce previous lab scripts, and refactor fragmented scripts into parameterized, modular functions (e.g., standardizing filter and epoch parameters, and unifying export fields). Combined with simple unit tests and small-sample regression checks, this ensures modifications do not break existing results. For version control, I used Git/GitHub to track changes, documented README files, and maintained runtime environments, striving for reproducibility where the same raw data and the same parameters yield the same results.</p>
             <img src="images/reflections/mastering-machine-2.jpg" alt="Presenting Statistical Approaches for Neural Oscillation and Social Behavior Analysis project" class="reflection-photo" onerror="this.style.display='none'">
-            <p class="reflection-caption">Presenting project of Statistical Approaches for Neural Oscillation and Social Behavior Analysis in the Ventral Tegmental Area in Exley Science Center, Wesleyan University, Middletown, CT</p>
-            <p>In machine learning and interpretability, I built a small closed loop from prototype to explanation using Python: I implemented MLP classification/regression prototypes with PyTorch to understand trade-offs between width, depth, and expressiveness; For text scoring interpretability, I combined Hugging Face and SHAP to run prototypes, generating "token importance distributions + confidence intervals" to pinpoint elements influencing model decisions and preliminarily screen for potential biases.</p>
+            <p class="reflection-caption">Presenting “Statistical Approaches for Neural Oscillation and Social Behavior Analysis in the Ventral Tegmental Area” at Exley Science Center, Wesleyan University, Middletown, CT</p>
+            <p>In machine learning and interpretability, I built a small closed loop from prototype to explanation using Python: I implemented MLP classification/regression prototypes with PyTorch to understand trade-offs between width, depth, and expressiveness. For text-scoring interpretability, I combined Hugging Face and SHAP to run prototypes, generating token-importance distributions and confidence intervals to pinpoint elements influencing model decisions and preliminarily screen for potential biases.</p>
             <p>Visualization and design represent another strength. I approach scientific graphics as information design challenges, unifying color palettes and annotation hierarchies, standardizing the presentation of axes, legends, and error bars, and controlling alignment and white space between subplots using BioRender. When necessary, I use Illustrator for final refinements to ensure posters or slides remain readable at a distance.</p>
         </div>
     </div>
@@ -2708,10 +2953,10 @@
             <h1>Where Teaching Becomes Learning</h1>
             <img src="images/reflections/where-teaching-becomes-learning-1.jpg" alt="Teaching and mentoring moments across disciplines" class="reflection-photo" onerror="this.style.display='none'">
             <p>As a sophomore, over the past year, I have continued to grow in various mentoring roles spanning multiple disciplines and a global STEM program. Each experience has not only deepened my understanding of the meaning behind the saying "Teaching and learning are mutually beneficial," but has also helped me better understand myself and others.</p>
-            <p>As a Course Assistant (CA) for Calculus I, I needed to refresh my understanding of concepts such as limits and derivatives, while also learning to teach others in a simple, logical manner. During my weekly CA sessions, I noticed that students often struggled with the concepts themselves rather than the specific calculations in each problem set. Over time, I learned to explain abstract ideas visually, making concepts such as rates of change and area under curves feel more intuitive and tangible. Every time a student transitions from confusion to sudden understanding, I feel a deep sense of fulfillment as a young teacher. Grading assignments for over seventy students has honed my patience and attention to detail, and I've learned to maintain fairness and standards while using feedback to foster their growth.</p>
+            <p>As a Course Assistant (CA) for Calculus I, I needed to refresh my understanding of concepts such as limits and derivatives, while also learning to teach others in a simple, logical manner. During my weekly CA sessions, I noticed that students often struggled with the concepts themselves rather than the specific calculations in each problem set. Over time, I learned to explain abstract ideas visually, making concepts such as rates of change and the area under curves feel more intuitive and tangible. Every time a student transitions from confusion to sudden understanding, I feel a deep sense of fulfillment as a young teacher. Grading assignments for over seventy students has honed my patience and attention to detail, and I've learned to maintain fairness and standards while using feedback to foster their growth.</p>
             <img src="images/reflections/where-teaching-becomes-learning-2.jpg" alt="Calculus assistantship and student guidance session" class="reflection-photo" onerror="this.style.display='none'">
-            <p>When I was encouraging students to think different possible methods to solve a problem. I think of myself as a bridge when I am working for the Dean's Tutoring Program as an Intro to Biology Tutor. Working with students from diverse backgrounds and learning styles, I try to explain complex biological concepts in a more accessible manner; for instance, I could compare a signal transduction pathway to a multi-layered relay race of information transfer. I realize teaching isn't just a transfer of knowledge, but a complex process of listening and understanding. Seeing students' grades improve from a 67 to a 96 makes me feel incredibly proud.</p>
-            <p>Simultaneously, in the AFS Global STEM Mentorship international online program, I serve as a cross-cultural mentor for the first time, guiding students from diverse countries through their 12-week research exploration and graduation projects. Beyond weekly live meetings, I provide ongoing feedback in the Bridge forum to help refine their research approaches and presentation content. I learn to maintain warmth and efficiency in communication across multiple time zones and cultures. Still, I also realize that mentoring isn't one-sided: it's a shared journey of mutual growth and inspiration.</p>
+            <p>When I encourage students to consider different possible methods to solve a problem, I think of myself as a bridge. As an Intro to Biology Tutor for the Dean's Tutoring Program, working with students from diverse backgrounds and learning styles, I try to explain complex biological concepts in a more accessible manner; for instance, I could compare a signal transduction pathway to a multi-layered relay race of information transfer. I realize teaching isn't just a transfer of knowledge, but a complex process of listening and understanding. Seeing students' grades improve from a 67 to a 96 makes me feel incredibly proud.</p>
+            <p>Simultaneously, in the AFS Global STEM Mentorship international online program, I served as a cross-cultural mentor for the first time, guiding students from diverse countries through their 12-week research exploration and graduation projects. Beyond weekly live meetings, I provided ongoing feedback in the Bridge forum to help refine their research approaches and presentation content. I learned to maintain warmth and efficiency in communication across multiple time zones and cultures. Still, I also realize that mentoring isn't one-sided: it's a shared journey of mutual growth and inspiration.</p>
         </div>
     </div>
 
@@ -2737,7 +2982,7 @@
             <p>One day, my professor came by, looked at what I was doing, and said softly, "It's not about how much time you spend or how many details you fix. It's about the flow of the whole drawing." That stopped me.</p>
             <p>I stepped back and looked at the page differently. I started noticing how the lines connected, how the space felt on the paper. The drawing slowly became less stiff. It felt like it had air in it now, like it was alive.</p>
             <img src="images/reflections/arts-in-the-flow-3.jpg" alt="Jazz vocal practice and improvisation reflection" class="reflection-photo" onerror="this.style.display='none'">
-            <p>Later, in my private jazz vocal lessons, my professor told me almost the same thing about singing: "When you improvise, stop trying to construct what you think will sound good. Let the music flow out naturally." That is, I become rigid and stiff while trying to make a harmonious chorus. At first, I didn't really understand it. I still wanted to control. I tried to plan the "right" notes. But the more I forced it, the more rigid it sounded. Only when I relaxed and trusted the music did it start to feel real and natural.</p>
+            <p>Later, in my private jazz vocal lessons, my professor told me almost the same thing about singing: "When you improvise, stop trying to construct what you think will sound good. Let the music flow out naturally." The problem was that I became rigid and stiff whenever I tried to force a harmonious sound. At first, I didn't really understand it. I still wanted to control. I tried to plan the "right" notes. But the more I forced it, the more rigid it sounded. Only when I relaxed and trusted the music did it start to feel real and natural.</p>
             <p>This shift made me realize that striving doesn't always mean being in control. I've always had a competitive streak, and I hate leaving things in a state of "not good enough." But now I'm starting to see that sometimes I have to loosen up first, give myself space to feel and experiment, instead of constantly chasing perfection.</p>
         </div>
     </div>
@@ -2813,18 +3058,19 @@
             <h2>About</h2>
 
             <div class="about-grid">
-                <div class="about-block thread reveal">
+                <div class="about-block thread reveal section-text">
                     <h3>Who I am</h3>
-                    <p>I am a Neuroscience and Mathematics student at Wesleyan University dedicated to building the pipelines that turn raw neural signals into clear, actionable stories.</p>
+                    <p>I am a Biology and Mathematics student at Wesleyan University dedicated to building the pipelines that turn raw neural signals into clear, actionable stories.</p>
                     <p>I love learning across disciplines, from biology labs to AI startups, philosophy seminars to drawing studios. I'm happiest when I'm working, teaching, and creating at the same time. Multitasking has become my rhythm: not chaos but a way of staying alert, adaptable, and alive.</p>
                     <p class="right-now">
                         <span class="right-now-label">Right now</span>
                         <span class="right-now-text" id="right-now-text">debugging PAC scripts and sketching new figures.</span>
                     </p>
+                    <span class="stickers-label">Off the clock</span>
                     <div class="about-stickers">
-                        <img src="images/sticker_drawing.png" alt="Drawing sticker">
-                        <img src="images/sticker_cooking.png" alt="Cooking sticker">
-                        <img src="images/sticker_kpop.png" alt="K-pop dance sticker">
+                        <img src="images/sticker_drawing.png" alt="Drawing" title="Drawing">
+                        <img src="images/sticker_cooking.png" alt="Cooking" title="Cooking">
+                        <img src="images/sticker_kpop.png" alt="K-pop dance" title="K-pop dance">
                     </div>
                 </div>
 
@@ -2920,7 +3166,7 @@
                                     <div class="node-detail">
                                         <div class="node-detail-inner">
                                             <strong>Project: Remission of anxiety by Capsaicin treatment</strong><br>
-                                            Established a 21-day chronic restraint stress mouse model and conducted behavioral assays (Elevated Plus Maze, Open Field Test) to evaluate the anxiolytic effects of capsaicin. Performed ROS fluorescence analysis of brain tissue and applied ANOVA and t-tests (GraphPad Prism) to link anxiety-like behavior improvement with reduced oxidative stress. Presented research findings at the Jiangsu High School Students' Science Symposium, communicating results to a provincial-level audience.
+                                            Established a 21-day chronic restraint stress mouse model and conducted behavioral assays (Elevated Plus Maze, Open Field Test) to evaluate the anxiolytic effects of capsaicin. Performed ROS fluorescence analysis of brain tissue and applied ANOVA and t-tests (GraphPad Prism) to link anxiety-like behavior improvement with reduced oxidative stress. Presented research findings at the Jiangsu K-12 Education Conference, communicating results to a provincial-level audience.
                                         </div>
                                     </div>
                                 </div>
@@ -2931,7 +3177,7 @@
                                     </div>
                                     <div class="node-detail">
                                         <div class="node-detail-inner">
-                                            Interned at Gene Editing &amp; Functional Screening Lab, Shanghai. Assisted in conducting experiments and acquiring laboratory techniques, including plasmid construction and purification, which enhanced my understanding of gene editing.
+                                            Interned at the Gene Editing &amp; Functional Screening Lab in Shanghai. Assisted in conducting experiments and acquiring laboratory techniques, including plasmid construction and purification, which enhanced my understanding of gene editing.
                                         </div>
                                     </div>
                                 </div>
@@ -2954,7 +3200,7 @@
                                     <div class="node-detail">
                                         <div class="node-detail-inner">
                                             <strong>Project: Statistical Approaches for Neural Oscillation and Social Behavior Analysis in the VTA</strong><br>
-                                            Analyzed VTA-PFC LFP signals using time-series methods, coherence, phase-amplitude coupling, and Granger causality to link circuit dynamics with social behavior and ethanol intake. Integrated behavioral segmentation with neural data and mixed-effects models to examine directional connectivity and individual variability in affect-modulated circuit communication. Presented at Summer symposium 2025 and Research Pathway 2026 to over 200 students.
+                                            Analyzed VTA-PFC LFP signals using time-series methods, coherence, phase-amplitude coupling, and Granger causality to link circuit dynamics with social behavior and ethanol intake. Integrated behavioral segmentation with neural data and mixed-effects models to examine directional connectivity and individual variability in affect-modulated circuit communication. Presented at Summer Symposium 2025 and Research Pathway 2026 to over 200 students.
                                         </div>
                                     </div>
                                 </div>
@@ -2966,7 +3212,7 @@
                                     <div class="node-detail">
                                         <div class="node-detail-inner">
                                             <strong>Project: Disentangling Creativity Measurement from Statistical Artifacts in Machine Learning Models</strong><br>
-                                            Building SHAP- and LOFO-based interpretability pipelines on HPC clusters to evaluate feature importance, model robustness, and sensitivity in creativity prediction models. Performing token-level and feature-level attribution analyses across ensemble and transformer architectures to identify linguistic patterns driving creativity scores. Selected to present an overview in March in Data Insights, a student-speaker series at Wesleyan.
+                                            Building SHAP- and LOFO-based interpretability pipelines on HPC clusters to evaluate feature importance, model robustness, and sensitivity in creativity prediction models. Performing token-level and feature-level attribution analyses across ensemble and transformer architectures to identify linguistic patterns driving creativity scores. Selected to present an overview in March 2026 at Data Insights, a student-speaker series at Wesleyan.
                                         </div>
                                     </div>
                                 </div>
@@ -2985,7 +3231,7 @@
                                     </div>
                                     <div class="node-detail">
                                         <div class="node-detail-inner">
-                                            Bachelor of Arts in Biology and Mathematics (minor: Informatics and Modeling) on an accelerated 3-year path to graduate in May 2027. GPA 3.93/4.00, Dean's List every semester. <strong>Scholarships:</strong> QAC Apprenticeship (Wesleyan), AFS Global STEM Academies Full Scholarship, YINGCAIJIHUA (Youth Talent Program, Nanjing University). Relevant coursework: Discrete Mathematics, Topology, Vectors and Matrices, Multivariable Calculus, Abstract Algebra, Math in Quantum Computing, Hormones Brain and Behavior, Bioinformatics, Principles of Biology I &amp; II, General Chemistry I &amp; II, Behavioral Neurobiology.
+                                            Bachelor of Arts in Biology and Mathematics on an accelerated 3-year path to graduate in May 2027. <strong>Scholarships:</strong> QAC Apprenticeship (Wesleyan), AFS Global STEM Academies Full Scholarship, Yingcai Program (Youth Talent, Nanjing University). Relevant coursework: Discrete Mathematics, Topology, Vectors and Matrices, Multivariable Calculus, Abstract Algebra, Math in Quantum Computing, Hormones, Brain, and Behavior, Bioinformatics, Principles of Biology I &amp; II, General Chemistry I &amp; II, Behavioral Neurobiology.
                                         </div>
                                     </div>
                                 </div>
@@ -2996,7 +3242,7 @@
                                     </div>
                                     <div class="node-detail">
                                         <div class="node-detail-inner">
-                                            Completed an intensive, project-based deep learning curriculum covering optimization, CNNs, RNNs, attention/transformers, self-supervised learning, and reinforcement learning. Built and optimized neural network models in PyTorch with backpropagation, regularization, batch normalization. Developed a motor-intention decoding pipeline with an international peer cohort, training LSTM-based recurrent networks to predict left/right movement decisions from MOp/MOs cortical spike trains.
+                                            Completed an intensive, project-based deep learning curriculum covering optimization, CNNs, RNNs, attention/transformers, self-supervised learning, and reinforcement learning. Built and optimized neural network models in PyTorch with backpropagation, regularization, and batch normalization. Developed a motor-intention decoding pipeline with an international peer cohort, training LSTM-based recurrent networks to predict left/right movement decisions from MOp/MOs cortical spike trains.
                                         </div>
                                     </div>
                                 </div>
@@ -3027,50 +3273,70 @@
                     </div>
                 </div>
 
-            <div class="about-block thread reveal">
+            <div class="about-block thread reveal section-block">
                 <h3>Technical Skills, Experience & Education</h3>
                 <div style="padding-top: calc(var(--spacing) * 2);">
-                    <h4 style="font-size: inherit; font-weight: 400; margin-bottom: calc(var(--spacing) * 2); color: var(--forest);">Skills & Tools</h4>
-                    <p><strong>Computational Neuroscience:</strong> Neural data analysis (LFP, spike trains), oscillation analysis (PSD, PAC, coherence, Granger causality), event-based epoching</p>
-                    <p><strong>Machine Learning & AI:</strong> Deep learning (MLP/CNN/RNN/LSTM), interpretability (SHAP, LOFO), representation analysis, model uncertainty & evaluation</p>
-                    <p><strong>Programming:</strong> Python (NumPy, Pandas, PyTorch, SciPy, scikit-learn, HuggingFace, TensorFlow), MATLAB, Brainstorm, R, HPC (Slurm, environment optimization)</p>
-                    <p><strong>Biological & Experimental:</strong> Neurophysiology (VTA-PFC circuits), molecular biology (IHC, confocal microscopy, brain slicing), behavioral assays</p>
-                    <p><strong>Visualization & Design:</strong> Scientific graphics as information design, BioRender, Adobe Illustrator, poster/slide design</p>
-                    <p><strong>Languages:</strong> Fluent in English and Chinese</p>
+                    <h4 style="font-size: inherit; font-weight: 400; margin-bottom: calc(var(--spacing) * 3); color: var(--forest);">Skills & Tools</h4>
+                    <dl class="skill-rows">
+                        <div class="skill-row">
+                            <dt>Computational Neuroscience</dt>
+                            <dd>Neural data analysis (LFP, spike trains), oscillation analysis (PSD, PAC, coherence, Granger causality), event-based epoching</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Machine Learning &amp; AI</dt>
+                            <dd>Deep learning (MLP / CNN / RNN / LSTM), interpretability (SHAP, LOFO), representation analysis, model uncertainty &amp; evaluation</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Programming</dt>
+                            <dd>Python (NumPy, Pandas, PyTorch, SciPy, scikit-learn, HuggingFace, TensorFlow), MATLAB, Brainstorm, R, HPC (Slurm)</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Biological &amp; Experimental</dt>
+                            <dd>Neurophysiology (VTA-PFC circuits), molecular biology (IHC, confocal microscopy, brain slicing), behavioral assays</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Visualization &amp; Design</dt>
+                            <dd>Scientific graphics as information design, BioRender, Adobe Illustrator, poster &amp; slide design</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Languages</dt>
+                            <dd>Fluent in English and Chinese</dd>
+                        </div>
+                    </dl>
 
-                    <h4 style="font-size: inherit; font-weight: 400; margin: calc(var(--spacing) * 4) 0 calc(var(--spacing) * 2); color: var(--forest);">Experience Snapshot</h4>
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: calc(var(--spacing) * 3); margin-bottom: calc(var(--spacing) * 3);">
-                        <div>
-                            <p style="font-weight: 400; margin-bottom: calc(var(--spacing) * 0.5);">Research Assistant</p>
-                            <p style="font-size: 1.25rem; color: var(--text-secondary);">Melón Lab • Laverghetta Lab • Mandalaywala Lab • Chinese Academy of Sciences</p>
+                    <h4 style="font-size: inherit; font-weight: 400; margin: calc(var(--spacing) * 6) 0 calc(var(--spacing) * 3); color: var(--forest);">Experience Snapshot</h4>
+                    <div class="fact-grid" style="margin-bottom: calc(var(--spacing) * 3);">
+                        <div class="fact-card">
+                            <strong>Research Assistant</strong>
+                            <p>Melón Lab • Laverghetta Lab • Mandalaywala Lab • Pu Lab</p>
                         </div>
-                        <div>
-                            <p style="font-weight: 400; margin-bottom: calc(var(--spacing) * 0.5);">Teaching & Mentoring</p>
-                            <p style="font-size: 1.25rem; color: var(--text-secondary);">Deep Learning CA • Biology Tutor • Calculus CA • AFS Global Mentor • Women in STEM</p>
+                        <div class="fact-card">
+                            <strong>Teaching & Mentoring</strong>
+                            <p>Deep Learning CA • Biology Tutor • Calculus CA • AFS Global Mentor • Women in STEM</p>
                         </div>
-                        <div>
-                            <p style="font-weight: 400; margin-bottom: calc(var(--spacing) * 0.5);">Training Programs</p>
-                            <p style="font-size: 1.25rem; color: var(--text-secondary);">Neuromatch Academy • AI4ALL Ignite • QAC Apprenticeship • AFS STEM Academies</p>
+                        <div class="fact-card">
+                            <strong>Training Programs</strong>
+                            <p>Neuromatch Academy • AI4ALL Ignite • QAC Apprenticeship • AFS STEM Academies</p>
                         </div>
-                        <div>
-                            <p style="font-weight: 400; margin-bottom: calc(var(--spacing) * 0.5);">Education</p>
-                            <p style="font-size: 1.25rem; color: var(--text-secondary);">Wesleyan University • Biology & Mathematics • Informatics Minor • GPA 3.93 • Class of 2027</p>
+                        <div class="fact-card">
+                            <strong>Education</strong>
+                            <p>Wesleyan University • Biology & Mathematics • Class of 2027</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-                <div class="about-block thread reveal">
+                <div class="about-block thread reveal section-block section-text">
                     <h3>What I'm looking for</h3>
-            <p>I'm seeking research assistant or research internship opportunities in computational neuroscience and AI-for-biology, especially projects combining neural data, behavior, and interpretability. <strong>Class of 2027, actively looking for Summer 2026 internships.</strong></p>
-                    <div class="focus-areas-box" style="margin-top: calc(var(--spacing) * 3); padding: calc(var(--spacing) * 4); background: var(--background); border: 1px solid var(--border); border-radius: 8px;">
-                        <h4 style="font-size: 1.25rem; font-family: 'IBM Plex Mono', monospace; color: var(--forest); margin-bottom: calc(var(--spacing) * 2);">Focus Areas</h4>
-                        <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: calc(var(--spacing) * 2); list-style: none; padding: 0; margin: 0;">
-                            <li style="display: flex; align-items: flex-start; gap: calc(var(--spacing));"><span style="color: var(--forest);">▸</span> Neural data + behavioral or cognitive measures</li>
-                            <li style="display: flex; align-items: flex-start; gap: calc(var(--spacing));"><span style="color: var(--forest);">▸</span> Building analysis pipelines from scratch</li>
-                            <li style="display: flex; align-items: flex-start; gap: calc(var(--spacing));"><span style="color: var(--forest);">▸</span> Interpretability alongside prediction</li>
-                            <li style="display: flex; align-items: flex-start; gap: calc(var(--spacing));"><span style="color: var(--forest);">▸</span> Bridging experimental and computational approaches</li>
-                            <li style="display: flex; align-items: flex-start; gap: calc(var(--spacing));"><span style="color: var(--forest);">▸</span> Interdisciplinary thinking and diverse methodologies</li>
+            <p>I'm seeking research assistant or research internship opportunities in computational neuroscience and AI-for-biology — especially projects combining neural data, behavior, and interpretability. <strong>Class of 2027, actively looking for Summer 2026 internships.</strong></p>
+                    <div class="focus-areas-box">
+                        <h4 style="font-size: 1.05rem; font-family: 'IBM Plex Mono', monospace; color: var(--forest); margin-bottom: calc(var(--spacing) * 2);">Focus Areas</h4>
+                        <ul>
+                            <li><span style="color: var(--forest);">▸</span> Neural data + behavioral or cognitive measures</li>
+                            <li><span style="color: var(--forest);">▸</span> Building analysis pipelines from scratch</li>
+                            <li><span style="color: var(--forest);">▸</span> Interpretability alongside prediction</li>
+                            <li><span style="color: var(--forest);">▸</span> Bridging experimental and computational approaches</li>
+                            <li><span style="color: var(--forest);">▸</span> Interdisciplinary thinking and diverse methodologies</li>
                         </ul>
                     </div>
                     <p style="margin-top: calc(var(--spacing) * 2);">Graduating May 2027 • Planning graduate school in computational neuroscience</p>
@@ -3357,8 +3623,17 @@
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        revealObserver.unobserve(entry.target);
+                        const el = entry.target;
+                        // Stagger siblings that reveal together (e.g. cards in a grid)
+                        const siblings = el.parentElement
+                            ? Array.from(el.parentElement.children).filter(c => c.classList.contains('reveal'))
+                            : [];
+                        const idx = siblings.indexOf(el);
+                        if (idx > 0) {
+                            el.style.transitionDelay = Math.min(idx, 6) * 80 + 'ms';
+                        }
+                        el.classList.add('visible');
+                        revealObserver.unobserve(el);
                     }
                 });
             }, {
@@ -3369,6 +3644,26 @@
         } else {
             // Fallback: show all immediately
             revealElements.forEach(el => el.classList.add('visible'));
+        }
+
+        // Scroll progress indicator
+        const scrollProgress = document.getElementById('scroll-progress');
+        if (scrollProgress) {
+            let progressTicking = false;
+            const updateProgress = () => {
+                const doc = document.documentElement;
+                const scrollable = doc.scrollHeight - doc.clientHeight;
+                const pct = scrollable > 0 ? (doc.scrollTop || document.body.scrollTop) / scrollable : 0;
+                scrollProgress.style.width = Math.max(0, Math.min(1, pct)) * 100 + '%';
+                progressTicking = false;
+            };
+            window.addEventListener('scroll', () => {
+                if (!progressTicking) {
+                    progressTicking = true;
+                    requestAnimationFrame(updateProgress);
+                }
+            }, { passive: true });
+            updateProgress();
         }
 
         // Click-to-expand project media (images & videos)
