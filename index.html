@@ -1234,13 +1234,105 @@
 
         .reveal {
             opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+            transform: translateY(34px) scale(0.985);
+            transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                        transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
         }
 
         .reveal.visible {
             opacity: 1;
             transform: none;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal {
+                transition: opacity 0.3s ease;
+                transform: none;
+            }
+        }
+
+        /* Scroll guide rail (left) */
+        .scroll-guide {
+            position: fixed;
+            left: calc(var(--spacing) * 3.5);
+            top: 50%;
+            transform: translateY(-50%);
+            height: min(44vh, 360px);
+            width: 2px;
+            border-radius: 2px;
+            background: rgba(31, 90, 56, 0.13);
+            z-index: 900;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .scroll-guide.is-active { opacity: 1; }
+
+        .scroll-guide-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 0%;
+            border-radius: 2px;
+            background: linear-gradient(180deg, var(--forest), var(--accent));
+        }
+
+        .scroll-guide-dot {
+            position: absolute;
+            left: 50%;
+            top: 0%;
+            width: 9px;
+            height: 9px;
+            margin-left: -4.5px;
+            margin-top: -4.5px;
+            border-radius: 50%;
+            background: var(--forest);
+            box-shadow: 0 0 0 4px rgba(31, 90, 56, 0.14);
+        }
+
+        @media (max-width: 1180px) {
+            .scroll-guide { display: none; }
+        }
+
+        /* Hero scroll cue */
+        .scroll-cue {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            align-self: center;
+            gap: calc(var(--spacing));
+            margin-top: calc(var(--spacing) * 6);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            opacity: 0.75;
+            transition: opacity 0.4s ease;
+            cursor: default;
+        }
+
+        .scroll-cue.is-hidden { opacity: 0; pointer-events: none; }
+
+        .scroll-cue-chevron {
+            width: 18px;
+            height: 18px;
+            border-right: 1.5px solid var(--forest);
+            border-bottom: 1.5px solid var(--forest);
+            transform: rotate(45deg);
+            animation: cueBounce 1.8s ease-in-out infinite;
+        }
+
+        @keyframes cueBounce {
+            0%, 100% { transform: rotate(45deg) translate(0, 0); opacity: 0.5; }
+            50% { transform: rotate(45deg) translate(3px, 3px); opacity: 1; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .scroll-cue-chevron { animation: none; }
         }
 
         /* Boolean heatmap */
@@ -2226,6 +2318,10 @@
 </head>
 <body>
     <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+    <div class="scroll-guide" id="scroll-guide" aria-hidden="true">
+        <div class="scroll-guide-fill" id="scroll-guide-fill"></div>
+        <div class="scroll-guide-dot" id="scroll-guide-dot"></div>
+    </div>
     <!-- Navigation -->
     <nav aria-label="Primary">
         <div class="container">
@@ -2259,6 +2355,11 @@
                         <a href="#contact" class="btn" data-page="contact">Get in Touch</a>
                     </div>
                 </div>
+            </div>
+
+            <div class="scroll-cue" id="scroll-cue">
+                <span>Scroll</span>
+                <span class="scroll-cue-chevron" aria-hidden="true"></span>
             </div>
 
             <div class="section-block reveal">
@@ -3586,15 +3687,25 @@
             revealElements.forEach(el => el.classList.add('visible'));
         }
 
-        // Scroll progress indicator
+        // Scroll progress indicator + side guide rail + hero cue
         const scrollProgress = document.getElementById('scroll-progress');
+        const scrollGuide = document.getElementById('scroll-guide');
+        const guideFill = document.getElementById('scroll-guide-fill');
+        const guideDot = document.getElementById('scroll-guide-dot');
+        const scrollCue = document.getElementById('scroll-cue');
         if (scrollProgress) {
             let progressTicking = false;
             const updateProgress = () => {
                 const doc = document.documentElement;
                 const scrollable = doc.scrollHeight - doc.clientHeight;
-                const pct = scrollable > 0 ? (doc.scrollTop || document.body.scrollTop) / scrollable : 0;
-                scrollProgress.style.width = Math.max(0, Math.min(1, pct)) * 100 + '%';
+                const top = doc.scrollTop || document.body.scrollTop;
+                const pct = scrollable > 0 ? Math.max(0, Math.min(1, top / scrollable)) : 0;
+                const pctStr = (pct * 100) + '%';
+                scrollProgress.style.width = pctStr;
+                if (guideFill) guideFill.style.height = pctStr;
+                if (guideDot) guideDot.style.top = pctStr;
+                if (scrollGuide) scrollGuide.classList.toggle('is-active', scrollable > 240);
+                if (scrollCue) scrollCue.classList.toggle('is-hidden', top > 60);
                 progressTicking = false;
             };
             window.addEventListener('scroll', () => {
@@ -3603,6 +3714,10 @@
                     requestAnimationFrame(updateProgress);
                 }
             }, { passive: true });
+            // Recompute when the SPA swaps pages (content height changes)
+            window.addEventListener('resize', updateProgress, { passive: true });
+            document.querySelectorAll('a[data-page]').forEach(l =>
+                l.addEventListener('click', () => setTimeout(updateProgress, 60)));
             updateProgress();
         }
 
