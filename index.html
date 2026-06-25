@@ -946,8 +946,8 @@
         .writing-item {
             background: var(--background-soft);
             border: 1px solid rgba(19, 42, 27, 0.07);
-            padding: calc(var(--spacing) * 4.5);
-            margin-bottom: calc(var(--spacing) * 4);
+            padding: calc(var(--spacing) * 2.5);
+            margin-bottom: calc(var(--spacing) * 2);
             border-radius: 16px;
             box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.05);
             transition: all 0.3s;
@@ -1089,9 +1089,9 @@
         }
 
         #reflections .writing-item {
-            margin-bottom: calc(var(--spacing) * 4);
+            margin-bottom: calc(var(--spacing) * 2);
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: calc(var(--spacing) * 3);
         }
 
@@ -1100,8 +1100,9 @@
         }
 
         #reflections .writing-item .reflection-thumb {
-            width: 220px;
-            height: auto;
+            width: 168px;
+            height: 72px;
+            object-fit: cover;
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-soft);
             flex-shrink: 0;
