@@ -82,34 +82,6 @@
             position: relative;
         }
 
-        body::before,
-        body::after {
-            content: '';
-            position: fixed;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: -1;
-            filter: blur(2px);
-        }
-
-        body::before {
-            width: 340px;
-            height: 340px;
-            right: -120px;
-            top: 22vh;
-            background: radial-gradient(circle, rgba(175, 122, 66, 0.05), rgba(175, 122, 66, 0));
-            animation: floatGlow1 48s ease-in-out infinite alternate;
-        }
-
-        body::after {
-            width: 420px;
-            height: 420px;
-            left: -180px;
-            bottom: 4vh;
-            background: radial-gradient(circle, rgba(31, 90, 56, 0.06), rgba(31, 90, 56, 0));
-            animation: floatGlow2 52s ease-in-out infinite alternate;
-        }
-
         .mono {
             font-family: 'IBM Plex Mono', monospace;
             font-size: 1.05rem;
@@ -1252,48 +1224,25 @@
             }
         }
 
-        /* Scroll guide rail (left) — minimal, monochrome */
-        .scroll-guide {
+        /* Scroll-driven ambient orb — drifts and shifts hue as you scroll */
+        .scroll-orb {
             position: fixed;
-            left: calc(var(--spacing) * 4);
-            top: 50%;
-            transform: translateY(-50%);
-            height: min(42vh, 340px);
-            width: 1px;
-            background: rgba(29, 32, 29, 0.10);
-            z-index: 900;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.8s ease;
-        }
-
-        .scroll-guide.is-active { opacity: 1; }
-
-        .scroll-guide-fill {
-            position: absolute;
-            left: 0;
             top: 0;
-            width: 100%;
-            height: 0%;
-            background: rgba(31, 90, 56, 0.45);
-            transition: height 0.18s linear;
-        }
-
-        .scroll-guide-dot {
-            position: absolute;
-            left: 50%;
-            top: 0%;
-            width: 5px;
-            height: 5px;
-            margin-left: -2.5px;
-            margin-top: -2.5px;
+            left: 0;
+            width: min(58vw, 720px);
+            height: min(58vw, 720px);
             border-radius: 50%;
-            background: var(--forest);
-            transition: top 0.18s linear;
+            z-index: -1;
+            pointer-events: none;
+            filter: blur(72px);
+            opacity: 0.55;
+            background: radial-gradient(circle at center, rgba(31, 90, 56, 0.16), rgba(31, 90, 56, 0) 68%);
+            transform: translate3d(6vw, -8vh, 0);
+            will-change: transform;
         }
 
-        @media (max-width: 1180px) {
-            .scroll-guide { display: none; }
+        @media (prefers-reduced-motion: reduce) {
+            .scroll-orb { transition: none; }
         }
 
         /* Hero scroll cue — a quiet line with a drifting tracer */
@@ -1718,24 +1667,6 @@
             font-size: 1.1rem;
             color: var(--text-secondary);
             line-height: 1.5;
-        }
-
-        @keyframes floatGlow1 {
-            0% {
-                transform: translate3d(0, 0, 0) scale(1);
-            }
-            100% {
-                transform: translate3d(40px, -30px, 0) scale(1.05);
-            }
-        }
-
-        @keyframes floatGlow2 {
-            0% {
-                transform: translate3d(0, 0, 0) scale(1);
-            }
-            100% {
-                transform: translate3d(-30px, 24px, 0) scale(1.08);
-            }
         }
 
         @keyframes barGrowHigh {
@@ -2318,10 +2249,7 @@
 </head>
 <body>
     <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
-    <div class="scroll-guide" id="scroll-guide" aria-hidden="true">
-        <div class="scroll-guide-fill" id="scroll-guide-fill"></div>
-        <div class="scroll-guide-dot" id="scroll-guide-dot"></div>
-    </div>
+    <div class="scroll-orb" id="scroll-orb" aria-hidden="true"></div>
     <!-- Navigation -->
     <nav aria-label="Primary">
         <div class="container">
@@ -3686,12 +3614,14 @@
             revealElements.forEach(el => el.classList.add('visible'));
         }
 
-        // Scroll progress indicator + side guide rail + hero cue
+        // Scroll progress bar + ambient drifting orb + hero cue
         const scrollProgress = document.getElementById('scroll-progress');
-        const scrollGuide = document.getElementById('scroll-guide');
-        const guideFill = document.getElementById('scroll-guide-fill');
-        const guideDot = document.getElementById('scroll-guide-dot');
+        const scrollOrb = document.getElementById('scroll-orb');
         const scrollCue = document.getElementById('scroll-cue');
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        // Forest -> brass hue interpolation for the orb
+        const ORB_A = [31, 90, 56], ORB_B = [175, 122, 66];
+        const lerp = (a, b, t) => Math.round(a + (b - a) * t);
         if (scrollProgress) {
             let progressTicking = false;
             const updateProgress = () => {
@@ -3699,11 +3629,19 @@
                 const scrollable = doc.scrollHeight - doc.clientHeight;
                 const top = doc.scrollTop || document.body.scrollTop;
                 const pct = scrollable > 0 ? Math.max(0, Math.min(1, top / scrollable)) : 0;
-                const pctStr = (pct * 100) + '%';
-                scrollProgress.style.width = pctStr;
-                if (guideFill) guideFill.style.height = pctStr;
-                if (guideDot) guideDot.style.top = pctStr;
-                if (scrollGuide) scrollGuide.classList.toggle('is-active', scrollable > 240);
+                scrollProgress.style.width = (pct * 100) + '%';
+                if (scrollOrb && !prefersReducedMotion) {
+                    // Drift: a gentle rightward arc while moving down the page
+                    const x = 6 + Math.sin(pct * Math.PI) * 40;   // vw
+                    const y = -8 + pct * 78;                       // vh
+                    scrollOrb.style.transform = `translate3d(${x}vw, ${y}vh, 0)`;
+                    // Hue: shift from forest toward brass as you descend
+                    const r = lerp(ORB_A[0], ORB_B[0], pct),
+                          g = lerp(ORB_A[1], ORB_B[1], pct),
+                          b = lerp(ORB_A[2], ORB_B[2], pct);
+                    scrollOrb.style.background =
+                        `radial-gradient(circle at center, rgba(${r},${g},${b},0.16), rgba(${r},${g},${b},0) 68%)`;
+                }
                 if (scrollCue) scrollCue.classList.toggle('is-hidden', top > 60);
                 progressTicking = false;
             };
