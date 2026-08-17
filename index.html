@@ -50,22 +50,22 @@
         :root {
             --forest: #1f5a38;
             --forest-light: #2f744a;
-            --background: #f4f2ec;
-            --background-soft: #fbf9f4;
+            --background: #f5f1ea;
+            --background-soft: #fcfaf6;
             --text: #1d201d;
             --text-secondary: #5a615b;
-            --border: rgba(29, 32, 29, 0.08);
+            --border: rgba(29, 32, 29, 0.06);
             --card-bg: rgba(255, 255, 255, 0.64);
             --accent: #af7a42;
             --spacing: 8px;
             --content-max: 1360px;
-            --reading-max: 680px;
+            --reading-max: 720px;
             --radius-sm: 10px;
-            --radius-md: 14px;
+            --radius-md: 12px;
             --radius-lg: 18px;
             --radius-xl: 30px;
-            --shadow-soft: 0 10px 28px rgba(19, 42, 27, 0.04);
-            --shadow-hover: 0 16px 36px rgba(19, 42, 27, 0.08);
+            --shadow-soft: 0 8px 24px rgba(19, 42, 27, 0.035);
+            --shadow-hover: 0 14px 32px rgba(19, 42, 27, 0.06);
         }
 
         body {
@@ -74,7 +74,8 @@
             line-height: 1.72;
             color: var(--text);
             background:
-                radial-gradient(1200px 760px at 50% -12%, rgba(31, 90, 56, 0.05), transparent 62%),
+                radial-gradient(1100px 700px at 50% -10%, rgba(31, 90, 56, 0.04), transparent 60%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.2), transparent 22%),
                 var(--background);
             font-weight: 400;
             letter-spacing: 0.003em;
@@ -123,11 +124,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(252, 250, 245, 0.68);
-            border: 1px solid rgba(31, 90, 56, 0.08);
+            background: rgba(252, 250, 245, 0.58);
+            border: 1px solid rgba(31, 90, 56, 0.05);
             border-radius: 999px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 10px 24px rgba(19, 42, 27, 0.04);
+            backdrop-filter: blur(14px);
+            box-shadow: none;
         }
 
         nav .logo {
@@ -160,9 +161,9 @@
         }
 
         nav a.is-current {
-            color: #fff;
-            background: var(--forest);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+            color: var(--forest);
+            background: rgba(31, 90, 56, 0.08);
+            box-shadow: inset 0 0 0 1px rgba(31, 90, 56, 0.08);
         }
 
         /* Layout */
@@ -271,7 +272,7 @@
         .btn {
             padding: calc(var(--spacing) * 2) calc(var(--spacing) * 4);
             border: 1px solid var(--border);
-            background: linear-gradient(180deg, #ffffff 0%, #f5f8f2 100%);
+            background: rgba(255, 255, 255, 0.72);
             color: var(--text);
             text-decoration: none;
             transition: all 0.24s;
@@ -280,13 +281,13 @@
             cursor: pointer;
             display: inline-block;
             border-radius: 999px;
-            box-shadow: 0 4px 14px rgba(16, 39, 24, 0.08);
+            box-shadow: none;
         }
 
         .btn:hover {
             border-color: var(--forest);
-            background: var(--forest);
-            color: white;
+            background: rgba(31, 90, 56, 0.08);
+            color: var(--forest);
             transform: translateY(-1px);
         }
 
@@ -322,8 +323,8 @@
             border: 1px solid var(--border);
             border-radius: var(--radius-md);
             overflow: visible;
-            background: var(--background-soft);
-            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 12px 26px rgba(19, 42, 27, 0.04);
+            background: rgba(255, 255, 255, 0.42);
+            box-shadow: none;
         }
 
         .timeline-theme-title {
@@ -331,7 +332,7 @@
             font-size: 1.05rem;
             font-weight: 400;
             color: var(--forest);
-            padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
+            padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 3.25);
             background: transparent;
             list-style: none;
         }
@@ -378,13 +379,13 @@
 
         .timeline-node {
             position: relative;
-            margin-bottom: calc(var(--spacing) * 4);
+            margin-bottom: calc(var(--spacing) * 5);
             cursor: pointer;
             transition: transform 0.2s;
         }
 
         .timeline-node:hover {
-            transform: translateX(4px);
+            transform: translateX(2px);
         }
 
         .timeline-node:focus-visible {
@@ -414,17 +415,17 @@
         }
 
         .timeline-node .node-header {
-            padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
-            background: #fff;
-            border: 1px solid rgba(19, 42, 27, 0.07);
+            padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 3);
+            background: rgba(255, 255, 255, 0.54);
+            border: 1px solid rgba(19, 42, 27, 0.05);
             border-radius: var(--radius-sm);
             transition: all 0.3s;
         }
 
         .timeline-node:hover .node-header,
         .timeline-node.expanded .node-header {
-            border-color: var(--forest);
-            box-shadow: var(--shadow-soft);
+            border-color: rgba(31, 90, 56, 0.14);
+            box-shadow: none;
         }
 
         .timeline-node .node-year {
@@ -451,14 +452,14 @@
         }
 
         .timeline-node .node-detail-inner {
-            padding: calc(var(--spacing) * 2) calc(var(--spacing) * 3);
-            margin-top: calc(var(--spacing) * 1);
-            background: var(--background);
+            padding: calc(var(--spacing) * 2.5) calc(var(--spacing) * 3);
+            margin-top: calc(var(--spacing) * 1.5);
+            background: rgba(255, 255, 255, 0.3);
             border-radius: var(--radius-sm);
-            border-left: 3px solid var(--forest);
+            border-left: 2px solid rgba(31, 90, 56, 0.45);
             font-size: 1.05rem;
             color: var(--text-secondary);
-            line-height: 1.6;
+            line-height: 1.72;
         }
 
         .timeline-node .node-detail-inner strong {
@@ -474,11 +475,11 @@
         }
 
         .focus-card {
-            background: var(--background-soft);
-            border: 1px solid rgba(19, 42, 27, 0.07);
+            background: rgba(255, 255, 255, 0.34);
+            border: 1px solid rgba(19, 42, 27, 0.05);
             padding: calc(var(--spacing) * 5);
-            border-radius: 16px;
-            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.05);
+            border-radius: 14px;
+            box-shadow: none;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
@@ -514,9 +515,9 @@
         }
 
         .focus-card:hover {
-            border-color: rgba(31, 90, 56, 0.18);
-            box-shadow: 0 2px 4px rgba(19, 42, 27, 0.04), 0 22px 44px rgba(19, 42, 27, 0.09);
-            transform: translateY(-3px);
+            border-color: rgba(31, 90, 56, 0.14);
+            box-shadow: 0 10px 24px rgba(19, 42, 27, 0.04);
+            transform: translateY(-2px);
         }
 
         .focus-card h3 {
@@ -524,6 +525,20 @@
             font-weight: 400;
             margin-bottom: calc(var(--spacing) * 2);
             color: var(--forest);
+        }
+
+        .playful-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: calc(var(--spacing) * 1.75);
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            background: rgba(175, 122, 66, 0.1);
+            color: var(--text);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.03em;
         }
 
         .focus-card p {
@@ -537,7 +552,7 @@
             font-family: 'Fraunces', serif;
             font-size: 2.25rem;
             font-weight: 400;
-            margin-bottom: calc(var(--spacing) * 9);
+            margin-bottom: calc(var(--spacing) * 10);
             letter-spacing: -0.02em;
             position: relative;
             padding-bottom: calc(var(--spacing) * 3);
@@ -608,15 +623,15 @@
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: calc(var(--spacing) * 6);
+            gap: calc(var(--spacing) * 7);
         }
 
         .project-card {
-            background: var(--background-soft);
-            border: 1px solid rgba(19, 42, 27, 0.07);
+            background: rgba(255, 255, 255, 0.34);
+            border: 1px solid rgba(19, 42, 27, 0.05);
             padding: calc(var(--spacing) * 5);
-            border-radius: 16px;
-            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.05);
+            border-radius: 14px;
+            box-shadow: none;
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
             cursor: pointer;
             text-decoration: none;
@@ -639,9 +654,9 @@
         }
 
         .project-card:hover {
-            border-color: rgba(31, 90, 56, 0.18);
-            box-shadow: 0 2px 4px rgba(19, 42, 27, 0.04), 0 22px 44px rgba(19, 42, 27, 0.09);
-            transform: translateY(-3px);
+            border-color: rgba(31, 90, 56, 0.14);
+            box-shadow: 0 10px 24px rgba(19, 42, 27, 0.04);
+            transform: translateY(-2px);
         }
 
         .project-card:focus-visible {
@@ -655,6 +670,22 @@
             font-weight: 400;
             margin-bottom: calc(var(--spacing) * 2);
             color: var(--forest);
+        }
+
+        .project-card-fun {
+            margin-top: calc(var(--spacing) * 2.5);
+            color: var(--accent);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.03em;
+            opacity: 0.78;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        .project-card:hover .project-card-fun,
+        .project-card:focus-visible .project-card-fun {
+            opacity: 1;
+            transform: translateX(2px);
         }
 
         .project-card-icon {
@@ -709,10 +740,10 @@
         .brand-reel {
             margin-top: calc(var(--spacing) * 8);
             padding: calc(var(--spacing) * 4.5);
-            background: var(--background-soft);
-            border: 1px solid rgba(19, 42, 27, 0.07);
-            border-radius: 18px;
-            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.04);
+            background: rgba(255, 255, 255, 0.24);
+            border: 1px solid rgba(19, 42, 27, 0.05);
+            border-radius: 14px;
+            box-shadow: none;
             overflow: hidden;
             position: relative;
         }
@@ -779,7 +810,7 @@
             height: 140px;
             border-radius: var(--radius-sm);
             border: 1px solid var(--border);
-            box-shadow: 0 14px 22px rgba(9, 19, 12, 0.10);
+            box-shadow: 0 8px 18px rgba(9, 19, 12, 0.06);
             overflow: hidden;
             background: var(--background);
             transform: translateZ(0);
@@ -797,9 +828,9 @@
         }
 
         .brand-tile:hover {
-            transform: translateY(-2px) rotate(-0.35deg);
-            border-color: rgba(31, 90, 56, 0.55);
-            box-shadow: 0 22px 30px rgba(9, 19, 12, 0.16);
+            transform: translateY(-2px);
+            border-color: rgba(31, 90, 56, 0.18);
+            box-shadow: 0 12px 22px rgba(9, 19, 12, 0.08);
             filter: saturate(1.08);
         }
 
@@ -1793,10 +1824,10 @@
         .contact-cta {
             margin-top: calc(var(--spacing) * 8);
             padding: calc(var(--spacing) * 5.5);
-            background: var(--background-soft);
-            border: 1px solid rgba(19, 42, 27, 0.07);
-            border-radius: 16px;
-            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.05);
+            background: rgba(255, 255, 255, 0.24);
+            border: 1px solid rgba(19, 42, 27, 0.05);
+            border-radius: 14px;
+            box-shadow: none;
             font-style: italic;
             color: var(--text-secondary);
         }
@@ -1911,9 +1942,11 @@
         }
 
         .home-highlight {
-            border-radius: 28px;
-            box-shadow: 0 14px 30px rgba(19, 42, 27, 0.08);
-            background: linear-gradient(140deg, var(--forest), #275f3f 46%, #3a6f4a 100%) !important;
+            border-radius: 14px;
+            box-shadow: none;
+            background: rgba(247, 244, 236, 0.78) !important;
+            border: 1px solid rgba(19, 42, 27, 0.06);
+            color: var(--text) !important;
         }
 
 
@@ -1933,14 +1966,14 @@
 
         .section-block {
             margin-top: calc(var(--spacing) * 12);
-            padding-top: calc(var(--spacing) * 6);
-            border-top: 1px solid rgba(31, 90, 56, 0.1);
+            padding-top: calc(var(--spacing) * 7);
+            border-top: 1px solid rgba(31, 90, 56, 0.08);
         }
 
         .section-block--soft {
-            background: rgba(255, 255, 255, 0.24);
-            border: 1px solid rgba(31, 90, 56, 0.06);
-            border-radius: 26px;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(31, 90, 56, 0.04);
+            border-radius: 14px;
             padding: calc(var(--spacing) * 5.5);
         }
 
@@ -2012,10 +2045,10 @@
         .focus-areas-box {
             margin-top: calc(var(--spacing) * 5);
             padding: calc(var(--spacing) * 5);
-            background: var(--background-soft);
-            border: 1px solid rgba(19, 42, 27, 0.07);
-            border-radius: 16px;
-            box-shadow: 0 1px 2px rgba(19, 42, 27, 0.03), 0 14px 30px rgba(19, 42, 27, 0.05);
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(19, 42, 27, 0.05);
+            border-radius: 14px;
+            box-shadow: none;
         }
 
         .focus-areas-box ul {
@@ -2048,6 +2081,7 @@
             border-radius: 22px;
             box-shadow: var(--shadow-soft);
         }
+
 
         .projects-grid,
         .focus-grid {
@@ -2345,6 +2379,7 @@
                 <div class="focus-grid">
                     <a href="#projects" class="focus-card-link" data-focus-project="creativity">
                         <div class="focus-card">
+                            <span class="playful-note">✦ linguistic x-ray</span>
                             <h3>Interpretable ML for Creativity</h3>
                             <p class="mono home-focus-meta">Laverghetta Lab, Wesleyan</p>
                             <p>SHAP and LOFO pipelines on HPC clusters for transformer models. Token-level attribution to identify linguistic drivers of creativity scores.</p>
@@ -2357,6 +2392,7 @@
                     </a>
                     <a href="#projects" class="focus-card-link" data-focus-project="motor">
                         <div class="focus-card">
+                            <span class="playful-note">✦ tiny spikes, big opinions</span>
                             <h3>Motor Intention Decoding</h3>
                             <p class="mono home-focus-meta">Neuromatch Academy & Personal Projects</p>
                             <p>LSTM motor decoding, CRNN audio classification, Steinmetz Neuropixels analysis with PyTorch architectures.</p>
@@ -2369,6 +2405,7 @@
                     </a>
                     <a href="#projects" class="focus-card-link" data-focus-project="vta-pfc">
                         <div class="focus-card">
+                            <span class="playful-note">✦ circuit drama</span>
                             <h3>Neural Oscillation and Social Interaction</h3>
                             <p class="mono home-focus-meta">Melón Lab, Wesleyan</p>
                             <p>Built end-to-end pipelines for PSD, coherence, PAC, and Granger causality. Discovered ethanol-induced theta-gamma coupling changes during social behavior.</p>
@@ -2382,37 +2419,17 @@
                 </div>
             </div>
 
-            <!-- Experience Overview -->
-            <div class="section-block reveal">
-                <div class="fact-grid">
-                    <div class="fact-card">
-                        <span class="rule-kicker">Past</span>
-                        <strong>Research</strong>
-                        <p>Experience across neuroscience labs, interpretable ML research, and experimental workflows that connect data to behavior.</p>
-                    </div>
-                    <div class="fact-card">
-                        <span class="rule-kicker">Present</span>
-                        <strong>Teaching</strong>
-                        <p>Course assistant and mentor roles that keep communication, feedback, and pedagogy central to how I work.</p>
-                    </div>
-                    <div class="fact-card">
-                        <span class="rule-kicker">Next</span>
-                        <strong>Direction</strong>
-                        <p>Looking for computational neuroscience and AI-for-biology work with room for both rigor and creative problem framing.</p>
-                    </div>
-                </div>
-            </div>
-
             <!-- What I'm Looking For -->
-            <div class="home-highlight section-block reveal" style="padding: calc(var(--spacing) * 6); color: white;">
+            <div class="home-highlight section-block reveal" style="padding: calc(var(--spacing) * 6);">
                 <div class="section-split">
                     <img src="images/seeking_opportunities.jpg"
                          alt="Cartoon illustration for research opportunities"
                          style="flex-shrink: 0;">
                     <div>
-                        <h3 style="font-size: 1.05rem; font-weight: 400; margin-bottom: calc(var(--spacing) * 2); color: white;">Seeking Research Opportunities</h3>
+                        <span class="rule-kicker">Looking Ahead</span>
+                        <h3 style="font-size: 1.25rem; font-weight: 400; margin-bottom: calc(var(--spacing) * 2); color: var(--text);">Seeking Research Opportunities</h3>
                         <p style="line-height: 1.85; margin-bottom: calc(var(--spacing) * 3); max-width: 52ch;">I'm seeking research assistant or internship opportunities in computational neuroscience and AI-for-biology — especially projects combining neural data, behavior, and interpretability.</p>
-                        <p style="font-size: 1.05rem; opacity: 0.9;">Graduating May 2027 • Planning graduate school in computational neuroscience</p>
+                        <p style="font-size: 1.05rem; color: var(--text-secondary);">Graduating May 2027 • Planning graduate school in computational neuroscience</p>
                     </div>
                 </div>
             </div>
@@ -2442,6 +2459,7 @@
                         <span class="tag">PAC</span>
                         <span class="tag">Python</span>
                     </div>
+                    <p class="project-card-fun">Reads like a neuroscience paper, behaves a little like detective fiction.</p>
                 </div>
 
                 <div class="project-card reveal" data-categories="ml python" data-project="creativity">
@@ -2453,6 +2471,7 @@
                         <span class="tag">NLP</span>
                         <span class="tag">Python</span>
                     </div>
+                    <p class="project-card-fun">Essentially asking the model to explain itself before it gets too confident.</p>
                 </div>
 
                 <div class="project-card reveal" data-categories="ml python" data-project="covid">
@@ -2464,6 +2483,7 @@
                         <span class="tag">CRNN</span>
                         <span class="tag">Python</span>
                     </div>
+                    <p class="project-card-fun">A cough, but with feature engineering and considerably more paperwork.</p>
                 </div>
 
                 <div class="project-card reveal" data-categories="neuro ml python compbio" data-project="motor">
@@ -2476,6 +2496,7 @@
                         <span class="tag">LSTM</span>
                         <span class="tag">PyTorch</span>
                     </div>
+                    <p class="project-card-fun">Trying to hear a decision forming before the body says it out loud.</p>
                 </div>
 
                 <div class="project-card reveal" data-categories="neuro" data-project="capsaicin">
@@ -2487,6 +2508,7 @@
                         <span class="tag">IHC</span>
                         <span class="tag">ANOVA</span>
                     </div>
+                    <p class="project-card-fun">Part mouse study, part “what if spice had a neuroscience subplot?”</p>
                 </div>
 
                 <div class="project-card reveal" data-categories="python compbio" data-project="boolean">
@@ -2497,6 +2519,7 @@
                         <span class="tag">Python</span>
                         <span class="tag">Simulation</span>
                     </div>
+                    <p class="project-card-fun">A reminder that even binary systems can still be dramatic.</p>
                 </div>
             </div>
         </div>
@@ -3296,7 +3319,7 @@
 
                 <div class="about-block thread reveal section-block section-text">
                     <h3>What I'm looking for</h3>
-            <p>I'm seeking research assistant or research internship opportunities in computational neuroscience and AI-for-biology — especially projects combining neural data, behavior, and interpretability — as a step toward a PhD in the field. <strong>Class of 2027, actively looking for Summer 2026 research internships.</strong></p>
+            <p>I'm seeking research assistant or research internship opportunities in computational neuroscience and AI-for-biology — especially projects combining neural data, behavior, and interpretability — as a step toward a PhD in the field. <strong>Class of 2027.</strong></p>
                     <div class="focus-areas-box">
                         <h4 style="font-size: 1.05rem; font-family: 'IBM Plex Mono', monospace; color: var(--forest); margin-bottom: calc(var(--spacing) * 2);">Focus Areas</h4>
                         <ul>
@@ -3737,6 +3760,7 @@
                 }, 250);
             }, 3800);
         }
+
 
         // Interactive SHAP sentence example
         (function setupShapSentence() {
