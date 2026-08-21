@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#1f5a38">
     <link rel="canonical" href="https://kmiliu.github.io/">
     <meta property="og:title" content="Keming Liu | Computational Neuroscience & AI">
-    <meta property="og:description" content="Projects across neural signal processing, interpretable ML, and lab experience, presented with clear problem-approach-result stories.">
+    <meta property="og:description" content="Academic work across neural signal processing, interpretable ML, and lab experience, presented with clear problem-approach-result stories.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://kmiliu.github.io/">
     <meta property="og:image" content="https://kmiliu.github.io/assets/profile-photo.png">
@@ -81,6 +81,11 @@
             letter-spacing: 0.003em;
             overflow-x: hidden;
             position: relative;
+        }
+
+        body[data-page="home"] {
+            scroll-snap-type: y mandatory;
+            scroll-padding-top: 104px;
         }
 
         .mono {
@@ -210,22 +215,48 @@
             justify-content: center;
             gap: calc(var(--spacing) * 8);
             min-height: calc(100vh - 180px);
+            position: relative;
         }
 
         .hero-intro {
-            display: flex;
-            align-items: stretch;
+            display: grid;
+            grid-template-columns: 270px minmax(0, 1fr);
+            align-items: start;
             gap: calc(var(--spacing) * 11);
-            flex-wrap: wrap;
+            position: relative;
+            padding: calc(var(--spacing) * 5);
+            border-radius: 34px;
+            background:
+                radial-gradient(circle at top left, rgba(175, 122, 66, 0.12), transparent 25%),
+                radial-gradient(circle at bottom right, rgba(31, 90, 56, 0.10), transparent 28%),
+                rgba(255, 255, 255, 0.44);
+            border: 1px solid rgba(19, 42, 27, 0.05);
+            overflow: hidden;
+        }
+
+        .hero-intro::before {
+            content: '';
+            position: absolute;
+            inset: auto -60px -80px auto;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(175, 122, 66, 0.12), transparent 68%);
+            pointer-events: none;
+            animation: ambientBloom 9s ease-in-out infinite alternate;
         }
 
         .hero-photo {
-            width: 360px;
+            width: 270px;
             flex-shrink: 0;
-            align-self: stretch;
+            align-self: flex-start;
+            grid-column: 1;
+            grid-row: 1;
+            aspect-ratio: 5 / 6;
+            max-height: 360px;
             border-radius: 24px;
             object-fit: cover;
-            object-position: top center;
+            object-position: center top;
             box-shadow: var(--shadow-soft);
             transition: transform 0.35s ease, box-shadow 0.35s ease;
         }
@@ -239,6 +270,10 @@
             flex: 1;
             min-width: 320px;
             max-width: 760px;
+            grid-column: 2;
+            grid-row: 1;
+            position: relative;
+            z-index: 1;
         }
 
         h1 {
@@ -260,6 +295,88 @@
             color: var(--text-secondary);
             max-width: 30ch;
             line-height: 1.8;
+        }
+
+        .hero-mini-row {
+            margin-top: calc(var(--spacing) * 3.5);
+            display: flex;
+            flex-wrap: wrap;
+            gap: calc(var(--spacing) * 1.5);
+            align-items: center;
+        }
+
+        .hero-mini-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.45rem 0.82rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.76);
+            border: 1px solid rgba(31, 90, 56, 0.08);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.03em;
+            box-shadow: 0 10px 22px rgba(19, 42, 27, 0.03);
+            animation: microFloat 5.8s ease-in-out infinite;
+        }
+
+        .hero-mini-pill:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+
+        .hero-mini-pill--live::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--forest);
+            box-shadow: 0 0 0 0 rgba(31, 90, 56, 0.35);
+            animation: livePulse 1.8s ease-out infinite;
+        }
+
+        .hero-mini-pill--warm::before {
+            content: '✦';
+            color: var(--accent);
+            font-size: 0.76rem;
+        }
+
+        .hero-side-notes {
+            margin-top: calc(var(--spacing) * 4.5);
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: calc(var(--spacing) * 2);
+            max-width: 560px;
+        }
+
+        .hero-note {
+            padding: calc(var(--spacing) * 2.25);
+            border-radius: 18px;
+            background: rgba(255, 250, 244, 0.72);
+            border: 1px solid rgba(175, 122, 66, 0.12);
+            box-shadow: 0 12px 26px rgba(19, 42, 27, 0.03);
+            animation: noteDrift 6.5s ease-in-out infinite;
+        }
+
+        .hero-note:nth-child(2) {
+            animation-delay: 1.1s;
+        }
+
+        .hero-note-label {
+            display: block;
+            margin-bottom: calc(var(--spacing));
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.74rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .hero-note p {
+            margin: 0;
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 1rem;
         }
 
         .cta-buttons {
@@ -441,6 +558,14 @@
             color: var(--text);
         }
 
+        .timeline-node .node-summary {
+            margin-top: calc(var(--spacing) * 0.9);
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            line-height: 1.6;
+            max-width: 68ch;
+        }
+
         .timeline-node .node-detail {
             max-height: 0;
             overflow: hidden;
@@ -517,7 +642,19 @@
         .focus-card:hover {
             border-color: rgba(31, 90, 56, 0.14);
             box-shadow: 0 10px 24px rgba(19, 42, 27, 0.04);
-            transform: translateY(-2px);
+            transform: translateY(-4px) rotate(-0.35deg);
+        }
+
+        .home-focus.visible .focus-card {
+            animation: focusCardRise 0.9s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+        }
+
+        .home-focus.visible .focus-card-link:nth-child(2) .focus-card {
+            animation-delay: 0.12s;
+        }
+
+        .home-focus.visible .focus-card-link:nth-child(3) .focus-card {
+            animation-delay: 0.24s;
         }
 
         .focus-card h3 {
@@ -665,27 +802,103 @@
             box-shadow: 0 0 0 4px rgba(26, 77, 46, 0.16);
         }
 
+        .academic-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 220px;
+            gap: calc(var(--spacing) * 7);
+            align-items: start;
+        }
+
+        .academic-main {
+            min-width: 0;
+        }
+
+        .academic-sidebar {
+            position: sticky;
+            top: 116px;
+            align-self: start;
+            padding: calc(var(--spacing) * 2.25);
+            border: 1px solid rgba(19, 42, 27, 0.08);
+            border-radius: 18px;
+            background: rgba(255, 252, 246, 0.82);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 14px 34px rgba(19, 42, 27, 0.05);
+        }
+
+        .academic-sidebar-title {
+            display: block;
+            margin-bottom: calc(var(--spacing) * 1.5);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--forest);
+        }
+
+        .academic-sidebar-nav {
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--spacing) * 0.9);
+        }
+
+        .academic-sidebar-link {
+            position: relative;
+            display: block;
+            width: 100%;
+            padding: 0.8rem 0.95rem 0.8rem 1.15rem;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            color: var(--text-secondary);
+            text-align: left;
+            font: inherit;
+            line-height: 1.45;
+            cursor: pointer;
+            transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
+        }
+
+        .academic-sidebar-link::before {
+            content: '';
+            position: absolute;
+            left: 0.35rem;
+            top: 0.8rem;
+            bottom: 0.8rem;
+            width: 2px;
+            border-radius: 999px;
+            background: rgba(31, 90, 56, 0.12);
+            transition: background 0.22s ease, transform 0.22s ease;
+        }
+
+        .academic-sidebar-link:hover {
+            background: rgba(31, 90, 56, 0.06);
+            color: var(--text);
+            transform: translateX(2px);
+        }
+
+        .academic-sidebar-link:focus-visible {
+            outline: 3px solid var(--forest);
+            outline-offset: 2px;
+        }
+
+        .academic-sidebar-link.active {
+            background: rgba(31, 90, 56, 0.1);
+            color: var(--forest);
+        }
+
+        .academic-sidebar-link.active::before {
+            background: linear-gradient(180deg, var(--forest), var(--accent));
+            transform: scaleY(1.08);
+        }
+
+        .academic-anchor {
+            scroll-margin-top: 120px;
+        }
+
         .project-card h3 {
             font-size: 1.25rem;
             font-weight: 400;
             margin-bottom: calc(var(--spacing) * 2);
             color: var(--forest);
-        }
-
-        .project-card-fun {
-            margin-top: calc(var(--spacing) * 2.5);
-            color: var(--accent);
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.78rem;
-            letter-spacing: 0.03em;
-            opacity: 0.78;
-            transition: opacity 0.2s ease, transform 0.2s ease;
-        }
-
-        .project-card:hover .project-card-fun,
-        .project-card:focus-visible .project-card-fun {
-            opacity: 1;
-            transform: translateX(2px);
         }
 
         .project-card-icon {
@@ -782,6 +995,130 @@
             font-size: 1.05rem;
             line-height: 1.6;
             max-width: 720px;
+        }
+
+        .home-route {
+            margin-top: calc(var(--spacing) * 7);
+        }
+
+        .home-route-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: calc(var(--spacing) * 4);
+        }
+
+        .home-route-card {
+            padding: calc(var(--spacing) * 4.5);
+            border-radius: 18px;
+            border: 1px solid rgba(19, 42, 27, 0.06);
+            background: rgba(255, 255, 255, 0.52);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+            box-shadow: 0 12px 26px rgba(19, 42, 27, 0.03);
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .home-route-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, transparent 0%, rgba(255, 255, 255, 0.28) 45%, transparent 70%);
+            transform: translateX(-115%);
+            pointer-events: none;
+        }
+
+        .home-route-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(31, 90, 56, 0.16);
+            box-shadow: 0 16px 30px rgba(19, 42, 27, 0.05);
+        }
+
+        .home-route-card::after {
+            content: '→';
+            position: absolute;
+            right: calc(var(--spacing) * 3);
+            bottom: calc(var(--spacing) * 2.4);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 1rem;
+            color: rgba(31, 90, 56, 0.44);
+            transition: transform 0.24s ease, color 0.24s ease;
+        }
+
+        .home-route-card:hover::after {
+            transform: translateX(4px);
+            color: var(--forest);
+        }
+
+        .home-route.visible .home-route-card {
+            animation: routeCardLift 0.95s cubic-bezier(0.2, 0.9, 0.2, 1) both;
+        }
+
+        .home-route.visible .home-route-card:nth-child(2) {
+            animation-delay: 0.12s;
+        }
+
+        .home-route.visible .home-route-card::before {
+            animation: routeSweep 1.15s ease-out both;
+        }
+
+        .home-route.visible .home-route-card:nth-child(2)::before {
+            animation-delay: 0.16s;
+        }
+
+        .home-route.visible .home-route-card::after {
+            animation: routeArrowFloat 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+
+        .home-route.visible .home-route-card:nth-child(2)::after {
+            animation-delay: 0.2s;
+        }
+
+        .home-route-card:focus-visible {
+            outline: 3px solid rgba(31, 90, 56, 0.24);
+            outline-offset: 3px;
+        }
+
+        .home-route-card--professional {
+            background:
+                radial-gradient(circle at top right, rgba(31, 90, 56, 0.08), transparent 24%),
+                rgba(255, 255, 255, 0.58);
+        }
+
+        .home-route-card--human {
+            background:
+                radial-gradient(circle at top right, rgba(175, 122, 66, 0.10), transparent 26%),
+                rgba(255, 252, 247, 0.74);
+        }
+
+        .home-route-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: calc(var(--spacing) * 1.8);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: lowercase;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+        }
+
+        .home-route-label::before {
+            content: '◌';
+            color: var(--forest);
+        }
+
+        .home-route-card h3 {
+            margin-bottom: calc(var(--spacing) * 1.5);
+            color: var(--forest);
+        }
+
+        .home-route-card p {
+            margin: 0;
+            color: var(--text-secondary);
+            line-height: 1.8;
         }
 
         .brand-marquee {
@@ -1066,16 +1403,43 @@
             margin-bottom: calc(var(--spacing) * 10);
         }
 
+        #reflections .section-intro {
+            max-width: 42rem;
+            color: var(--text-secondary);
+            line-height: 1.85;
+            margin-top: calc(var(--spacing) * 2);
+            margin-bottom: calc(var(--spacing) * 5);
+        }
+
         #reflections .writing-item {
             margin-bottom: calc(var(--spacing) * 2);
             min-height: calc(var(--spacing) * 17);
             display: flex;
             align-items: center;
             gap: calc(var(--spacing) * 3);
+            padding: calc(var(--spacing) * 3);
+            background:
+                radial-gradient(circle at top right, rgba(175, 122, 66, 0.08), transparent 28%),
+                rgba(255, 255, 255, 0.7);
         }
 
         #reflections .writing-item .writing-text {
             flex: 1;
+        }
+
+        #reflections .writing-item .reflection-mood {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-size: 0.85rem;
+            letter-spacing: 0.03em;
+            text-transform: lowercase;
+            color: var(--forest);
+            background: rgba(31, 90, 56, 0.08);
+            border: 1px solid rgba(31, 90, 56, 0.12);
+            border-radius: 999px;
+            padding: 0.28rem 0.72rem;
+            margin-bottom: calc(var(--spacing) * 1.25);
         }
 
         #reflections .writing-item .reflection-thumb {
@@ -1085,6 +1449,7 @@
             border-radius: var(--radius-md);
             box-shadow: var(--shadow-soft);
             flex-shrink: 0;
+            transition: transform 0.28s ease, box-shadow 0.28s ease, border-radius 0.28s ease;
         }
 
         #reflections .writing-item h4 {
@@ -1093,6 +1458,16 @@
 
         #reflections .writing-item p {
             margin: 0;
+        }
+
+        #reflections .writing-item:hover {
+            transform: translateY(-3px);
+        }
+
+        #reflections .writing-item:hover .reflection-thumb {
+            transform: rotate(-1.5deg) scale(1.03);
+            border-radius: 18px;
+            box-shadow: 0 14px 32px rgba(19, 42, 27, 0.12);
         }
 
         @media (max-width: 720px) {
@@ -1347,89 +1722,27 @@
             margin-bottom: calc(var(--spacing) * 1);
         }
 
-        /* Right now ticker */
-        .right-now {
-            margin-top: calc(var(--spacing) * 5);
-            padding-top: calc(var(--spacing) * 3);
-            border-top: 1px solid rgba(19, 42, 27, 0.12);
-            font-size: 1.35rem;
-            color: var(--text);
-            display: flex;
-            flex-direction: column;
-            gap: calc(var(--spacing) * 1.25);
-            max-width: 48ch;
-        }
+        @media (max-width: 720px) {
+            .about-block--intro {
+                padding: calc(var(--spacing) * 4);
+            }
 
-        .right-now-label {
-            display: block;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.82rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--accent);
-        }
+            .about-intro-layout {
+                grid-template-columns: 1fr;
+            }
 
-        .right-now-label::before {
-            content: '';
-            display: inline-block;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: #4caf6e;
-            margin-right: calc(var(--spacing) * 1.25);
-            vertical-align: middle;
-            box-shadow: 0 0 0 0 rgba(76, 175, 110, 0.5);
-            animation: livePulse 2.4s ease-out infinite;
-        }
+            .about-narrator {
+                grid-template-columns: 1fr;
+            }
 
-        @keyframes livePulse {
-            0% { box-shadow: 0 0 0 0 rgba(76, 175, 110, 0.45); }
-            70% { box-shadow: 0 0 0 7px rgba(76, 175, 110, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(76, 175, 110, 0); }
-        }
+            .about-narrator-portrait-wrap {
+                flex-direction: row;
+                justify-content: flex-start;
+            }
 
-        @media (prefers-reduced-motion: reduce) {
-            .right-now-label::before { animation: none; }
-        }
-
-        .right-now-text {
-            transition: opacity 0.25s ease-out, transform 0.25s ease-out;
-            display: inline-block;
-        }
-
-        .right-now-text.fading {
-            opacity: 0;
-            transform: translateY(4px);
-        }
-
-        .about-stickers {
-            margin-top: calc(var(--spacing) * 3);
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: calc(var(--spacing) * 2.5);
-        }
-
-        .about-stickers img {
-            width: 64px;
-            height: 64px;
-            object-fit: contain;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: default;
-        }
-
-        .about-stickers img:hover {
-            transform: translateY(-6px) rotate(-6deg) scale(1.08);
-        }
-
-        .stickers-label {
-            display: block;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.82rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--text-secondary);
-            margin: calc(var(--spacing) * 5) 0 0;
+            .about-narrator-bubble::before {
+                display: none;
+            }
         }
 
         /* Skills definition rows */
@@ -1727,9 +2040,122 @@
         }
 
         .about-block {
-            padding-left: calc(var(--spacing) * 4);
+            padding-left: 0;
             position: relative;
-            max-width: 1120px;
+            max-width: none;
+        }
+
+        .about-block--intro {
+            margin-top: calc(var(--spacing) * 2.5);
+            padding: calc(var(--spacing) * 5);
+            border-radius: 22px;
+            border: 1px solid rgba(19, 42, 27, 0.06);
+            background:
+                radial-gradient(circle at top right, rgba(175, 122, 66, 0.10), transparent 26%),
+                radial-gradient(circle at bottom left, rgba(31, 90, 56, 0.08), transparent 30%),
+                rgba(255, 255, 255, 0.62);
+            box-shadow: 0 18px 42px rgba(19, 42, 27, 0.04);
+            overflow: hidden;
+        }
+
+        .about-intro-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: calc(var(--spacing) * 4);
+            align-items: start;
+        }
+
+        .about-main-copy {
+            min-width: 0;
+            max-width: none;
+        }
+
+        .about-balance-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: calc(var(--spacing) * 5);
+        }
+
+        .about-balance-card {
+            padding: calc(var(--spacing) * 4.5);
+            border-radius: 20px;
+            border: 1px solid rgba(19, 42, 27, 0.06);
+            background: rgba(255, 255, 255, 0.56);
+            box-shadow: 0 12px 30px rgba(19, 42, 27, 0.03);
+        }
+
+        .about-balance-card--professional {
+            background:
+                radial-gradient(circle at top right, rgba(31, 90, 56, 0.08), transparent 26%),
+                rgba(255, 255, 255, 0.62);
+        }
+
+        .about-balance-card--playful {
+            background:
+                radial-gradient(circle at top right, rgba(175, 122, 66, 0.10), transparent 28%),
+                rgba(255, 252, 247, 0.74);
+        }
+
+        .about-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: calc(var(--spacing) * 2);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            text-transform: lowercase;
+            letter-spacing: 0.04em;
+            color: var(--accent);
+        }
+
+        .about-eyebrow::before {
+            content: '◌';
+            color: var(--forest);
+        }
+
+        .about-balance-card h3 {
+            margin-bottom: calc(var(--spacing) * 2.25);
+        }
+
+        .about-focus-list {
+            display: grid;
+            gap: calc(var(--spacing) * 1.2);
+            margin-top: calc(var(--spacing) * 3);
+        }
+
+        .about-focus-item {
+            display: flex;
+            align-items: flex-start;
+            gap: calc(var(--spacing) * 1.2);
+            color: var(--text-secondary);
+            line-height: 1.75;
+        }
+
+        .about-focus-item::before {
+            content: '✦';
+            color: var(--forest);
+            flex-shrink: 0;
+            margin-top: 0.1rem;
+        }
+
+        .about-kicker {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.35rem 0.75rem;
+            border-radius: 999px;
+            background: rgba(175, 122, 66, 0.10);
+            color: var(--forest);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            margin-bottom: calc(var(--spacing) * 2.5);
+        }
+
+        .about-kicker::before {
+            content: '✦';
+            color: var(--accent);
+            font-size: 0.82rem;
         }
 
         .about-block h3 {
@@ -1743,6 +2169,225 @@
             color: var(--text-secondary);
             line-height: 1.92;
             margin-bottom: calc(var(--spacing) * 3);
+        }
+
+        .about-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: calc(var(--spacing) * 1.25);
+            margin: calc(var(--spacing) * 3) 0 calc(var(--spacing) * 4);
+        }
+
+        .about-trait {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.42rem 0.88rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.78);
+            border: 1px solid rgba(31, 90, 56, 0.10);
+            color: var(--text);
+            font-size: 0.96rem;
+            box-shadow: 0 10px 18px rgba(19, 42, 27, 0.03);
+        }
+
+        .about-side-note {
+            padding: calc(var(--spacing) * 3.25);
+            border-radius: 18px;
+            background: rgba(255, 250, 244, 0.78);
+            border: 1px dashed rgba(175, 122, 66, 0.28);
+            max-width: none;
+        }
+
+        .about-side-note-label {
+            display: inline-block;
+            margin-bottom: calc(var(--spacing) * 1.2);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 0.04em;
+            text-transform: lowercase;
+            color: var(--accent);
+        }
+
+        .about-side-note p {
+            margin-bottom: 0;
+            color: var(--text);
+            line-height: 1.82;
+        }
+
+        .about-narrator {
+            margin-top: calc(var(--spacing) * 1);
+            display: grid;
+            grid-template-columns: 132px minmax(0, 1fr);
+            gap: calc(var(--spacing) * 2.5);
+            align-items: start;
+            max-width: min(980px, 100%);
+        }
+
+        .about-narrator-portrait-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: calc(var(--spacing));
+            animation: portraitFloat 6.4s ease-in-out infinite;
+        }
+
+        .about-narrator-portrait {
+            appearance: none;
+            border: 0;
+            padding: 0;
+            width: 118px;
+            height: 148px;
+            border-radius: 30px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: 0 16px 32px rgba(19, 42, 27, 0.08);
+            cursor: pointer;
+            transform: rotate(-3deg);
+            transition: transform 0.22s ease, box-shadow 0.22s ease;
+        }
+
+        .about-narrator-portrait:hover {
+            transform: rotate(0deg) translateY(-2px);
+            box-shadow: 0 20px 36px rgba(19, 42, 27, 0.12);
+        }
+
+        .about-narrator-portrait:focus-visible {
+            outline: 3px solid rgba(31, 90, 56, 0.24);
+            outline-offset: 3px;
+        }
+
+        .about-narrator-portrait img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .about-narrator-hint {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.76rem;
+            color: var(--accent);
+            letter-spacing: 0.04em;
+            text-transform: lowercase;
+        }
+
+        .about-narrator-bubble {
+            position: relative;
+            padding: calc(var(--spacing) * 3.1);
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.94), rgba(255, 250, 244, 0.88));
+            border: 1px solid rgba(175, 122, 66, 0.14);
+            box-shadow: 0 14px 30px rgba(19, 42, 27, 0.04);
+        }
+
+        .about-narrator-bubble::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 28px;
+            width: 20px;
+            height: 20px;
+            border-left: 1px solid rgba(175, 122, 66, 0.14);
+            border-bottom: 1px solid rgba(175, 122, 66, 0.14);
+            background: rgba(255, 252, 248, 0.96);
+            transform: rotate(45deg);
+        }
+
+        .about-narrator-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: calc(var(--spacing) * 1.4);
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.04em;
+            text-transform: lowercase;
+        }
+
+        .about-narrator-label::before {
+            content: '◌';
+            color: var(--forest);
+        }
+
+        .about-story-text {
+            margin: 0;
+            color: var(--text);
+            line-height: 1.85;
+            min-height: 5.6rem;
+        }
+
+        .about-story-footer {
+            margin-top: calc(var(--spacing) * 2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: calc(var(--spacing) * 2);
+            flex-wrap: wrap;
+        }
+
+        .about-story-title {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.82rem;
+            color: var(--forest);
+            letter-spacing: 0.03em;
+            text-transform: lowercase;
+        }
+
+        .about-story-controls {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--spacing));
+        }
+
+        .about-story-nav {
+            appearance: none;
+            border: 1px solid rgba(31, 90, 56, 0.12);
+            background: rgba(255, 255, 255, 0.88);
+            color: var(--text);
+            width: 2.25rem;
+            height: 2.25rem;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+        }
+
+        .about-story-nav:hover {
+            transform: translateY(-1px);
+            border-color: rgba(31, 90, 56, 0.2);
+            background: rgba(31, 90, 56, 0.06);
+        }
+
+        .about-story-nav:focus-visible {
+            outline: 3px solid rgba(31, 90, 56, 0.24);
+            outline-offset: 2px;
+        }
+
+        .about-story-dots {
+            display: flex;
+            gap: 0.45rem;
+            margin-top: calc(var(--spacing) * 1.6);
+        }
+
+        .about-story-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            border: 0;
+            padding: 0;
+            background: rgba(31, 90, 56, 0.18);
+            cursor: pointer;
+            transition: transform 0.18s ease, background 0.18s ease;
+        }
+
+        .about-story-dot.active {
+            background: var(--accent);
+            transform: scale(1.12);
+        }
+
+        .about-story-dot:focus-visible {
+            outline: 3px solid rgba(31, 90, 56, 0.24);
+            outline-offset: 2px;
         }
 
         .about-block ul {
@@ -1970,6 +2615,17 @@
             border-top: 1px solid rgba(31, 90, 56, 0.08);
         }
 
+        body[data-page="home"] #home .hero-intro,
+        body[data-page="home"] #home .section-block,
+        body[data-page="home"] #home .about-block--intro,
+        body[data-page="home"] #home .home-route {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            scroll-margin-top: 104px;
+            min-height: calc(100svh - 132px);
+            justify-content: center;
+        }
+
         .section-block--soft {
             background: rgba(255, 255, 255, 0.18);
             border: 1px solid rgba(31, 90, 56, 0.04);
@@ -2099,8 +2755,117 @@
             }
         }
 
+        @keyframes livePulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(31, 90, 56, 0.35);
+            }
+            70% {
+                box-shadow: 0 0 0 8px rgba(31, 90, 56, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(31, 90, 56, 0);
+            }
+        }
+
+        @keyframes ambientBloom {
+            0% {
+                transform: translate3d(0, 0, 0) scale(1);
+                opacity: 0.88;
+            }
+            100% {
+                transform: translate3d(-18px, -10px, 0) scale(1.08);
+                opacity: 1;
+            }
+        }
+
+        @keyframes microFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
+        }
+
+        @keyframes noteDrift {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-5px) rotate(-0.45deg);
+            }
+        }
+
+        @keyframes routeCardLift {
+            0% {
+                opacity: 0;
+                transform: translateY(18px) rotate(0.6deg) scale(0.985);
+            }
+            65% {
+                opacity: 1;
+                transform: translateY(-4px) rotate(-0.4deg) scale(1.006);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+        }
+
+        @keyframes routeArrowFloat {
+            0% {
+                opacity: 0;
+                transform: translateX(-10px) translateY(3px);
+            }
+            55% {
+                opacity: 1;
+                transform: translateX(8px) translateY(-2px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) translateY(0);
+            }
+        }
+
+        @keyframes routeSweep {
+            0% {
+                transform: translateX(-115%);
+                opacity: 0;
+            }
+            35% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(118%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes focusCardRise {
+            0% {
+                opacity: 0;
+                transform: translateY(18px) rotate(0.45deg) scale(0.988);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-3px) rotate(-0.3deg) scale(1.004);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+        }
+
+        @keyframes portraitFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
         /* Responsive */
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
             h1 {
                 font-size: 2.2rem;
                 line-height: 1.12;
@@ -2137,12 +2902,27 @@
             .hero-intro {
                 gap: calc(var(--spacing) * 3);
                 justify-content: center;
+                grid-template-columns: 1fr;
+                padding: calc(var(--spacing) * 3);
+                border-radius: 24px;
             }
 
             .hero-photo {
-                width: min(72vw, 280px);
+                width: min(64vw, 240px);
+                max-height: 320px;
                 display: block;
                 margin: 0 auto;
+                grid-column: auto;
+                grid-row: auto;
+            }
+
+            .hero-text {
+                grid-column: auto;
+                grid-row: auto;
+            }
+
+            .hero-side-notes {
+                grid-template-columns: 1fr;
             }
 
             .projects-grid {
@@ -2151,6 +2931,18 @@
 
             .focus-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .home-route-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .academic-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .academic-sidebar {
+                display: none;
             }
 
             .cta-buttons {
@@ -2169,6 +2961,17 @@
 
             .container {
                 padding: 0 calc(var(--spacing) * 4.5);
+            }
+
+            body[data-page="home"] {
+                scroll-snap-type: y proximity;
+            }
+
+            body[data-page="home"] #home .hero-intro,
+            body[data-page="home"] #home .section-block,
+            body[data-page="home"] #home .about-block--intro,
+            body[data-page="home"] #home .home-route {
+                min-height: auto;
             }
 
             section {
@@ -2290,9 +3093,8 @@
             <a href="#home" class="logo" data-page="home">Keming Liu</a>
             <ul>
                 <li><a href="#home" data-page="home">Home</a></li>
-                <li><a href="#projects" data-page="projects">Projects</a></li>
+                <li><a href="#projects" data-page="projects">Academic</a></li>
                 <li><a href="#reflections" data-page="reflections">Reflections</a></li>
-                <li><a href="#about" data-page="about">About</a></li>
                 <li><a href="#contact" data-page="contact">Contact</a></li>
             </ul>
         </div>
@@ -2306,15 +3108,28 @@
                 <div class="hero-text">
                     <h1>
                         <strong>Keming Liu</strong><br>
-                        <span class="hero-role">Computational Neuroscience & Interpretable AI</span>
+                        <span class="hero-role">Computational Neuroscience<br>Interpretable AI</span>
                     </h1>
                     <p class="subtitle">
                         I build pipelines that turn raw neural signals into clear, actionable stories.
                     </p>
+                    <div class="hero-mini-row" aria-label="Current themes">
+                        <span class="hero-mini-pill hero-mini-pill--live">working between signal, behavior, and story</span>
+                        <span class="hero-mini-pill hero-mini-pill--warm">biology + math + design</span>
+                    </div>
                     <div class="cta-buttons">
-                        <a href="#projects" class="btn btn-primary" data-page="projects">View Projects</a>
-                        <a href="#contact" class="btn" data-page="contact">CV on request</a>
+                        <a href="#projects" class="btn btn-primary" data-page="projects">View Academic</a>
                         <a href="#contact" class="btn" data-page="contact">Get in Touch</a>
+                    </div>
+                    <div class="hero-side-notes" aria-label="Quick introduction notes">
+                        <div class="hero-note">
+                            <span class="hero-note-label">what pulls me in</span>
+                            <p>Questions that get sharper when behavior, signal, and interpretation all have to stay in the same frame.</p>
+                        </div>
+                        <div class="hero-note">
+                            <span class="hero-note-label">how I usually work</span>
+                            <p>Clean the analysis, pressure-test the figure, and keep iterating until the story becomes legible.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -2328,61 +3143,129 @@
                 <div class="expertise-grid">
                     <div class="expertise-item">
                         <span class="rule-kicker">01 — Signals</span>
-                        <p>Neural signal processing across LFP, coherence, and phase-amplitude coupling.</p>
+                        <p>I keep returning to neural signals because they sit at the edge of noise and structure, and I like the work of teasing out patterns that are biologically meaningful rather than merely visible.</p>
                     </div>
                     <div class="expertise-item">
                         <span class="rule-kicker">02 — Models</span>
-                        <p>Interpretable machine learning for biological and behavioral data.</p>
+                        <p>I’m most interested in models when they help clarify a question, not just optimize a score, which is why interpretability has become a recurring thread in my work.</p>
                     </div>
                     <div class="expertise-item">
                         <span class="rule-kicker">03 — Workflows</span>
-                        <p>Reproducible research pipelines that scale from laptops to HPC clusters.</p>
+                        <p>I like turning messy analyses into reusable pipelines that can survive new datasets, revised parameters, and the practical realities of moving between local work and HPC environments.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Experience Reel -->
-            <div class="brand-reel reveal section-block--soft" aria-label="Experience reel">
-                <div class="brand-reel-header">
-                    <h3 class="brand-reel-title">Experience Reel</h3>
-                    <p class="brand-reel-subtitle">A rolling strip of moments across labs, classrooms, and hackathons. Hover or tap to pause.</p>
-                </div>
-                <div class="brand-marquee">
-                    <div class="brand-track">
-                        <div class="brand-tile"><img src="images/brand/research_pathways.jpg" alt="Research Pathways" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/yale_healthcare_hackathon.jpg" alt="Yale Healthcare Hackathon" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/mentor.jpg" alt="Mentorship" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/yale_innovation.jpg" alt="Yale Innovation" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/qac.jpg" alt="QAC" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/math.jpg" alt="Math" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/lab_mice.jpg" alt="Lab work" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/summer_symposium.jpg" alt="Summer Symposium" loading="lazy"></div>
-
-                        <!-- Duplicate for seamless loop -->
-                        <div class="brand-tile"><img src="images/brand/research_pathways.jpg" alt="Research Pathways" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/yale_healthcare_hackathon.jpg" alt="Yale Healthcare Hackathon" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/mentor.jpg" alt="Mentorship" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/yale_innovation.jpg" alt="Yale Innovation" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/qac.jpg" alt="QAC" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/math.jpg" alt="Math" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/lab_mice.jpg" alt="Lab work" loading="lazy"></div>
-                        <div class="brand-tile"><img src="images/brand/summer_symposium.jpg" alt="Summer Symposium" loading="lazy"></div>
+            <div class="about-block about-block--intro thread reveal">
+                <div class="about-intro-layout">
+                    <div class="about-main-copy">
+                        <span class="about-kicker">if we are just meeting</span>
+                        <h3>Who I am</h3>
+                        <p>I am a Biology and Mathematics student at Wesleyan, and I tend to get especially attached to questions that become more interesting once data, behavior, and interpretation all have to sit at the same table.</p>
+                        <p>I like building structure out of messy things: signals, figures, half-finished ideas, overfull notebooks. I also learn a little sideways, so research, teaching, art, and design keep wandering into each other and making the whole picture better.</p>
+                        <div class="about-traits" aria-label="Quick traits">
+                            <span class="about-trait">biology + math</span>
+                            <span class="about-trait">data + design</span>
+                            <span class="about-trait">research + art</span>
+                            <span class="about-trait">curious on purpose</span>
+                        </div>
+                    </div>
+                    <div class="about-narrator" aria-label="Mini portrait storyteller">
+                        <div class="about-narrator-portrait-wrap">
+                            <button class="about-narrator-portrait" id="about-story-portrait" type="button" aria-label="Show next story">
+                                <img id="about-story-image" src="assets/cartoon-keming-start.png" alt="Cartoon portrait of Keming Liu">
+                            </button>
+                            <span class="about-narrator-hint">tap for tiny notes</span>
+                        </div>
+                        <div class="about-narrator-bubble">
+                            <span class="about-narrator-label">tiny notes</span>
+                            <p class="about-story-text" id="about-story-text">Hi, this is Keming~ If this is our first time meeting, I think I make more sense in layers than in labels.</p>
+                            <div class="about-story-footer">
+                                <span class="about-story-title" id="about-story-title">01 / start here</span>
+                                <div class="about-story-controls">
+                                    <button class="about-story-nav" type="button" data-story-step="-1" aria-label="Previous story">←</button>
+                                    <button class="about-story-nav" type="button" data-story-step="1" aria-label="Next story">→</button>
+                                </div>
+                            </div>
+                            <div class="about-story-dots" id="about-story-dots" aria-label="Story selector"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Recent Research Projects -->
-            <div class="home-focus reveal section-block">
+            <div class="home-route reveal section-block">
                 <div class="section-text" style="margin-bottom: calc(var(--spacing) * 2);">
-                    <h3 class="home-panel-title">Recent Research Projects</h3>
+                    <h3 class="home-panel-title">Two Views</h3>
+                </div>
+                <div class="home-route-grid">
+                    <a href="#projects" class="home-route-card home-route-card--professional" data-page="projects">
+                        <span class="home-route-label">academic lens</span>
+                        <h3>Research, past training, and technical direction</h3>
+                        <p>The academic side holds the work itself: research projects, technical training, and the questions I keep returning to.</p>
+                    </a>
+                    <a href="#reflections" class="home-route-card home-route-card--human" data-page="reflections">
+                        <span class="home-route-label">personal lens</span>
+                        <h3>Reflections, art, teaching, and temperament</h3>
+                        <p>The reflections side shows the habits around the work: teaching, art, attention, and the ways I keep perspective.</p>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="page-section">
+        <div class="container">
+            <h2>Academic</h2>
+            <p class="section-intro">I study questions at the intersection of neural signals, behavior, and interpretation. My work combines computational neuroscience, interpretable machine learning, and reproducible pipeline-building across lab and training environments.</p>
+
+            <div class="academic-layout">
+                <div class="academic-main">
+
+            <div id="academic-focus" class="section-block reveal academic-anchor">
+                <h3 class="home-panel-title">Research Focus</h3>
+                <div class="expertise-grid">
+                    <div class="expertise-item">
+                        <span class="rule-kicker">01 — neural signals</span>
+                        <p>I am especially interested in analyses that keep neural dynamics tied to behavior, rather than treating signal processing as a detached technical exercise.</p>
+                    </div>
+                    <div class="expertise-item">
+                        <span class="rule-kicker">02 — interpretable models</span>
+                        <p>I care about models most when they help clarify what is being learned, which is why interpretability has become central rather than optional in my ML work.</p>
+                    </div>
+                    <div class="expertise-item">
+                        <span class="rule-kicker">03 — reproducible workflows</span>
+                        <p>A recurring part of my work is turning messy analysis into reusable structure: cleaner code, better figures, and pipelines that remain legible when the question evolves.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="academic-direction" class="home-highlight section-block reveal academic-anchor" style="padding: calc(var(--spacing) * 6);">
+                <div class="section-split">
+                    <img src="images/seeking_opportunities.jpg"
+                         alt="Cartoon illustration for research direction"
+                         style="flex-shrink: 0;">
+                    <div>
+                        <span class="rule-kicker">Research Direction</span>
+                        <h3 style="font-size: 1.25rem; font-weight: 400; margin-bottom: calc(var(--spacing) * 2); color: var(--text);">Research Direction</h3>
+                        <p style="line-height: 1.85; margin-bottom: calc(var(--spacing) * 3); max-width: 52ch;">I’m most drawn to research that connects neural data, behavior, and interpretation, especially when the analysis itself becomes part of the scientific question rather than just a way of presenting the answer.</p>
+                        <p style="font-size: 1.05rem; color: var(--text-secondary);">Biology and Mathematics at Wesleyan • moving toward graduate work in computational neuroscience</p>
+                    </div>
+                </div>
+            </div>
+
+            <div id="academic-selected" class="home-focus reveal section-block academic-anchor">
+                <div class="section-text" style="margin-bottom: calc(var(--spacing) * 2);">
+                    <h3 class="home-panel-title">Selected Research</h3>
                 </div>
                 <div class="focus-grid">
                     <a href="#projects" class="focus-card-link" data-focus-project="creativity">
                         <div class="focus-card">
-                            <span class="playful-note">✦ linguistic x-ray</span>
+                            <span class="playful-note">✦ interpretability</span>
                             <h3>Interpretable ML for Creativity</h3>
                             <p class="mono home-focus-meta">Laverghetta Lab, Wesleyan</p>
-                            <p>SHAP and LOFO pipelines on HPC clusters for transformer models. Token-level attribution to identify linguistic drivers of creativity scores.</p>
+                            <p>Interpretability pipelines for creativity models using SHAP and LOFO to examine which signals remain meaningful and which may be artifact.</p>
                             <div class="mini-chart mini-chart--creativity">
                                 <div class="mini-bar"></div>
                                 <div class="mini-bar"></div>
@@ -2392,10 +3275,10 @@
                     </a>
                     <a href="#projects" class="focus-card-link" data-focus-project="motor">
                         <div class="focus-card">
-                            <span class="playful-note">✦ tiny spikes, big opinions</span>
+                            <span class="playful-note">✦ decoding</span>
                             <h3>Motor Intention Decoding</h3>
-                            <p class="mono home-focus-meta">Neuromatch Academy & Personal Projects</p>
-                            <p>LSTM motor decoding, CRNN audio classification, Steinmetz Neuropixels analysis with PyTorch architectures.</p>
+                            <p class="mono home-focus-meta">Neuromatch Academy & Independent Work</p>
+                            <p>LSTM-based decoding of left-right movement intention from cortical spike-train data, developed in PyTorch.</p>
                             <div class="mini-chart mini-chart--motor">
                                 <div class="mini-bar"></div>
                                 <div class="mini-bar"></div>
@@ -2405,10 +3288,10 @@
                     </a>
                     <a href="#projects" class="focus-card-link" data-focus-project="vta-pfc">
                         <div class="focus-card">
-                            <span class="playful-note">✦ circuit drama</span>
+                            <span class="playful-note">✦ signals & behavior</span>
                             <h3>Neural Oscillation and Social Interaction</h3>
                             <p class="mono home-focus-meta">Melón Lab, Wesleyan</p>
-                            <p>Built end-to-end pipelines for PSD, coherence, PAC, and Granger causality. Discovered ethanol-induced theta-gamma coupling changes during social behavior.</p>
+                            <p>Event-aligned LFP analysis of VTA-PFC coordination using PSD, coherence, PAC, and Granger causality in the context of social behavior and ethanol exposure.</p>
                             <div class="mini-chart mini-chart--vta">
                                 <div class="mini-bar"></div>
                                 <div class="mini-bar"></div>
@@ -2419,28 +3302,181 @@
                 </div>
             </div>
 
-            <!-- What I'm Looking For -->
-            <div class="home-highlight section-block reveal" style="padding: calc(var(--spacing) * 6);">
-                <div class="section-split">
-                    <img src="images/seeking_opportunities.jpg"
-                         alt="Cartoon illustration for research opportunities"
-                         style="flex-shrink: 0;">
-                    <div>
-                        <span class="rule-kicker">Looking Ahead</span>
-                        <h3 style="font-size: 1.25rem; font-weight: 400; margin-bottom: calc(var(--spacing) * 2); color: var(--text);">Seeking Research Opportunities</h3>
-                        <p style="line-height: 1.85; margin-bottom: calc(var(--spacing) * 3); max-width: 52ch;">I'm seeking research assistant or internship opportunities in computational neuroscience and AI-for-biology — especially projects combining neural data, behavior, and interpretability.</p>
-                        <p style="font-size: 1.05rem; color: var(--text-secondary);">Graduating May 2027 • Planning graduate school in computational neuroscience</p>
-                    </div>
+            <div id="academic-background" class="timeline-section reveal academic-anchor" style="margin-top: calc(var(--spacing) * 6);">
+                <h3>Research and Training Background</h3>
+                <p class="section-intro" style="margin-bottom: calc(var(--spacing) * 4); max-width: 62ch;">This is the path behind the current work: lab placements, training programs, and the environments where I learned to move between experimental detail, analysis, and research communication.</p>
+                <div class="timeline-themes">
+                    <details class="timeline-theme reveal" open>
+                        <summary class="timeline-theme-title">
+                            <img src="images/icons/icon_research.png" alt="Research icon" style="width:18px;height:18px;margin-right:8px;vertical-align:middle;">
+                            Research
+                        </summary>
+                        <div class="timeline">
+                            <div class="timeline-node" data-node="7">
+                                <div class="node-header">
+                                    <div class="node-year">Mar 2022 to Oct 2022</div>
+                                    <div class="node-title">Zhuang Lab | Nanjing University</div>
+                                    <div class="node-summary">Mouse stress model, behavioral assays, and ROS analysis linking capsaicin treatment to reduced anxiety-like behavior.</div>
+                                </div>
+                                <div class="node-detail">
+                                    <div class="node-detail-inner">
+                                        <strong>Project: Remission of anxiety by Capsaicin treatment</strong><br>
+                                        Established a 21-day chronic restraint stress mouse model and conducted behavioral assays (Elevated Plus Maze, Open Field Test) to evaluate the anxiolytic effects of capsaicin. Performed ROS fluorescence analysis of brain tissue and applied ANOVA and t-tests (GraphPad Prism) to link anxiety-like behavior improvement with reduced oxidative stress. Presented research findings at the Jiangsu K-12 Education Conference, communicating results to a provincial-level audience.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-node" data-node="8">
+                                <div class="node-header">
+                                    <div class="node-year">Jul to Aug 2023</div>
+                                    <div class="node-title">Pu Lab | Chinese Academy of Sciences</div>
+                                    <div class="node-summary">Wet-lab training in gene editing workflows, including plasmid construction and purification.</div>
+                                </div>
+                                <div class="node-detail">
+                                    <div class="node-detail-inner">
+                                        Interned at the Gene Editing &amp; Functional Screening Lab in Shanghai. Assisted in conducting experiments and acquiring laboratory techniques, including plasmid construction and purification, which enhanced my understanding of gene editing.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-node" data-node="9">
+                                <div class="node-header">
+                                    <div class="node-year">Mar to Jul 2024</div>
+                                    <div class="node-title">Mandalaywala Lab | Boston University</div>
+                                    <div class="node-summary">Participant interviews and mixed qualitative-quantitative data work for developmental social cognition research.</div>
+                                </div>
+                                <div class="node-detail">
+                                    <div class="node-detail-inner">
+                                        Recruited 50+ participants and conducted interviews for a study on beliefs about social mobility in young children. Checked and analyzed qualitative and quantitative data from interviews to contribute to research insights.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-node" data-node="10">
+                                <div class="node-header">
+                                    <div class="node-year">Mar 2025 to Present</div>
+                                    <div class="node-title">Melón Lab | VTA-PFC Oscillations</div>
+                                    <div class="node-summary">LFP pipeline-building across PSD, PAC, coherence, and Granger causality to study social behavior and ethanol effects.</div>
+                                </div>
+                                <div class="node-detail">
+                                    <div class="node-detail-inner">
+                                        <strong>Project: Statistical Approaches for Neural Oscillation and Social Behavior Analysis in the VTA</strong><br>
+                                        Analyzed VTA-PFC LFP signals using time-series methods, coherence, phase-amplitude coupling, and Granger causality to link circuit dynamics with social behavior and ethanol intake. Integrated behavioral segmentation with neural data and mixed-effects models to examine directional connectivity and individual variability in affect-modulated circuit communication. Presented at Summer Symposium 2025 and Research Pathway 2026 to over 200 students.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-node" data-node="11">
+                                <div class="node-header">
+                                    <div class="node-year">Sept 2025 to Present</div>
+                                    <div class="node-title">Laverghetta Lab | Interpretable ML for Creativity</div>
+                                    <div class="node-summary">SHAP and LOFO interpretability pipelines on HPC systems to test what creativity models are actually learning.</div>
+                                </div>
+                                <div class="node-detail">
+                                    <div class="node-detail-inner">
+                                        <strong>Project: Disentangling Creativity Measurement from Statistical Artifacts in Machine Learning Models</strong><br>
+                                        Building SHAP- and LOFO-based interpretability pipelines on HPC clusters to evaluate feature importance, model robustness, and sensitivity in creativity prediction models. Performing token-level and feature-level attribution analyses across ensemble and transformer architectures to identify linguistic patterns driving creativity scores. Selected to present an overview in March 2026 at Data Insights, a student-speaker series at Wesleyan.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    <details class="timeline-theme reveal">
+                        <summary class="timeline-theme-title">
+                            <img src="images/icons/icon_training.png" alt="Training and education icon" style="width:18px;height:18px;margin-right:8px;vertical-align:middle;">
+                            Training &amp; Education
+                        </summary>
+                        <div class="timeline">
+                            <div class="timeline-node" data-node="12">
+                                <div class="node-header">
+                                    <div class="node-year">Aug 2024 to Present</div>
+                                    <div class="node-title">Started at Wesleyan University</div>
+                                    <div class="node-summary">Accelerated Biology and Mathematics training with coursework spanning neurobiology, bioinformatics, and higher mathematics.</div>
+                                </div>
+                                <div class="node-detail">
+                                    <div class="node-detail-inner">
+                                        Bachelor of Arts in Biology and Mathematics on an accelerated 3-year path to graduate in May 2027. <strong>Scholarships:</strong> QAC Apprenticeship (Wesleyan), AFS Global STEM Academies Full Scholarship, Yingcai Program (Youth Talent, Nanjing University). Relevant coursework: Discrete Mathematics, Topology, Vectors and Matrices, Multivariable Calculus, Abstract Algebra, Math in Quantum Computing, Hormones, Brain, and Behavior, Bioinformatics, Principles of Biology I &amp; II, General Chemistry I &amp; II, Behavioral Neurobiology.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-node" data-node="13">
+                                <div class="node-header">
+                                    <div class="node-year">Jul 2025</div>
+                                    <div class="node-title">Neuromatch Academy | Deep Learning Scholar</div>
+                                    <div class="node-summary">Intensive deep learning training culminating in LSTM-based motor-intention decoding on cortical recordings.</div>
+                                </div>
+                                <div class="node-detail">
+                                    <div class="node-detail-inner">
+                                        Completed an intensive, project-based deep learning curriculum covering optimization, CNNs, RNNs, attention/transformers, self-supervised learning, and reinforcement learning. Built and optimized neural network models in PyTorch with backpropagation, regularization, and batch normalization. Developed a motor-intention decoding pipeline with an international peer cohort, training LSTM-based recurrent networks to predict left/right movement decisions from MOp/MOs cortical spike trains.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-node" data-node="14">
+                                <div class="node-header">
+                                    <div class="node-year">Sept 2025 to Present</div>
+                                    <div class="node-title">AI4ALL Ignite | Student Trainee</div>
+                                    <div class="node-summary">CRNN-based cough classification with MFCC preprocessing, evaluation, and bias-aware model analysis.</div>
+                                </div>
+                                <div class="node-detail">
+                                    <div class="node-detail-inner">
+                                        Developed a COVID-19 cough classification model from raw audio using Python and a CRNN network, including preprocessing (noise reduction, MFCC extraction), feature engineering, and k-fold cross-validation. Analyzed model performance with ROC-AUC, PR-AUC, confusion matrices, F1-optimized thresholds; implemented data-imbalance handling and bias-mitigation. Collaborated with peers and mentors using GitHub version control, Agile project planning (SMART goals, RACI charts), and weekly workshops on CV, NLP, statistical models, and AI governance.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="timeline-node" data-node="15">
+                                <div class="node-header">
+                                    <div class="node-year">May 2027</div>
+                                    <div class="node-title">Graduation & Beyond</div>
+                                    <div class="node-summary">Preparing for graduate study in computational neuroscience with an emphasis on neural data, behavior, and interpretability.</div>
+                                </div>
+                                <div class="node-detail">
+                                    <div class="node-detail-inner">
+                                        Graduating in May 2027. I am interested in graduate work that keeps neural data, behavior, and interpretability in the same frame.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="page-section">
-        <div class="container">
-            <h2>Projects</h2>
-            
+            <div id="academic-methods" class="about-block thread reveal section-block academic-anchor">
+                <h3>Methods and Training</h3>
+                <div style="padding-top: calc(var(--spacing) * 2);">
+                    <h4 style="font-size: inherit; font-weight: 400; margin-bottom: calc(var(--spacing) * 3); color: var(--forest);">Research Toolkit</h4>
+                    <dl class="skill-rows">
+                        <div class="skill-row">
+                            <dt>Signal Analysis</dt>
+                            <dd>LFP and spike-train analysis, oscillation metrics (PSD, PAC, coherence, Granger causality), event-based epoching, and time-frequency workflows across MATLAB, Brainstorm, and Python.</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Modeling &amp; Interpretability</dt>
+                            <dd>Deep learning across MLP/CNN/RNN/LSTM settings, SHAP and LOFO attribution, representation analysis, model uncertainty, and evaluation focused on what the model is actually learning.</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Programming &amp; Compute</dt>
+                            <dd>Python (NumPy, Pandas, PyTorch, SciPy, scikit-learn, HuggingFace, TensorFlow), MATLAB, Brainstorm, R, and HPC workflows on Slurm-based systems.</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Experimental Context</dt>
+                            <dd>Neurophysiology in VTA-PFC circuits, molecular biology methods including IHC and confocal imaging, brain slicing, and behavioral assays that connect experimental manipulation to interpretable outcomes.</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Scientific Communication</dt>
+                            <dd>Scientific graphics as information design, BioRender, Adobe Illustrator, poster and slide design, and presentations built to make complex analysis legible to mixed audiences.</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Languages</dt>
+                            <dd>Fluent in English and Chinese</dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+
+            <div id="academic-more" class="academic-anchor">
+            <div class="section-block reveal">
+                <div class="section-text" style="margin-bottom: calc(var(--spacing) * 2);">
+                    <h3 class="home-panel-title">Additional Work</h3>
+                    <p class="section-intro" style="margin-bottom: 0; max-width: 58ch;">A broader set of projects across computational neuroscience, ML, and computational biology. These are useful for seeing range; the selected work above is the strongest summary of where I am heading.</p>
+                </div>
+            </div>
+
             <div class="project-filters">
                 <button class="filter-tag active" data-filter="all">All</button>
                 <button class="filter-tag" data-filter="neuro">Neuro</button>
@@ -2459,7 +3495,6 @@
                         <span class="tag">PAC</span>
                         <span class="tag">Python</span>
                     </div>
-                    <p class="project-card-fun">Reads like a neuroscience paper, behaves a little like detective fiction.</p>
                 </div>
 
                 <div class="project-card reveal" data-categories="ml python" data-project="creativity">
@@ -2471,7 +3506,6 @@
                         <span class="tag">NLP</span>
                         <span class="tag">Python</span>
                     </div>
-                    <p class="project-card-fun">Essentially asking the model to explain itself before it gets too confident.</p>
                 </div>
 
                 <div class="project-card reveal" data-categories="ml python" data-project="covid">
@@ -2483,7 +3517,6 @@
                         <span class="tag">CRNN</span>
                         <span class="tag">Python</span>
                     </div>
-                    <p class="project-card-fun">A cough, but with feature engineering and considerably more paperwork.</p>
                 </div>
 
                 <div class="project-card reveal" data-categories="neuro ml python compbio" data-project="motor">
@@ -2496,7 +3529,6 @@
                         <span class="tag">LSTM</span>
                         <span class="tag">PyTorch</span>
                     </div>
-                    <p class="project-card-fun">Trying to hear a decision forming before the body says it out loud.</p>
                 </div>
 
                 <div class="project-card reveal" data-categories="neuro" data-project="capsaicin">
@@ -2508,7 +3540,6 @@
                         <span class="tag">IHC</span>
                         <span class="tag">ANOVA</span>
                     </div>
-                    <p class="project-card-fun">Part mouse study, part “what if spice had a neuroscience subplot?”</p>
                 </div>
 
                 <div class="project-card reveal" data-categories="python compbio" data-project="boolean">
@@ -2519,22 +3550,36 @@
                         <span class="tag">Python</span>
                         <span class="tag">Simulation</span>
                     </div>
-                    <p class="project-card-fun">A reminder that even binary systems can still be dramatic.</p>
                 </div>
+            </div>
+            </div>
+                </div>
+
+                <aside class="academic-sidebar" aria-label="Academic page sections">
+                    <span class="academic-sidebar-title">On this page</span>
+                    <div class="academic-sidebar-nav">
+                        <button class="academic-sidebar-link active" type="button" data-academic-target="academic-focus">Research Focus</button>
+                        <button class="academic-sidebar-link" type="button" data-academic-target="academic-direction">Research Direction</button>
+                        <button class="academic-sidebar-link" type="button" data-academic-target="academic-selected">Selected Research</button>
+                        <button class="academic-sidebar-link" type="button" data-academic-target="academic-background">Background</button>
+                        <button class="academic-sidebar-link" type="button" data-academic-target="academic-methods">Methods</button>
+                        <button class="academic-sidebar-link" type="button" data-academic-target="academic-more">Additional Work</button>
+                    </div>
+                </aside>
             </div>
         </div>
     </section>
 
     <!-- Project Detail Modals -->
     <div id="project-vta-pfc" class="project-detail">
-        <button class="close-btn" >← Back to Projects</button>
+        <button class="close-btn" >← Back to Academic</button>
         <div class="project-content">
             <h1>Neural Oscillation and Social Interaction</h1>
             
             <div class="highlight-box">
                 <p><strong>Problem:</strong> How does ethanol alter VTA-PFC neural coordination during social interaction?</p>
                 <p><strong>Approach:</strong> Built end-to-end pipelines for PSD, coherence, PAC, and Granger causality on LFP signals.</p>
-                <p><strong>Result:</strong> Discovered ethanol-induced changes in theta-gamma coupling and cross-region interactions.</p>
+                <p><strong>Result:</strong> The analysis surfaced changes in theta-gamma coupling and cross-region interactions that were worth following more carefully.</p>
             </div>
 
             <img src="images/projects/VTA/lab_scene.jpg"
@@ -2560,7 +3605,8 @@
             </ul>
 
             <h4>Key Findings</h4>
-            <p class="mono">Integrated behavioral segmentation with neural data to examine directional connectivity and individual variability in affect-modulated circuit communication. Presented findings at Summer Symposium 2025 and Research Pathway 2026 to over 200 students.</p>
+            <p class="mono">Integrated behavioral segmentation with neural data to examine directional connectivity and individual variability in affect-modulated circuit communication. Shared this work at Summer Symposium 2025 and Research Pathway 2026.</p>
+            <p>What made this work especially interesting was that integrating behavior with neural analyses required more than stacking methods together; I had to keep revising the pipeline so the metrics remained interpretable in the context of the experiment rather than drifting into abstraction.</p>
 
             <embed src="images/projects/VTA/poster.pdf"
                    type="application/pdf"
@@ -2580,7 +3626,7 @@
     </div>
 
     <div id="project-creativity" class="project-detail">
-        <button class="close-btn" >← Back to Projects</button>
+        <button class="close-btn" >← Back to Academic</button>
         <div class="project-content">
             <h1>Interpretable ML for Creativity</h1>
             
@@ -2624,18 +3670,18 @@
 
             <h4>Interactive SHAP example</h4>
             <p class="shap-sentence" id="shap-sentence-example">
-                <span class="shap-token" data-shap="+0.48">Make</span>
-                <span class="shap-token" data-shap="+0.40">the</span>
-                <span class="shap-token" data-shap="+0.53">logo</span>
-                <span class="shap-token" data-shap="+0.35">pink</span>
-                <span class="shap-token" data-shap="+0.25">and</span>
-                <span class="shap-token" data-shap="+0.43">sparkly</span>
-                <span class="shap-token" data-shap="0">then</span>
-                <span class="shap-token" data-shap="+0.12">the</span>
-                <span class="shap-token" data-shap="+0.03">company</span>
-                <span class="shap-token" data-shap="-0.14">will</span>
-                <span class="shap-token" data-shap="0">be</span>
-                <span class="shap-token" data-shap="-0.40">successful</span>.
+                <span class="shap-token" data-shap="+0.48">A</span>
+                <span class="shap-token" data-shap="+0.40">novel</span>
+                <span class="shap-token" data-shap="+0.53">response</span>
+                <span class="shap-token" data-shap="+0.35">can</span>
+                <span class="shap-token" data-shap="+0.25">feel</span>
+                <span class="shap-token" data-shap="+0.43">precise</span>
+                <span class="shap-token" data-shap="0">without</span>
+                <span class="shap-token" data-shap="+0.12">becoming</span>
+                <span class="shap-token" data-shap="+0.03">too</span>
+                <span class="shap-token" data-shap="-0.14">easy</span>
+                <span class="shap-token" data-shap="0">to</span>
+                <span class="shap-token" data-shap="-0.40">predict</span>.
             </p>
             <div class="shap-panel">
                 <div class="shap-panel-line">
@@ -2663,7 +3709,8 @@
             </ul>
 
             <h4>Impact</h4>
-            <p class="mono">Selected to present an overview at Data Insights in March 2026, a student-speaker series at Wesleyan University, demonstrating the project's methodological rigor and relevance to the broader research community.</p>
+            <p class="mono">Presented an overview at Data Insights in March 2026, a student-speaker series at Wesleyan University.</p>
+            <p>What changed in my thinking during this project was that interpretability stopped feeling like a secondary add-on; it became the main way to tell whether the model was actually learning something meaningful.</p>
 
             <h4>Reproducibility</h4>
             <ul>
@@ -2678,14 +3725,14 @@
     </div>
 
     <div id="project-covid" class="project-detail">
-        <button class="close-btn" >← Back to Projects</button>
+        <button class="close-btn" >← Back to Academic</button>
         <div class="project-content">
             <h1>COVID-19 Cough Classification</h1>
             
             <div class="highlight-box">
-                <p><strong>Problem:</strong> Can raw audio cough data reliably distinguish COVID-19 positive cases?</p>
+                <p><strong>Problem:</strong> How far can cough-audio features support exploratory classification of COVID-19 status in a research setting?</p>
                 <p><strong>Approach:</strong> CRNN architecture with MFCC features, dataset balancing, and uncertainty analysis.</p>
-                <p><strong>Result:</strong> Achieved robust classification with optimized feature representations and model uncertainty quantification.</p>
+                <p><strong>Result:</strong> Built an exploratory classifier and examined how feature choice, imbalance, and uncertainty shaped performance.</p>
             </div>
 
             <h4>My Role</h4>
@@ -2727,6 +3774,7 @@
 
             <h4>Key Learnings</h4>
             <p class="mono">Analyzed model performance using confusion matrices and F1-optimized thresholds. Collaborated with peers and mentors through GitHub version control and Agile project planning (SMART goals, RACI charts). Participated in weekly workshops covering CV, NLP, statistical models, and AI governance.</p>
+            <p>One challenge here was learning not to trust early performance at face value; the more time I spent with the data, the more I had to think about imbalance, uncertainty, and whether the representation was carrying medically relevant information or convenient artifacts.</p>
 
             <h4>Reproducibility</h4>
             <ul>
@@ -2736,19 +3784,19 @@
             </ul>
 
             <h4>Next Steps & Reflection</h4>
-            <p>This project taught me the importance of addressing data imbalance and bias in healthcare ML applications. The combination of acoustic feature engineering and deep learning opened my eyes to the broader potential of AI in medical diagnostics.</p>
+            <p>This project made me more careful about data imbalance, bias, and the difference between a promising model and a clinically meaningful one.</p>
         </div>
     </div>
 
     <div id="project-motor" class="project-detail">
-        <button class="close-btn" >← Back to Projects</button>
+        <button class="close-btn" >← Back to Academic</button>
         <div class="project-content">
             <h1>Motor Intention Decoding</h1>
             
             <div class="highlight-box">
                 <p><strong>Problem:</strong> Can we predict movement intention from pre-motor cortical activity?</p>
                 <p><strong>Approach:</strong> LSTM-based recurrent networks on MOp/MOs spike trains.</p>
-                <p><strong>Result:</strong> Successfully decoded left/right movement decisions from neural activity patterns.</p>
+                <p><strong>Result:</strong> Built an LSTM-based decoder for left/right movement decisions from neural activity.</p>
             </div>
 
             <h4>My Role</h4>
@@ -2769,6 +3817,7 @@
 
             <h4>Training Context</h4>
             <p class="mono">Completed through Neuromatch Academy (Jul 2025), an intensive deep learning curriculum covering optimization, CNNs, RNNs, attention/transformers, self-supervised learning, and reinforcement learning. Built and optimized neural networks using modern optimization algorithms and architectural innovations.</p>
+            <p>What kept me engaged was that decoding intention from temporal neural activity required thinking simultaneously about model design, data structure, and the timing of the behavior itself, rather than treating prediction as a purely engineering problem.</p>
 
             <img src="images/projects/LSTM/flow_chart.png"
                  alt="Flow chart of LSTM-based motor intention decoding pipeline"
@@ -2790,19 +3839,19 @@
             </ul>
 
             <h4>Next Steps & Reflection</h4>
-            <p>This project demonstrated the power of recurrent architectures for temporal neural data. I'm interested in extending this approach to more naturalistic behavioral paradigms and exploring how attention mechanisms might improve decoding of complex motor sequences.</p>
+            <p>This project sharpened my interest in temporal neural data and in models that stay close to the structure of the behavior they are trying to decode.</p>
         </div>
     </div>
 
     <div id="project-capsaicin" class="project-detail">
-        <button class="close-btn" >← Back to Projects</button>
+        <button class="close-btn" >← Back to Academic</button>
         <div class="project-content">
             <h1>Capsaicin Anxiolytic Effects</h1>
             
             <div class="highlight-box">
                 <p><strong>Problem:</strong> Can capsaicin treatment reduce anxiety-like behavior in chronically stressed mice?</p>
                 <p><strong>Approach:</strong> 21-day chronic restraint stress model with behavioral assays and oxidative stress markers.</p>
-                <p><strong>Result:</strong> Capsaicin treatment improved anxiety-like behavior and reduced brain oxidative stress.</p>
+                <p><strong>Result:</strong> The study examined whether capsaicin treatment was associated with reduced anxiety-like behavior and oxidative stress markers.</p>
             </div>
 
             <h4>My Role</h4>
@@ -2822,7 +3871,8 @@
             </ul>
 
             <h4>Key Findings</h4>
-            <p class="mono">Demonstrated correlation between anxiety-like behavior improvement and reduced oxidative stress markers in brain tissue. Results suggest capsaicin's anxiolytic effects may be mediated through antioxidant mechanisms.</p>
+            <p class="mono">Observed a relationship between anxiety-like behavior improvement and reduced oxidative stress markers in brain tissue, suggesting one possible antioxidant pathway worth examining further.</p>
+            <p>This project taught me early that careful experimental design matters most when the result is not guaranteed to be clean; the interpretation only became convincing when the behavioral and biochemical pieces could speak to each other.</p>
 
             <h4>Dissemination</h4>
             <ul>
@@ -2837,18 +3887,6 @@
                  data-story="Presenting my first full animal-behavior project in front of a large audience.">
             <p class="reflection-caption">Presenting my work at the Jiangsu K-12 Education Conference as the Yingcai Program student representative.</p>
 
-            <img src="images/projects/capsaicin/reported.JPG"
-                 alt="News coverage of high school student research"
-                 class="project-media"
-                 data-story="CCTV coverage introducing me as a high school student doing research in a university lab.">
-            <p class="reflection-caption">Featured on China Central Television (CCTV) as a high school student conducting research in a university lab.</p>
-
-            <img src="images/projects/capsaicin/as_example.JPG"
-                 alt="Example poster highlighted in Zhuang Lab"
-                 class="project-media"
-                 data-story="Zhuang Lab uses this poster as an example for future high school research students.">
-            <p class="reflection-caption">Highlighted in Zhuang Lab as an example of outstanding research by a high school student.</p>
-
             <h4>Reproducibility</h4>
             <ul>
                 <li><strong>Lab:</strong> Zhuang Lab, Nanjing University (Mar 2022 to Oct 2022)</li>
@@ -2862,14 +3900,14 @@
     </div>
 
     <div id="project-boolean" class="project-detail">
-        <button class="close-btn" >← Back to Projects</button>
+        <button class="close-btn" >← Back to Academic</button>
         <div class="project-content">
             <h1>Boolean Genetic Networks</h1>
             
             <div class="highlight-box">
                 <p><strong>Problem:</strong> How sensitive are genetic regulatory networks to mutations across different attractor states?</p>
                 <p><strong>Approach:</strong> Simulated Kauffman Boolean networks with mutation sensitivity analysis on local machines.</p>
-                <p><strong>Result:</strong> Revealed attractor-dependent vulnerability patterns and explored computational trade-offs for larger simulations.</p>
+                <p><strong>Result:</strong> Explored attractor-dependent vulnerability patterns and the computational trade-offs involved in scaling the simulations.</p>
             </div>
 
             <h4>My Role</h4>
@@ -2885,6 +3923,7 @@
                 <button class="btn" id="boolean-heatmap-run">Simulate mutation cascade</button>
             </div>
             <div class="boolean-heatmap" id="boolean-heatmap"></div>
+            <p>What I found compelling here was how quickly a simple model can become difficult to reason about at scale, which made computational efficiency and conceptual clarity feel like part of the same problem.</p>
 
             <h4>Methods & Tools</h4>
             <ul>
@@ -2911,54 +3950,61 @@
     <section id="reflections" class="page-section">
         <div class="container">
             <h2>Personal Reflections</h2>
+            <p class="section-intro">This is where the rest of the texture lives: teaching, art, overfull calendars, and the quieter habits of attention that shape how I work even when I am nowhere near a dataset.</p>
 
             <div class="research-section">
                 <div class="writing-item clickable-card reveal" data-modal="modal-writing-pipelines">
                     <div class="writing-text">
-                        <h4>Mastering Machine</h4>
-                        <p>Turning messy neural signals into reproducible, interpretable evidence across VTA-PFC projects.</p>
+                        <span class="reflection-mood">lab brain, tidy hands</span>
+                        <h4>The Part Where the Mess Starts Making Sense</h4>
+                        <p>I like the moment when noisy data stops feeling intimidating and starts revealing a pattern you can actually trust.</p>
                     </div>
-                    <img src="images/reflections/mastering-machine-1.jpg" alt="Mastering Machine reflection" class="reflection-thumb">
+                    <img src="images/reflections/mastering-machine-1.jpg" alt="Reflection on making sense of complex questions" class="reflection-thumb">
                 </div>
 
                 <div class="writing-item clickable-card reveal" data-modal="modal-writing-drawing">
                     <div class="writing-text">
-                        <h4>Arts in the Flow</h4>
-                        <p>Letting go of perfectionism in art and music to rediscover creative flow.</p>
+                        <span class="reflection-mood">less grip, more flow</span>
+                        <h4>Learning to Loosen My Grip</h4>
+                        <p>Art and music keep teaching me the same lesson: sometimes things get better the second I stop squeezing them so hard.</p>
                     </div>
                     <img src="images/reflections/arts-in-the-flow-1.jpg" alt="Arts in the Flow reflection" class="reflection-thumb">
                 </div>
 
                 <div class="writing-item clickable-card reveal" data-modal="modal-writing-teaching">
                     <div class="writing-text">
-                        <h4>Where Teaching Becomes Learning</h4>
-                        <p>Mentoring across calculus, biology, and global STEM programs as a catalyst for my own growth.</p>
+                        <span class="reflection-mood">explaining helps me think</span>
+                        <h4>Teaching, Then Learning Twice</h4>
+                        <p>Every time I help someone untangle an idea, I end up understanding it more deeply myself.</p>
                     </div>
                     <img src="images/reflections/where-teaching-becomes-learning-1.jpg" alt="Where Teaching Becomes Learning reflection" class="reflection-thumb">
                 </div>
 
                 <div class="writing-item clickable-card reveal" data-modal="modal-writing-leadership">
                     <div class="writing-text">
-                        <h4>Emotional Stability as Operational Efficiency</h4>
-                        <p>Staying calm under pressure, debugging labs and projects while keeping teammates steady.</p>
+                        <span class="reflection-mood">calm is useful</span>
+                        <h4>Keeping the Room Steady</h4>
+                        <p>One thing I do well is stay clear-headed when something breaks, so the problem gets smaller instead of the panic getting bigger.</p>
                     </div>
-                    <img src="images/reflections/teaching_scene.jpg" alt="Leadership and teaching scene" class="reflection-thumb">
+                    <img src="images/reflections/where-teaching-becomes-learning-2.jpg" alt="Leadership and teaching reflection" class="reflection-thumb">
                 </div>
 
                 <div class="writing-item clickable-card reveal" data-modal="modal-writing-multitask">
                     <div class="writing-text">
-                        <h4>Living Multitasked, Living Alive</h4>
-                        <p>How an overload of classes, labs, work, and art turned multitasking into my default rhythm for learning.</p>
+                        <span class="reflection-mood">many tabs open</span>
+                        <h4>Learning My Own Rhythm</h4>
+                        <p>I seem to do well when several lines of thought are open at once, as long as they still add up to a shape I can trust.</p>
                     </div>
                     <img src="images/reflections/mastering-machine-2.jpg" alt="Multitasking reflection" class="reflection-thumb">
                 </div>
 
                 <div class="writing-item clickable-card reveal" data-modal="modal-writing-art">
                     <div class="writing-text">
-                        <h4>When Art Sharpens Scientific Vision</h4>
-                        <p>How drawing, philosophy, and art history refine the way I read and design scientific stories.</p>
+                        <span class="reflection-mood">noticing is a skill</span>
+                        <h4>Art Makes Me Notice More</h4>
+                        <p>Drawing and philosophy have quietly changed how I look at figures, arguments, and what counts as a well-told scientific story.</p>
                     </div>
-                    <img src="images/reflections/arts-in-the-flow-3.jpg" alt="Art sharpens scientific vision reflection" class="reflection-thumb">
+                    <img src="images/reflections/arts-in-the-flow-1.jpg" alt="Art and reflection" class="reflection-thumb">
                 </div>
             </div>
         </div>
@@ -2968,51 +4014,49 @@
     <div id="modal-writing-multitask" class="detail-modal">
         <div class="detail-content">
             <button class="detail-close" data-close aria-label="Close">×</button>
-            <h1>Living Multitasked, Living Alive</h1>
-            <p>Since getting into Wesleyan, I've realized that multitasking has quietly become both my greatest challenge and my way of living.</p>
-            <p>During my first semester, I was taking eight credits across ten departments, including Biology, Chemistry, Art Studio, Music, and the College for the Study of Public Life, among others. At the same time, I joined the K-pop Dance Crew (KDC), worked for IMS, and served as a Chinese Language Partner. Beyond coursework and jobs, I also spent late nights writing a fairy-tale research paper for myself, simply because I wanted to.</p>
-            <p>In my second semester, I took seven credits, again across multiple departments, this time including QAC (Quantitative Analysis Center at Wesleyan University), COL (College of Letters — the study of European literature, history, and philosophy from antiquity to the present), and DDC (Digital Design Commons). I continued dancing with KDC and working for IMS, while also mentoring for AFS and interning for an AI startup, TMind. I even tried tutoring at Traverse Square, which helped me learn that not every opportunity fits me, and that balance is just as important as ambition.</p>
-            <p>Now, my life hasn't slowed down. If anything, it's become more layered. But I've come to see multitasking not as chaos, but as rhythm. My Google Calendar, filled with color-coded classes, meetings, and projects, feels like a visual diary of my interests and curiosities. I enjoy the feeling of constantly learning, working, and creating; each task connects to a different part of who I am. Although it can be tiring, I find meaning in being busy with a purpose.</p>
-            <p>I don't think I could ever live a single-threaded life. Multitasking keeps me alert, adaptable, and alive, and it's how I explore and live in the world at the current stage.</p>
+            <h1>Learning My Own Rhythm</h1>
+            <p>At Wesleyan, I started noticing that I rarely learn in a single lane for very long. My semesters have often included science, mathematics, art, music, and language work all at once, alongside jobs, mentoring, and projects that asked for different kinds of attention.</p>
+            <p>At first, I mostly experienced that range as pressure. I wanted to do everything well, and I tended to respond by tightening up. Over time, I have become more interested in a different question: not how to fit more in, but how to keep different commitments in conversation without flattening any of them.</p>
+            <p>That shift has changed how I think about busyness. I still like full days, but I care more now about whether the pace has structure. When it does, moving between research, teaching, and creative work feels less like fragmentation and more like a way of keeping my mind awake.</p>
+            <p>I work best with some range in my life, as long as the range still has form. That has become one of the quiet conditions for doing my strongest work.</p>
         </div>
     </div>
 
     <div id="modal-writing-pipelines" class="detail-modal">
         <div class="detail-content">
             <button class="detail-close" data-close aria-label="Close">×</button>
-            <h1>Mastering Machine</h1>
+            <h1>When the Workflow Starts to Hold</h1>
             <img src="images/reflections/mastering-machine-1.jpg" alt="Workflow and analysis setup for neuroscience and machine learning projects" class="reflection-photo" onerror="this.style.display='none'">
-            <p>My technical strength lies in establishing an end-to-end workflow that transforms disorganized data into reproducible evidence with clear visualization. In neuroscience projects at the lab, I routinely process LFP and behavioral data from the VTA-PFC pathway, translating statistical analyses into charts and conclusions that support evidence-based arguments. Specifically for signal processing, I bridge Brainstorm and MATLAB by performing frequency/harmonic suppression and bandpass filtering, event-based epoch segmentation (e.g., social vs. non-social, EtOH vs. saline), and baseline correction, followed by PSD using Welch's method. I conduct coherence and Granger causality analyses on VTA-PFC connections, distinguishing between intra-area phase-amplitude coupling (iPAC) and inter-area phase-amplitude coupling (irPAC). Finally, I export the results in a structured form for review and visualization in R.</p>
-            <p>I began with coursework and lab training, translating classroom statistics and signal processing knowledge into real-world data; subsequently, I participated in Neuromatch Academy's deep learning boot camp, systematically filling gaps in modeling and evaluation frameworks. In my daily research, I continuously review the literature, reproduce previous lab scripts, and refactor fragmented scripts into parameterized, modular functions (e.g., standardizing filter and epoch parameters, and unifying export fields). Combined with simple unit tests and small-sample regression checks, this ensures modifications do not break existing results. For version control, I used Git/GitHub to track changes, documented README files, and maintained runtime environments, striving for reproducibility where the same raw data and the same parameters yield the same results.</p>
+            <p>One part of research I have grown to trust in myself is the transition from mess to structure. I like taking a scattered workflow, figuring out what is fragile, and slowly turning it into something another person could read, rerun, and build on.</p>
+            <p>In neuroscience work, that often means moving between Brainstorm, MATLAB, Python, and R while keeping the underlying question intact. I work on filtering, epoching, PSD, coherence, phase-amplitude coupling, and Granger causality not as isolated techniques, but as parts of a pipeline that should remain interpretable from raw signal to final figure.</p>
             <img src="images/reflections/mastering-machine-2.jpg" alt="Presenting Statistical Approaches for Neural Oscillation and Social Behavior Analysis project" class="reflection-photo" onerror="this.style.display='none'">
             <p class="reflection-caption">Presenting “Statistical Approaches for Neural Oscillation and Social Behavior Analysis in the Ventral Tegmental Area” at Exley Science Center, Wesleyan University, Middletown, CT</p>
-            <p>In machine learning and interpretability, I built a small closed loop from prototype to explanation using Python: I implemented MLP classification/regression prototypes with PyTorch to understand trade-offs between width, depth, and expressiveness. For text-scoring interpretability, I combined Hugging Face and SHAP to run prototypes, generating token-importance distributions and confidence intervals to pinpoint elements influencing model decisions and preliminarily screen for potential biases.</p>
-            <p>Visualization and design represent another strength. I approach scientific graphics as information design challenges, unifying color palettes and annotation hierarchies, standardizing the presentation of axes, legends, and error bars, and controlling alignment and white space between subplots using BioRender. When necessary, I use Illustrator for final refinements to ensure posters or slides remain readable at a distance.</p>
+            <p>That instinct extends to machine learning too. I am less interested in models as black boxes than in the full loop from prototype to interpretation: what the model seems to be learning, how stable that pattern is, and how to show it clearly without overclaiming.</p>
+            <p>Design helps here more than people sometimes expect. I think of scientific graphics as information design problems, where alignment, white space, hierarchy, and color all affect whether a result becomes legible or stays muddy.</p>
         </div>
     </div>
 
     <div id="modal-writing-teaching" class="detail-modal">
         <div class="detail-content">
             <button class="detail-close" data-close aria-label="Close">×</button>
-            <h1>Where Teaching Becomes Learning</h1>
+            <h1>Teaching, Then Understanding More</h1>
             <img src="images/reflections/where-teaching-becomes-learning-1.jpg" alt="Teaching and mentoring moments across disciplines" class="reflection-photo" onerror="this.style.display='none'">
-            <p>As a sophomore, over the past year, I have continued to grow in various mentoring roles spanning multiple disciplines and a global STEM program. Each experience has not only deepened my understanding of the meaning behind the saying "Teaching and learning are mutually beneficial," but has also helped me better understand myself and others.</p>
-            <p>As a Course Assistant (CA) for Calculus I, I needed to refresh my understanding of concepts such as limits and derivatives, while also learning to teach others in a simple, logical manner. During my weekly CA sessions, I noticed that students often struggled with the concepts themselves rather than the specific calculations in each problem set. Over time, I learned to explain abstract ideas visually, making concepts such as rates of change and the area under curves feel more intuitive and tangible. Every time a student transitions from confusion to sudden understanding, I feel a deep sense of fulfillment as a young teacher. Grading assignments for over seventy students has honed my patience and attention to detail, and I've learned to maintain fairness and standards while using feedback to foster their growth.</p>
+            <p>Teaching has become one of the clearest ways I learn what I actually understand. If I cannot explain an idea simply, I usually take that as a sign that I need to think about it again.</p>
+            <p>As a Course Assistant for Calculus I, I learned that students often struggle less with the arithmetic than with the shape of the concept itself. That pushed me to explain ideas more visually and more patiently, especially when abstract material needed to feel tangible before it could feel rigorous.</p>
             <img src="images/reflections/where-teaching-becomes-learning-2.jpg" alt="Calculus assistantship and student guidance session" class="reflection-photo" onerror="this.style.display='none'">
-            <p>When I encourage students to consider different possible methods to solve a problem, I think of myself as a bridge. As an Intro to Biology Tutor for the Dean's Tutoring Program, working with students from diverse backgrounds and learning styles, I try to explain complex biological concepts in a more accessible manner; for instance, I could compare a signal transduction pathway to a multi-layered relay race of information transfer. I realize teaching isn't just a transfer of knowledge, but a complex process of listening and understanding. Seeing students' grades improve from a 67 to a 96 makes me feel incredibly proud.</p>
-            <p>Simultaneously, in the AFS Global STEM Mentorship international online program, I served as a cross-cultural mentor for the first time, guiding students from diverse countries through their 12-week research exploration and graduation projects. Beyond weekly live meetings, I provided ongoing feedback in the Bridge forum to help refine their research approaches and presentation content. I learned to maintain warmth and efficiency in communication across multiple time zones and cultures. Still, I also realize that mentoring isn't one-sided: it's a shared journey of mutual growth and inspiration.</p>
+            <p>In biology tutoring and international mentoring, I have become more aware that explanation is also a form of listening. Different students need different entry points, and finding the right one often matters as much as knowing the material yourself.</p>
+            <p>That has made teaching feel closely related to research for me. In both cases, the work is not only to have a good answer, but to make the path toward that answer clearer for someone else.</p>
         </div>
     </div>
 
     <div id="modal-writing-leadership" class="detail-modal">
         <div class="detail-content">
             <button class="detail-close" data-close aria-label="Close">×</button>
-            <h1>Emotional Stability as Operational Efficiency</h1>
-            <p>Through collaboration, I realized that one of my strengths lies in stabilizing my own emotions first, then calming the team when faced with pressure.</p>
-            <p>Once, while analyzing data in the lab, our group's equipment suddenly malfunctioned, causing the sampling signals to become erratic. With tight deadlines and limited samples, the atmosphere grew tense. Another student became visibly upset, insisting we restart the experiment. Though equally anxious, my initial reaction wasn't to blame anyone or panic over redoing the work. Instead, I swiftly checked potential sources of error. I cross-checked instrument connections, parameter settings, and backup data, ultimately pinpointing poor electrode contact as the culprit. After recalibration, we salvaged the data and avoided unnecessary duplication. In that moment, I understood that emotional stability itself is a form of efficiency for me and my collaborators.</p>
-            <p>A similar scenario unfolded in an AI group project in which I participated. We had planned weekly progress reports, but midway through, one member consistently failed to deliver code due to scheduling conflicts. Others began complaining about the delay. Instead of joining in the emotional blame, I spoke privately with that student to understand where he was stuck. I helped him debug the issue and proactively adjusted task assignments at the next meeting, allowing everyone to focus on their strongest areas. Ultimately, we successfully built the model, and that student later reintegrated into the team's rhythm.</p>
-            <p>I think I hold myself to high standards, often burning the midnight oil to refine code or polish experimental charts. Yet I have tried my best not to impose this self-imposed rigor as pressure on others.</p>
-            <p>I prefer to shape the team atmosphere through steadiness and patience. For me, composure isn't emotional absence, but a way to manage energy, allowing me to think clearly and act effectively even amid conflict and uncertainty, and always stand with my team members.</p>
+            <h1>Staying Clear When Things Get Messy</h1>
+            <p>Under pressure, I usually become quieter and more methodical. That has turned out to be useful in both lab and team settings.</p>
+            <p>When something breaks, my first instinct is usually to reduce noise: check the assumptions, isolate the moving parts, and keep the problem from becoming larger than it is. I have found that this steadiness often matters as much as the technical fix itself.</p>
+            <p>I care a lot about standards, but I try not to turn that into pressure for the people around me. I would rather contribute calm, clarity, and follow-through than intensity for its own sake.</p>
+            <p>For me, composure is not emotional distance. It is a way of keeping enough room in the situation to think well and act usefully.</p>
         </div>
     </div>
 
@@ -3035,307 +4079,13 @@
         <div class="detail-content">
             <button class="detail-close" data-close aria-label="Close">×</button>
             <h1>When Art Sharpens Scientific Vision</h1>
-            <p>For me, interdisciplinarity isn't about mechanically grafting different fields of knowledge together; it's a mindset of building bridges between reason and emotion, science and art. I've always believed understanding the world shouldn't be linear; it requires both reasoning and feeling, both calculation and depiction.</p>
+            <p>For me, interdisciplinarity is less about collecting fields than about noticing where different ways of thinking sharpen each other.</p>
             <p>In scientific research, I study neuroscience and computational models, analyzing the rhythms of brain signals and their connections to behavior. Scientific training has conditioned me to describe phenomena through logic, data, and causality; yet, I've gradually realized that science's language often falls short of fully expressing the complexities of life. Painting helps bridge this gap: in sketching, I must grasp how light and shadow sculpt space, and how forms extend beyond the paper's surface. This visual discipline sharpens my ability to discern structural relationships in scientific charts, teaching me how to perceive the "aesthetic of form" behind data.</p>
             <p>Once, while designing a poster, I spent hours adjusting colors and layout to ensure viewers could grasp the flow of experimental logic within seconds. These approaches, perhaps not considered "traditional science," allowed me to discover a new sense of order in expression, an order that integrates different modes of thinking.</p>
             <p>Philosophical studies similarly broadened my cross-disciplinary perspective. Reading Husserl, I was struck by how his descriptions of "structures of experience" mirrored neural representations. Studying art history revealed that formalist painters, like scientists, uncovered visual laws through experimentation. Scientific training equipped me with precision and validation skills, while art and philosophy taught me to remain open amidst uncertainty.</p>
-            <p>This interdisciplinary mindset has become central to my learning: I pursue aesthetic order within science and seek logical structure within art. For me, the meaning of knowledge lies not in compartmentalization, but in establishing a dialogue between reason and sensibility: it is how I understand the world and, ultimately, myself.</p>
+            <p>That exchange between precision and openness has become central to how I learn. I look for aesthetic order inside science and logical structure inside art, and I trust the conversation between them more than any rigid boundary.</p>
         </div>
     </div>
-
-    <!-- About Section -->
-    <section id="about" class="page-section">
-        <div class="container">
-            <h2>About</h2>
-
-            <div class="about-grid">
-                <div class="about-block thread reveal section-text">
-                    <h3>Who I am</h3>
-                    <p>I am a Biology and Mathematics student at Wesleyan University dedicated to building the pipelines that turn raw neural signals into clear, actionable stories.</p>
-                    <p>I love learning across disciplines, from biology labs to AI startups, philosophy seminars to drawing studios. I'm happiest when I'm working, teaching, and creating at the same time. Multitasking has become my rhythm: not chaos but a way of staying alert, adaptable, and alive.</p>
-                    <p class="right-now">
-                        <span class="right-now-label">Right now</span>
-                        <span class="right-now-text" id="right-now-text">debugging PAC scripts and sketching new figures.</span>
-                    </p>
-                    <span class="stickers-label">Off the clock</span>
-                    <div class="about-stickers">
-                        <img src="images/sticker_drawing.png" alt="Drawing" title="Drawing">
-                        <img src="images/sticker_cooking.png" alt="Cooking" title="Cooking">
-                        <img src="images/sticker_kpop.png" alt="K-pop dance" title="K-pop dance">
-                    </div>
-                </div>
-
-                <!-- Interactive Timeline (grouped by theme) -->
-                <div class="timeline-section reveal" style="margin-top: calc(var(--spacing) * 6);">
-                    <h3>My Journey</h3>
-                    <div class="timeline-themes">
-                        <details class="timeline-theme reveal" open>
-                            <summary class="timeline-theme-title">
-                                <img src="images/icons/icon_research.png" alt="Research icon" style="width:18px;height:18px;margin-right:8px;vertical-align:middle;">
-                                Research
-                            </summary>
-                            <div class="timeline">
-                                <div class="timeline-node" data-node="7">
-                                    <div class="node-header">
-                                        <div class="node-year">Mar 2022 to Oct 2022</div>
-                                        <div class="node-title">Zhuang Lab | Nanjing University</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            <strong>Project: Remission of anxiety by Capsaicin treatment</strong><br>
-                                            Established a 21-day chronic restraint stress mouse model and conducted behavioral assays (Elevated Plus Maze, Open Field Test) to evaluate the anxiolytic effects of capsaicin. Performed ROS fluorescence analysis of brain tissue and applied ANOVA and t-tests (GraphPad Prism) to link anxiety-like behavior improvement with reduced oxidative stress. Presented research findings at the Jiangsu K-12 Education Conference, communicating results to a provincial-level audience.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="8">
-                                    <div class="node-header">
-                                        <div class="node-year">Jul to Aug 2023</div>
-                                        <div class="node-title">Pu Lab | Chinese Academy of Sciences</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Interned at the Gene Editing &amp; Functional Screening Lab in Shanghai. Assisted in conducting experiments and acquiring laboratory techniques, including plasmid construction and purification, which enhanced my understanding of gene editing.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="9">
-                                    <div class="node-header">
-                                        <div class="node-year">Mar to Jul 2024</div>
-                                        <div class="node-title">Mandalaywala Lab | Boston University</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Recruited 50+ participants and conducted interviews for a study on beliefs about social mobility in young children. Checked and analyzed qualitative and quantitative data from interviews to contribute to research insights.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="10">
-                                    <div class="node-header">
-                                        <div class="node-year">Mar 2025 to Present</div>
-                                        <div class="node-title">Melón Lab | VTA-PFC Oscillations</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            <strong>Project: Statistical Approaches for Neural Oscillation and Social Behavior Analysis in the VTA</strong><br>
-                                            Analyzed VTA-PFC LFP signals using time-series methods, coherence, phase-amplitude coupling, and Granger causality to link circuit dynamics with social behavior and ethanol intake. Integrated behavioral segmentation with neural data and mixed-effects models to examine directional connectivity and individual variability in affect-modulated circuit communication. Presented at Summer Symposium 2025 and Research Pathway 2026 to over 200 students.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="11">
-                                    <div class="node-header">
-                                        <div class="node-year">Sept 2025 to Present</div>
-                                        <div class="node-title">Laverghetta Lab | Interpretable ML for Creativity</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            <strong>Project: Disentangling Creativity Measurement from Statistical Artifacts in Machine Learning Models</strong><br>
-                                            Building SHAP- and LOFO-based interpretability pipelines on HPC clusters to evaluate feature importance, model robustness, and sensitivity in creativity prediction models. Performing token-level and feature-level attribution analyses across ensemble and transformer architectures to identify linguistic patterns driving creativity scores. Selected to present an overview in March 2026 at Data Insights, a student-speaker series at Wesleyan.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
-                        <details class="timeline-theme reveal">
-                            <summary class="timeline-theme-title">
-                                <img src="images/icons/icon_training.png" alt="Training and education icon" style="width:18px;height:18px;margin-right:8px;vertical-align:middle;">
-                                Training &amp; Education
-                            </summary>
-                            <div class="timeline">
-                                <div class="timeline-node" data-node="12">
-                                    <div class="node-header">
-                                        <div class="node-year">Aug 2024 to Present</div>
-                                        <div class="node-title">Started at Wesleyan University</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Bachelor of Arts in Biology and Mathematics on an accelerated 3-year path to graduate in May 2027. <strong>Scholarships:</strong> QAC Apprenticeship (Wesleyan), AFS Global STEM Academies Full Scholarship, Yingcai Program (Youth Talent, Nanjing University). Relevant coursework: Discrete Mathematics, Topology, Vectors and Matrices, Multivariable Calculus, Abstract Algebra, Math in Quantum Computing, Hormones, Brain, and Behavior, Bioinformatics, Principles of Biology I &amp; II, General Chemistry I &amp; II, Behavioral Neurobiology.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="13">
-                                    <div class="node-header">
-                                        <div class="node-year">Jul 2025</div>
-                                        <div class="node-title">Neuromatch Academy | Deep Learning Scholar</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Completed an intensive, project-based deep learning curriculum covering optimization, CNNs, RNNs, attention/transformers, self-supervised learning, and reinforcement learning. Built and optimized neural network models in PyTorch with backpropagation, regularization, and batch normalization. Developed a motor-intention decoding pipeline with an international peer cohort, training LSTM-based recurrent networks to predict left/right movement decisions from MOp/MOs cortical spike trains.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="14">
-                                    <div class="node-header">
-                                        <div class="node-year">Sept 2025 to Present</div>
-                                        <div class="node-title">AI4ALL Ignite | Student Trainee</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Developed a COVID-19 cough classification model from raw audio using Python and a CRNN network, including preprocessing (noise reduction, MFCC extraction), feature engineering, and k-fold cross-validation. Analyzed model performance with ROC-AUC, PR-AUC, confusion matrices, F1-optimized thresholds; implemented data-imbalance handling and bias-mitigation. Collaborated with peers and mentors using GitHub version control, Agile project planning (SMART goals, RACI charts), and weekly workshops on CV, NLP, statistical models, and AI governance.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="15">
-                                    <div class="node-header">
-                                        <div class="node-year">May 2027</div>
-                                        <div class="node-title">Graduation & Beyond</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Graduating May 2027. Planning graduate school in computational neuroscience. Seeking research opportunities that combine neural data with behavior, value interpretability, and bridge experimental and computational approaches.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
-                        <details class="timeline-theme reveal">
-                            <summary class="timeline-theme-title">
-                                <img src="images/icons/icon_mentoring.png" alt="Mentorship icon" style="width:18px;height:18px;margin-right:8px;vertical-align:middle;">
-                                Mentorship
-                            </summary>
-                            <div class="timeline">
-                                <div class="timeline-node" data-node="1">
-                                    <div class="node-header">
-                                        <div class="node-year">Jan to Jun 2025</div>
-                                        <div class="node-title">AFS Global STEM Academies | Alumni Mentor</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Mentored scholars worldwide in a 12-week STEM enrichment program through the Bridge forum, providing guidance during weekly live sessions and supporting students' independent capstone projects.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="2">
-                                    <div class="node-header">
-                                        <div class="node-year">Sept 2025 to Present</div>
-                                        <div class="node-title">Wesleyan Women in Science | Mentor</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Mentoring two first-year women in STEM on course planning, academic confidence, and building community within quantitative fields.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="3">
-                                    <div class="node-header">
-                                        <div class="node-year">Sept to Dec 2025</div>
-                                        <div class="node-title">Dean's Tutoring Program | Biology Tutor</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            One-on-one and small-group support for Intro Biology; translated molecular pathways into clear analogies and guided exam prep.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="4">
-                                    <div class="node-header">
-                                        <div class="node-year">Sept 2025 to Present</div>
-                                        <div class="node-title">Calculus I Course Assistant</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Provide individualized guidance, grade homework for 70+ students with rubric-aligned feedback, and surface recurring misconceptions to adjust emphasis.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="5">
-                                    <div class="node-header">
-                                        <div class="node-year">Sept 2025 to Present</div>
-                                        <div class="node-title">Third-Year Chinese I Course Assistant</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Evaluate advanced coursework weekly; provide detailed written feedback on grammar, clarity, and argumentation to support upper-level proficiency.
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="timeline-node" data-node="6">
-                                    <div class="node-header">
-                                        <div class="node-year">Jan 2026 to Present</div>
-                                        <div class="node-title">Deep Learning Course Assistant</div>
-                                    </div>
-                                    <div class="node-detail">
-                                        <div class="node-detail-inner">
-                                            Assist with lectures and labs on deep learning and LLMs; host debugging office hours for PyTorch code and conceptual questions.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </details>
-                    </div>
-                </div>
-
-            <div class="about-block thread reveal section-block">
-                <h3>Technical Skills, Experience & Education</h3>
-                <div style="padding-top: calc(var(--spacing) * 2);">
-                    <h4 style="font-size: inherit; font-weight: 400; margin-bottom: calc(var(--spacing) * 3); color: var(--forest);">Skills & Tools</h4>
-                    <dl class="skill-rows">
-                        <div class="skill-row">
-                            <dt>Computational Neuroscience</dt>
-                            <dd>Neural data analysis (LFP, spike trains), oscillation analysis (PSD, PAC, coherence, Granger causality), event-based epoching</dd>
-                        </div>
-                        <div class="skill-row">
-                            <dt>Machine Learning &amp; AI</dt>
-                            <dd>Deep learning (MLP / CNN / RNN / LSTM), interpretability (SHAP, LOFO), representation analysis, model uncertainty &amp; evaluation</dd>
-                        </div>
-                        <div class="skill-row">
-                            <dt>Programming</dt>
-                            <dd>Python (NumPy, Pandas, PyTorch, SciPy, scikit-learn, HuggingFace, TensorFlow), MATLAB, Brainstorm, R, HPC (Slurm)</dd>
-                        </div>
-                        <div class="skill-row">
-                            <dt>Biological &amp; Experimental</dt>
-                            <dd>Neurophysiology (VTA-PFC circuits), molecular biology (IHC, confocal microscopy, brain slicing), behavioral assays</dd>
-                        </div>
-                        <div class="skill-row">
-                            <dt>Visualization &amp; Design</dt>
-                            <dd>Scientific graphics as information design, BioRender, Adobe Illustrator, poster &amp; slide design</dd>
-                        </div>
-                        <div class="skill-row">
-                            <dt>Languages</dt>
-                            <dd>Fluent in English and Chinese</dd>
-                        </div>
-                    </dl>
-
-                    <h4 style="font-size: inherit; font-weight: 400; margin: calc(var(--spacing) * 6) 0 calc(var(--spacing) * 3); color: var(--forest);">Experience Snapshot</h4>
-                    <div class="fact-grid" style="margin-bottom: calc(var(--spacing) * 3);">
-                        <div class="fact-card">
-                            <strong>Research Assistant</strong>
-                            <p>Melón Lab • Laverghetta Lab • Mandalaywala Lab • Pu Lab</p>
-                        </div>
-                        <div class="fact-card">
-                            <strong>Teaching & Mentoring</strong>
-                            <p>Deep Learning CA • Biology Tutor • Calculus CA • AFS Global Mentor • Women in STEM</p>
-                        </div>
-                        <div class="fact-card">
-                            <strong>Training Programs</strong>
-                            <p>Neuromatch Academy • AI4ALL Ignite • QAC Apprenticeship • AFS STEM Academies</p>
-                        </div>
-                        <div class="fact-card">
-                            <strong>Education</strong>
-                            <p>Wesleyan University • Biology & Mathematics • Class of 2027</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-                <div class="about-block thread reveal section-block section-text">
-                    <h3>What I'm looking for</h3>
-            <p>I'm seeking research assistant or research internship opportunities in computational neuroscience and AI-for-biology — especially projects combining neural data, behavior, and interpretability — as a step toward a PhD in the field. <strong>Class of 2027.</strong></p>
-                    <div class="focus-areas-box">
-                        <h4 style="font-size: 1.05rem; font-family: 'IBM Plex Mono', monospace; color: var(--forest); margin-bottom: calc(var(--spacing) * 2);">Focus Areas</h4>
-                        <ul>
-                            <li><span style="color: var(--forest);">▸</span> Neural data + behavioral or cognitive measures</li>
-                            <li><span style="color: var(--forest);">▸</span> Building analysis pipelines from scratch</li>
-                            <li><span style="color: var(--forest);">▸</span> Interpretability alongside prediction</li>
-                            <li><span style="color: var(--forest);">▸</span> Bridging experimental and computational approaches</li>
-                            <li><span style="color: var(--forest);">▸</span> Interdisciplinary thinking and diverse methodologies</li>
-                        </ul>
-                    </div>
-                    <p style="margin-top: calc(var(--spacing) * 2);">Graduating May 2027 • Planning graduate school in computational neuroscience</p>
-                </div>
-
-            </div>
-        </div>
-    </section>
 
     <!-- Contact Section -->
     <section id="contact" class="page-section">
@@ -3362,7 +4112,7 @@
             </div>
 
             <div class="contact-cta">
-                Happy to talk about computational neuroscience, signal processing, or research collaboration opportunities.
+                Happy to talk about computational neuroscience, signal processing, interpretability, or thoughtful cross-disciplinary work.
             </div>
         </div>
     </section>
@@ -3403,12 +4153,14 @@
             const targetPage = document.getElementById(pageName);
             if (targetPage) {
                 targetPage.classList.add('active');
+                document.body.dataset.page = pageName;
                 updateNavState(pageName);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
                 const homePage = document.getElementById('home');
                 if (homePage) {
                     homePage.classList.add('active');
+                    document.body.dataset.page = 'home';
                     updateNavState('home');
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
@@ -3444,6 +4196,48 @@
         const filterTags = document.querySelectorAll('.filter-tag');
         const projectCards = document.querySelectorAll('.project-card');
         const focusProjectLinks = document.querySelectorAll('[data-focus-project]');
+        const academicSidebarLinks = document.querySelectorAll('.academic-sidebar-link');
+        const academicSections = document.querySelectorAll('#projects .academic-anchor');
+
+        function setActiveAcademicSection(targetId) {
+            academicSidebarLinks.forEach(link => {
+                const isActive = link.getAttribute('data-academic-target') === targetId;
+                link.classList.toggle('active', isActive);
+                link.setAttribute('aria-current', isActive ? 'true' : 'false');
+            });
+        }
+
+        academicSidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const targetId = link.getAttribute('data-academic-target');
+                const target = targetId ? document.getElementById(targetId) : null;
+                if (!target) {
+                    return;
+                }
+                setActiveAcademicSection(targetId);
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        if (academicSections.length && academicSidebarLinks.length) {
+            const academicObserver = new IntersectionObserver((entries) => {
+                if (document.body.dataset.page !== 'projects') {
+                    return;
+                }
+                const visibleEntry = entries
+                    .filter(entry => entry.isIntersecting)
+                    .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                if (visibleEntry?.target?.id) {
+                    setActiveAcademicSection(visibleEntry.target.id);
+                }
+            }, {
+                root: null,
+                rootMargin: '-18% 0px -58% 0px',
+                threshold: [0.2, 0.35, 0.55]
+            });
+
+            academicSections.forEach(section => academicObserver.observe(section));
+        }
         
         filterTags.forEach(tag => {
             tag.addEventListener('click', (e) => {
@@ -3739,29 +4533,6 @@
             });
         }
 
-        // Right now ticker in About
-        const rightNowEl = document.getElementById('right-now-text');
-        if (rightNowEl) {
-            const messages = [
-                'debugging PAC scripts and sketching new figures.',
-                'preparing problem sets for Calculus I office hours.',
-                'reviewing LSTM training logs from Neuromatch Academy.',
-                'annotating SHAP plots from creativity models.',
-                'drafting the next section of my research statement.'
-            ];
-            let idx = 0;
-            setInterval(() => {
-                if (!rightNowEl) return;
-                rightNowEl.classList.add('fading');
-                setTimeout(() => {
-                    idx = (idx + 1) % messages.length;
-                    rightNowEl.textContent = messages[idx];
-                    rightNowEl.classList.remove('fading');
-                }, 250);
-            }, 3800);
-        }
-
-
         // Interactive SHAP sentence example
         (function setupShapSentence() {
             const baseline = 0.43;
@@ -3802,6 +4573,70 @@
                 token.addEventListener('mouseenter', () => selectToken(token));
                 token.addEventListener('focus', () => selectToken(token));
                 token.setAttribute('tabindex', '0');
+            });
+        })();
+
+        (function setupAboutStory() {
+            const portraitBtn = document.getElementById('about-story-portrait');
+            const portraitImg = document.getElementById('about-story-image');
+            const textEl = document.getElementById('about-story-text');
+            const titleEl = document.getElementById('about-story-title');
+            const dotsEl = document.getElementById('about-story-dots');
+            const navButtons = Array.from(document.querySelectorAll('[data-story-step]'));
+            if (!portraitBtn || !portraitImg || !textEl || !titleEl || !dotsEl || !navButtons.length) return;
+
+            const stories = [
+                {
+                    title: '01 / start here',
+                    text: 'Hi, this is Keming~ If this is our first time meeting, I think I make more sense in layers than in labels.',
+                    image: 'assets/cartoon-keming-start.png'
+                },
+                {
+                    title: '02 / lab brain',
+                    text: 'Lab mode is usually me making friends with noisy signals, stubborn figures, and questions that need a second pass.',
+                    image: 'assets/cartoon-keming-lab.png'
+                },
+                {
+                    title: '03 / teaching lens',
+                    text: 'I teach a lot, partly because I like people, and partly because explaining something is still one of my favorite ways to find out whether I really understand it.',
+                    image: 'assets/cartoon-keming-mentor.png'
+                },
+                {
+                    title: '04 / other textures',
+                    text: 'And yes, there is also drawing, music, and design. They keep teaching me about rhythm, proportion, and how not to crowd a good idea.',
+                    image: 'assets/cartoon-keming-studio.png'
+                }
+            ];
+
+            let storyIndex = 0;
+
+            function renderStory(index) {
+                storyIndex = (index + stories.length) % stories.length;
+                const story = stories[storyIndex];
+                titleEl.textContent = story.title;
+                textEl.textContent = story.text;
+                portraitImg.src = story.image;
+                Array.from(dotsEl.children).forEach((dot, idx) => {
+                    dot.classList.toggle('active', idx === storyIndex);
+                    dot.setAttribute('aria-pressed', idx === storyIndex ? 'true' : 'false');
+                });
+            }
+
+            stories.forEach((story, idx) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'about-story-dot' + (idx === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to story ${idx + 1}`);
+                dot.setAttribute('aria-pressed', idx === 0 ? 'true' : 'false');
+                dot.addEventListener('click', () => renderStory(idx));
+                dotsEl.appendChild(dot);
+            });
+
+            portraitBtn.addEventListener('click', () => renderStory(storyIndex + 1));
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    renderStory(storyIndex + Number(btn.dataset.storyStep || '1'));
+                });
             });
         })();
 
