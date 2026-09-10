@@ -83,9 +83,62 @@
             position: relative;
         }
 
-        body[data-page="home"] {
+        /* Subtle depth layers. JS updates --parallax-y in a single animation frame. */
+        [data-parallax] {
+            --parallax-y: 0px;
+            transform: translate3d(0, var(--parallax-y), 0);
+            will-change: transform;
+        }
+
+        .parallax-wash {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .parallax-wash::before,
+        .parallax-wash::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(1px);
+            opacity: 0.38;
+        }
+
+        .parallax-wash::before {
+            width: min(38vw, 520px);
+            aspect-ratio: 1;
+            top: 16vh;
+            right: -12vw;
+            border: 1px solid rgba(31, 90, 56, 0.12);
+            box-shadow: 0 0 0 54px rgba(31, 90, 56, 0.018), 0 0 0 108px rgba(31, 90, 56, 0.012);
+        }
+
+        .parallax-wash::after {
+            width: min(30vw, 420px);
+            aspect-ratio: 1;
+            left: -10vw;
+            bottom: 8vh;
+            background: radial-gradient(circle, rgba(175, 122, 66, 0.08), transparent 68%);
+        }
+
+        body {
             scroll-snap-type: y mandatory;
             scroll-padding-top: 104px;
+        }
+
+        /* Give each major content beat a deliberate landing point. */
+        .page-section.active > .container > .section-block,
+        .page-section.active > .container > .about-block,
+        .page-section.active > .container > .home-route,
+        #projects .academic-anchor,
+        #reflections .research-section,
+        #contact.active > .container {
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            scroll-margin-top: 104px;
         }
 
         .mono {
@@ -2522,6 +2575,11 @@
             color: var(--forest);
         }
 
+        .about-block h3.home-panel-title {
+            font-size: 1.05rem;
+            margin-bottom: calc(var(--spacing) * 4);
+        }
+
         .home-panel-list {
             font-size: 1.05rem;
             color: var(--text-secondary);
@@ -2963,7 +3021,7 @@
                 padding: 0 calc(var(--spacing) * 4.5);
             }
 
-            body[data-page="home"] {
+            body {
                 scroll-snap-type: y proximity;
             }
 
@@ -3081,12 +3139,18 @@
                 transition: none !important;
                 scroll-behavior: auto !important;
             }
+
+            [data-parallax] {
+                transform: none !important;
+                will-change: auto;
+            }
         }
     </style>
 </head>
 <body>
     <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <div class="scroll-orb" id="scroll-orb" aria-hidden="true"></div>
+    <div class="parallax-wash" data-parallax data-parallax-fixed data-parallax-speed="0.018" data-parallax-max="36" aria-hidden="true"></div>
     <!-- Navigation -->
     <nav aria-label="Primary">
         <div class="container">
@@ -3104,8 +3168,8 @@
     <section id="home" class="page-section active hero">
         <div class="container">
             <div class="hero-intro">
-                <img src="assets/profile-photo.png" alt="Keming Liu" class="hero-photo">
-                <div class="hero-text">
+                <img src="assets/profile-photo.png" alt="Keming Liu" class="hero-photo" data-parallax data-parallax-speed="-0.055" data-parallax-max="18">
+                <div class="hero-text" data-parallax data-parallax-speed="0.035" data-parallax-max="12">
                     <h1>
                         <strong>Keming Liu</strong><br>
                         <span class="hero-role">Computational Neuroscience<br>Interpretable AI</span>
@@ -3121,16 +3185,6 @@
                         <a href="#projects" class="btn btn-primary" data-page="projects">View Academic</a>
                         <a href="#contact" class="btn" data-page="contact">Get in Touch</a>
                     </div>
-                    <div class="hero-side-notes" aria-label="Quick introduction notes">
-                        <div class="hero-note">
-                            <span class="hero-note-label">what pulls me in</span>
-                            <p>Questions that get sharper when behavior, signal, and interpretation all have to stay in the same frame.</p>
-                        </div>
-                        <div class="hero-note">
-                            <span class="hero-note-label">how I usually work</span>
-                            <p>Clean the analysis, pressure-test the figure, and keep iterating until the story becomes legible.</p>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -3139,19 +3193,19 @@
             </div>
 
             <div class="section-block reveal">
-                <h3 class="home-panel-title">Core Expertise</h3>
+                <h3 class="home-panel-title">Core Research Direction</h3>
                 <div class="expertise-grid">
                     <div class="expertise-item">
-                        <span class="rule-kicker">01 — Signals</span>
-                        <p>I keep returning to neural signals because they sit at the edge of noise and structure, and I like the work of teasing out patterns that are biologically meaningful rather than merely visible.</p>
+                        <span class="rule-kicker">01 — Neural Dynamics &amp; Behavior</span>
+                        <p>I am interested in how neural activity unfolds across time and circuits to shape behavior, especially when oscillations, connectivity, and behavioral context are analyzed together.</p>
                     </div>
                     <div class="expertise-item">
-                        <span class="rule-kicker">02 — Models</span>
-                        <p>I’m most interested in models when they help clarify a question, not just optimize a score, which is why interpretability has become a recurring thread in my work.</p>
+                        <span class="rule-kicker">02 — Computational Modeling &amp; Decoding</span>
+                        <p>I want to develop computational models that connect complex neural signals to meaningful behavioral states, combining signal analysis with machine learning and neural decoding.</p>
                     </div>
                     <div class="expertise-item">
-                        <span class="rule-kicker">03 — Workflows</span>
-                        <p>I like turning messy analyses into reusable pipelines that can survive new datasets, revised parameters, and the practical realities of moving between local work and HPC environments.</p>
+                        <span class="rule-kicker">03 — Interpretation &amp; Scientific Insight</span>
+                        <p>I care not only about whether a model predicts well, but also about what it has learned, whether its conclusions are robust, and how computational results can clarify biological mechanisms.</p>
                     </div>
                 </div>
             </div>
@@ -3273,19 +3327,6 @@
                             </div>
                         </div>
                     </a>
-                    <a href="#projects" class="focus-card-link" data-focus-project="motor">
-                        <div class="focus-card">
-                            <span class="playful-note">✦ decoding</span>
-                            <h3>Motor Intention Decoding</h3>
-                            <p class="mono home-focus-meta">Neuromatch Academy & Independent Work</p>
-                            <p>LSTM-based decoding of left-right movement intention from cortical spike-train data, developed in PyTorch.</p>
-                            <div class="mini-chart mini-chart--motor">
-                                <div class="mini-bar"></div>
-                                <div class="mini-bar"></div>
-                                <div class="mini-bar"></div>
-                            </div>
-                        </div>
-                    </a>
                     <a href="#projects" class="focus-card-link" data-focus-project="vta-pfc">
                         <div class="focus-card">
                             <span class="playful-note">✦ signals & behavior</span>
@@ -3321,7 +3362,7 @@
                                 <div class="node-detail">
                                     <div class="node-detail-inner">
                                         <strong>Project: Remission of anxiety by Capsaicin treatment</strong><br>
-                                        Established a 21-day chronic restraint stress mouse model and conducted behavioral assays (Elevated Plus Maze, Open Field Test) to evaluate the anxiolytic effects of capsaicin. Performed ROS fluorescence analysis of brain tissue and applied ANOVA and t-tests (GraphPad Prism) to link anxiety-like behavior improvement with reduced oxidative stress. Presented research findings at the Jiangsu K-12 Education Conference, communicating results to a provincial-level audience.
+                                        Established a 21-day chronic restraint stress mouse model and conducted behavioral assays (Elevated Plus Maze, Open Field Test) to evaluate the anxiolytic effects of capsaicin. Performed ROS fluorescence analysis of brain tissue and applied ANOVA and t-tests (GraphPad Prism) to link anxiety-like behavior improvement with reduced oxidative stress. Presented research findings at the Jiangsu High School Students’ Science Symposium, communicating results to a provincial-level audience of high school students and university faculty.
                                     </div>
                                 </div>
                             </div>
@@ -3352,7 +3393,7 @@
                             <div class="timeline-node" data-node="10">
                                 <div class="node-header">
                                     <div class="node-year">Mar 2025 to Present</div>
-                                    <div class="node-title">Melón Lab | VTA-PFC Oscillations</div>
+                                    <div class="node-title">Melón Lab | Wesleyan University</div>
                                     <div class="node-summary">LFP pipeline-building across PSD, PAC, coherence, and Granger causality to study social behavior and ethanol effects.</div>
                                 </div>
                                 <div class="node-detail">
@@ -3365,7 +3406,7 @@
                             <div class="timeline-node" data-node="11">
                                 <div class="node-header">
                                     <div class="node-year">Sept 2025 to Present</div>
-                                    <div class="node-title">Laverghetta Lab | Interpretable ML for Creativity</div>
+                                    <div class="node-title">Laverghetta Lab | Wesleyan University</div>
                                     <div class="node-summary">SHAP and LOFO interpretability pipelines on HPC systems to test what creativity models are actually learning.</div>
                                 </div>
                                 <div class="node-detail">
@@ -3391,7 +3432,7 @@
                                 </div>
                                 <div class="node-detail">
                                     <div class="node-detail-inner">
-                                        Bachelor of Arts in Biology and Mathematics on an accelerated 3-year path to graduate in May 2027. <strong>Scholarships:</strong> QAC Apprenticeship (Wesleyan), AFS Global STEM Academies Full Scholarship, Yingcai Program (Youth Talent, Nanjing University). Relevant coursework: Discrete Mathematics, Topology, Vectors and Matrices, Multivariable Calculus, Abstract Algebra, Math in Quantum Computing, Hormones, Brain, and Behavior, Bioinformatics, Principles of Biology I &amp; II, General Chemistry I &amp; II, Behavioral Neurobiology.
+                                        Bachelor of Arts in Biology and Mathematics, with a minor in Informatics and Modeling, expected May 2027. GPA: 3.93/4.00; Dean’s List every semester. <strong>Scholarships:</strong> QAC Apprenticeship (Wesleyan), AFS Global STEM Academies Full Scholarship, Yingcai Program (Youth Talent, Nanjing University). Relevant coursework: Discrete Mathematics, Topology, Vectors and Matrices, Multivariable Calculus, Abstract Algebra, Math in Quantum Computing, Hormones, Brain, and Behavior, Bioinformatics, Principles of Biology I &amp; II, General Chemistry I &amp; II, Behavioral Neurobiology.
                                     </div>
                                 </div>
                             </div>
@@ -3437,29 +3478,33 @@
             </div>
 
             <div id="academic-methods" class="about-block thread reveal section-block academic-anchor">
-                <h3>Methods and Training</h3>
+                <h3 class="home-panel-title">Methods and Training</h3>
                 <div style="padding-top: calc(var(--spacing) * 2);">
                     <h4 style="font-size: inherit; font-weight: 400; margin-bottom: calc(var(--spacing) * 3); color: var(--forest);">Research Toolkit</h4>
                     <dl class="skill-rows">
                         <div class="skill-row">
-                            <dt>Signal Analysis</dt>
-                            <dd>LFP and spike-train analysis, oscillation metrics (PSD, PAC, coherence, Granger causality), event-based epoching, and time-frequency workflows across MATLAB, Brainstorm, and Python.</dd>
+                            <dt>Neural Data Analysis</dt>
+                            <dd>Experience analyzing LFP and spike-train data using event-aligned epoching and methods including PSD, coherence, phase-amplitude coupling, and Granger causality.</dd>
                         </div>
                         <div class="skill-row">
-                            <dt>Modeling &amp; Interpretability</dt>
-                            <dd>Deep learning across MLP/CNN/RNN/LSTM settings, SHAP and LOFO attribution, representation analysis, model uncertainty, and evaluation focused on what the model is actually learning.</dd>
+                            <dt>Computational Modeling</dt>
+                            <dd>Project experience building CRNN and LSTM models for audio classification and neural decoding with TensorFlow and PyTorch.</dd>
                         </div>
                         <div class="skill-row">
-                            <dt>Programming &amp; Compute</dt>
-                            <dd>Python (NumPy, Pandas, PyTorch, SciPy, scikit-learn, HuggingFace, TensorFlow), MATLAB, Brainstorm, R, and HPC workflows on Slurm-based systems.</dd>
+                            <dt>Interpretability &amp; Statistics</dt>
+                            <dd>Applied SHAP and LOFO attribution, regression, mixed-effects modeling, and ANOVA, with model evaluation using ROC-AUC, PR-AUC, confusion matrices, and F1-based thresholds.</dd>
                         </div>
                         <div class="skill-row">
-                            <dt>Experimental Context</dt>
-                            <dd>Neurophysiology in VTA-PFC circuits, molecular biology methods including IHC and confocal imaging, brain slicing, and behavioral assays that connect experimental manipulation to interpretable outcomes.</dd>
+                            <dt>Research Computing</dt>
+                            <dd>Experience using Python, MATLAB, R, Brainstorm, Git, and HPC environments to organize analyses and produce research figures.</dd>
+                        </div>
+                        <div class="skill-row">
+                            <dt>Experimental Methods</dt>
+                            <dd>Training in PCR and qPCR, plasmid construction and purification, immunohistochemistry with tissue sectioning and confocal imaging, and rodent behavioral assays including the Elevated Plus Maze and Open Field Test.</dd>
                         </div>
                         <div class="skill-row">
                             <dt>Scientific Communication</dt>
-                            <dd>Scientific graphics as information design, BioRender, Adobe Illustrator, poster and slide design, and presentations built to make complex analysis legible to mixed audiences.</dd>
+                            <dd>Experience presenting research through posters, scientific figures, and talks to student and academic audiences.</dd>
                         </div>
                         <div class="skill-row">
                             <dt>Languages</dt>
@@ -3537,7 +3582,6 @@
                     <div class="project-tags">
                         <span class="tag">Neuro</span>
                         <span class="tag">Behavior</span>
-                        <span class="tag">IHC</span>
                         <span class="tag">ANOVA</span>
                     </div>
                 </div>
@@ -3709,7 +3753,7 @@
             </ul>
 
             <h4>Impact</h4>
-            <p class="mono">Presented an overview at Data Insights in March 2026, a student-speaker series at Wesleyan University.</p>
+            <p class="mono">Selected for a March 2026 overview at Data Insights, a student-speaker series at Wesleyan University.</p>
             <p>What changed in my thinking during this project was that interpretability stopped feeling like a secondary add-on; it became the main way to tell whether the model was actually learning something meaningful.</p>
 
             <h4>Reproducibility</h4>
@@ -3876,7 +3920,7 @@
 
             <h4>Dissemination</h4>
             <ul>
-                <li>Presented at Jiangsu K-12 Education Conference</li>
+                <li>Presented at the Jiangsu High School Students’ Science Symposium</li>
                 <li>Communicated findings to provincial-level audience through poster presentation</li>
                 <li>Audience included high school students and university faculty</li>
             </ul>
@@ -3885,7 +3929,7 @@
                  alt="Poster presentation on capsaicin anxiolytic effects"
                  class="project-media"
                  data-story="Presenting my first full animal-behavior project in front of a large audience.">
-            <p class="reflection-caption">Presenting my work at the Jiangsu K-12 Education Conference as the Yingcai Program student representative.</p>
+            <p class="reflection-caption">Presenting my work at the Jiangsu High School Students’ Science Symposium through a poster presentation.</p>
 
             <h4>Reproducibility</h4>
             <ul>
@@ -4042,8 +4086,8 @@
             <h1>Teaching, Then Understanding More</h1>
             <img src="images/reflections/where-teaching-becomes-learning-1.jpg" alt="Teaching and mentoring moments across disciplines" class="reflection-photo" onerror="this.style.display='none'">
             <p>Teaching has become one of the clearest ways I learn what I actually understand. If I cannot explain an idea simply, I usually take that as a sign that I need to think about it again.</p>
-            <p>As a Course Assistant for Calculus I, I learned that students often struggle less with the arithmetic than with the shape of the concept itself. That pushed me to explain ideas more visually and more patiently, especially when abstract material needed to feel tangible before it could feel rigorous.</p>
-            <img src="images/reflections/where-teaching-becomes-learning-2.jpg" alt="Calculus assistantship and student guidance session" class="reflection-photo" onerror="this.style.display='none'">
+            <p>As a Course Assistant for <em>Deep Learning and Large Language Models: An Introduction</em>, I learned that students often struggle less with individual steps than with the shape of the concept itself. That pushed me to explain ideas more visually and more patiently, especially when abstract material needed to feel tangible before it could feel rigorous.</p>
+            <img src="images/reflections/where-teaching-becomes-learning-2.jpg" alt="Deep learning course assistantship and student guidance session" class="reflection-photo" onerror="this.style.display='none'">
             <p>In biology tutoring and international mentoring, I have become more aware that explanation is also a form of listening. Different students need different entry points, and finding the right one often matters as much as knowing the material yourself.</p>
             <p>That has made teaching feel closely related to research for me. In both cases, the work is not only to have a good answer, but to make the path toward that answer clearer for someone else.</p>
         </div>
@@ -4474,6 +4518,51 @@
                 l.addEventListener('click', () => setTimeout(updateProgress, 60)));
             updateProgress();
         }
+
+        // Layered parallax: viewport-relative, clamped, and batched into one rAF.
+        // Disabled for reduced-motion users and small/touch-first screens.
+        (function setupParallax() {
+            const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+            const compactQuery = window.matchMedia('(max-width: 720px), (pointer: coarse)');
+            const layers = Array.from(document.querySelectorAll('[data-parallax]'));
+            if (!layers.length) return;
+
+            let frame = 0;
+            const reset = () => layers.forEach(layer => layer.style.setProperty('--parallax-y', '0px'));
+
+            const render = () => {
+                frame = 0;
+                if (motionQuery.matches || compactQuery.matches) {
+                    reset();
+                    return;
+                }
+
+                const viewportCenter = window.innerHeight / 2;
+                layers.forEach(layer => {
+                    const rect = layer.getBoundingClientRect();
+                    if (rect.bottom < -120 || rect.top > window.innerHeight + 120) return;
+                    const speed = Number(layer.dataset.parallaxSpeed || 0.04);
+                    const max = Number(layer.dataset.parallaxMax || 28);
+                    const distance = layer.hasAttribute('data-parallax-fixed')
+                        ? -window.scrollY
+                        : (rect.top + rect.height / 2) - viewportCenter;
+                    const offset = Math.max(-max, Math.min(max, distance * speed));
+                    layer.style.setProperty('--parallax-y', `${offset.toFixed(2)}px`);
+                });
+            };
+
+            const requestRender = () => {
+                if (!frame) frame = requestAnimationFrame(render);
+            };
+
+            window.addEventListener('scroll', requestRender, { passive: true });
+            window.addEventListener('resize', requestRender, { passive: true });
+            motionQuery.addEventListener?.('change', requestRender);
+            compactQuery.addEventListener?.('change', requestRender);
+            document.querySelectorAll('a[data-page]').forEach(link =>
+                link.addEventListener('click', () => requestAnimationFrame(requestRender)));
+            requestRender();
+        })();
 
         // Click-to-expand project media (images & videos)
         document.querySelectorAll('.project-media').forEach(media => {
