@@ -1,0 +1,75 @@
+/* Timeline layout and the requested homepage name treatment. */
+:root {
+    --font-body: 'Inter', sans-serif;
+    --font-display: 'Fraunces', Georgia, serif;
+    --type-ink: #263e33;
+    --type-muted: #5b685d;
+    --type-rule: #c5cebd;
+}
+#home .editorial-hero-copy h1 {
+    font-family: 'Fraunces', serif;
+    font-style: normal;
+    font-weight: 700;
+}
+#academic-more .projects-grid { margin-top: 28px; }
+
+/* A chronological research ledger, with dates on a continuous vertical rail. */
+#academic-background { --rail-x: 188px; }
+#academic-background > h3 { font: 300 clamp(30px, 4vw, 45px)/1.15 var(--font-display); letter-spacing: -.035em; margin-bottom: 18px; }
+#academic-background .timeline-themes { gap: 24px; }
+#academic-background .timeline-theme { border: 0; }
+#academic-background .timeline-theme-title {
+    display: flex; align-items: center; gap: 14px; padding: 20px 0;
+    border-top: 1px solid #879b84; border-bottom: 1px solid var(--type-rule);
+    font: 500 12px/1.5 var(--font-body); text-transform: uppercase; letter-spacing: .09em;
+}
+#academic-background .timeline-theme-title::before { content: '01'; color: #947251; font: 400 11px var(--font-body); }
+#academic-background .timeline-theme:nth-child(2) > .timeline-theme-title::before { content: '02'; }
+#academic-background .timeline-theme-title::after { content: '+'; margin-left: auto; font: 300 25px var(--font-body); }
+#academic-background .timeline-theme[open] > .timeline-theme-title::after { content: '−'; }
+#academic-background .timeline { display: block; padding: 0; margin: 0; }
+#academic-background .timeline::before { left: var(--rail-x); top: 42px; bottom: 42px; width: 1px; background: var(--type-rule); }
+#academic-background .timeline-node { margin: 0; padding: 0; border: 0; cursor: default; transition: none; }
+#academic-background .timeline-node:hover { transform: none; }
+#academic-background .timeline-node::before {
+    left: calc(var(--rail-x) - 4px); top: 41px; width: 9px; height: 9px;
+    border: 1px solid #789171; border-radius: 50%; background: #f5f1e7;
+    box-shadow: none; transform: none; transition: background .2s;
+}
+#academic-background .timeline-node[open]::before,
+#academic-background .timeline-node:hover::before { background: #315944; box-shadow: none; transform: none; }
+#academic-background .timeline-node .node-header {
+    display: grid; grid-template-columns: 160px minmax(0, 1fr) 28px; gap: 56px;
+    align-items: start; margin: 0; padding: 30px 0; cursor: pointer;
+    border: 0; border-radius: 0; background: transparent; box-shadow: none; list-style: none;
+}
+#academic-background .node-header::-webkit-details-marker { display: none; }
+#academic-background .node-header:focus-visible, #academic-background .timeline-theme-title:focus-visible { outline: 2px solid #a97851; outline-offset: 5px; }
+#academic-background .timeline-node + .timeline-node .node-heading { border-top: 1px solid #d9decf; padding-top: 26px; margin-top: -26px; }
+#academic-background .timeline-node .node-year { display: block; margin: 0; }
+#academic-background .node-year-large { display: block; color: #5b7157; font: 300 38px/1 var(--font-display); letter-spacing: -.045em; }
+#academic-background .node-date { display: block; margin-top: 13px; color: #65735f; font-size: 11px; line-height: 1.7; font-variant-numeric: tabular-nums; }
+#academic-background .node-heading { display: block; min-width: 0; }
+#academic-background .timeline-node .node-title { display: block; font: 400 clamp(21px, 2.1vw, 28px)/1.25 var(--font-display); letter-spacing: -.02em; color: var(--type-ink); }
+#academic-background .node-institution { display: block; margin-top: 7px; font: 500 12px/1.6 var(--font-body); color: #63715d; }
+#academic-background .timeline-node .node-summary { display: block; margin-top: 12px; max-width: 65ch; font: 400 13px/1.75 var(--font-body); color: var(--type-muted); }
+#academic-background .node-toggle { display: grid; place-items: center; width: 28px; height: 28px; border: 1px solid #b6c2ac; border-radius: 50%; font: 400 17px/1 var(--font-body); color: #526b4a; }
+#academic-background .node-toggle::before { content: '+'; }
+#academic-background .timeline-node[open] .node-toggle::before { content: '−'; }
+#academic-background .timeline-node .node-detail { max-height: none; overflow: visible; transition: none; margin: 0 84px 0 216px; }
+#academic-background .timeline-node .node-detail-inner { padding: 0 0 28px; margin: 0; background: none; border: 0; border-radius: 0; font: 400 14px/1.85 var(--font-body); color: #4c604e; }
+@media (max-width: 760px) {
+    #academic-background { --rail-x: 5px; }
+    #academic-background .timeline::before { top: 37px; bottom: 44px; }
+    #academic-background .timeline-node::before { top: 36px; }
+    #academic-background .timeline-node .node-header { grid-template-columns: minmax(0, 1fr) 28px; gap: 18px; padding: 26px 0 26px 30px; }
+    #academic-background .timeline-node .node-year { grid-column: 1; display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px 14px; }
+    #academic-background .node-year-large { font-size: 29px; }
+    #academic-background .node-date { margin-top: 0; }
+    #academic-background .node-heading { grid-row: 2; grid-column: 1 / -1; }
+    #academic-background .node-toggle { grid-row: 1; grid-column: 2; }
+    #academic-background .timeline-node + .timeline-node .node-heading { border: 0; padding: 0; margin: 0; }
+    #academic-background .timeline-node .node-detail { margin: 0 0 0 30px; }
+    #academic-background .timeline-node .node-title { font-size: 24px; }
+}
+@media (prefers-reduced-motion: reduce) { #academic-background * { transition: none; scroll-behavior: auto; } }

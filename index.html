@@ -39,7 +39,7 @@
     <link rel="alternate icon" href="assets/profile-photo.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=IBM+Plex+Mono:wght@300;400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600;9..144,700&family=IBM+Plex+Mono:wght@300;400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -83,13 +83,6 @@
             position: relative;
         }
 
-        /* Subtle depth layers. JS updates --parallax-y in a single animation frame. */
-        [data-parallax] {
-            --parallax-y: 0px;
-            transform: translate3d(0, var(--parallax-y), 0);
-            will-change: transform;
-        }
-
         .parallax-wash {
             position: fixed;
             inset: 0;
@@ -125,7 +118,7 @@
         }
 
         body {
-            scroll-snap-type: y mandatory;
+            scroll-snap-type: none;
             scroll-padding-top: 104px;
         }
 
@@ -136,8 +129,8 @@
         #projects .academic-anchor,
         #reflections .research-section,
         #contact.active > .container {
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
+            scroll-snap-align: none;
+            scroll-snap-stop: normal;
             scroll-margin-top: 104px;
         }
 
@@ -153,11 +146,13 @@
             top: 0;
             left: 0;
             height: 3px;
-            width: 0;
+            width: 100%;
             z-index: 1100;
             background: linear-gradient(90deg, var(--forest), var(--accent));
             border-radius: 0 3px 3px 0;
-            transition: width 0.1s linear;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: none;
             pointer-events: none;
         }
 
@@ -2654,7 +2649,7 @@
 
 
         .page-section.active > .container > * {
-            animation: riseIn 380ms ease both;
+            animation: none;
         }
 
         .page-section:not(#home).active > .container {
@@ -2677,8 +2672,8 @@
         body[data-page="home"] #home .section-block,
         body[data-page="home"] #home .about-block--intro,
         body[data-page="home"] #home .home-route {
-            scroll-snap-align: start;
-            scroll-snap-stop: always;
+            scroll-snap-align: none;
+            scroll-snap-stop: normal;
             scroll-margin-top: 104px;
             min-height: calc(100svh - 132px);
             justify-content: center;
@@ -3022,7 +3017,7 @@
             }
 
             body {
-                scroll-snap-type: y proximity;
+                scroll-snap-type: none;
             }
 
             body[data-page="home"] #home .hero-intro,
@@ -3091,9 +3086,9 @@
             }
         }
 
-        /* Smooth scrolling */
+        /* Native scroll; only explicit in-page controls request smooth movement. */
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: auto;
         }
 
         /* Hide sections by default for SPA behavior */
@@ -3291,26 +3286,26 @@
         .map-stage { display: grid; grid-template-columns: 1fr .34fr 1fr .34fr 1fr; min-height: 360px; border-top: 1px solid rgba(31,90,56,.2); border-bottom: 1px solid rgba(31,90,56,.2); }
         .map-column { display: flex; flex-direction: column; justify-content: center; gap: 1.1rem; padding: 3rem clamp(1rem, 3vw, 3rem); }
         .map-column span { margin-bottom:.9rem; font: .68rem 'IBM Plex Mono'; letter-spacing:.12em; color:#7b817c; }
-        .map-column b { font-family:'Fraunces', serif; font-size:clamp(1.4rem,2vw,2rem); font-weight:300; color:#25392c; }
+        .map-column b { font-family: 'Fraunces', serif; font-size: clamp(1.4rem,2vw,2rem); font-weight: 300; color:#25392c; }
         .map-column--center { background:rgba(31,90,56,.055); }
         .map-connector { display:flex; flex-direction:column; justify-content:center; gap:3rem; }
         .map-connector i { position:relative; height:1px; background:rgba(31,90,56,.32); }
-        .map-connector i::after { content:'→'; position:absolute; right:-1px; top:-.75rem; color:var(--forest); font-style:normal; }
+        .map-connector i::after { content:'→'; position:absolute; right:-1px; top:-.75rem; color:var(--forest); font-style: normal; }
 
         .home-note-list { border-top: 1px solid rgba(31,90,56,.22); }
         .home-note-list a { display:grid; grid-template-columns:70px 1fr 40px; align-items:center; gap:1.4rem; padding:2rem 0; border-bottom:1px solid rgba(31,90,56,.16); text-decoration:none; color:inherit; transition: padding-left .2s ease; }
         .home-note-list a:hover { padding-left:.8rem; }
-        .home-note-list > a > span, .home-note-list i { font: .76rem 'IBM Plex Mono'; color:#7c827d; font-style:normal; }
+        .home-note-list > a > span, .home-note-list i { font: .76rem 'IBM Plex Mono'; color:#7c827d; font-style: normal; }
         .home-note-list b { display:block; font: 300 clamp(1.5rem,2.5vw,2.4rem) 'Fraunces'; color:#203426; }
         .home-note-list small { display:block; margin-top:.35rem; font: .7rem 'IBM Plex Mono'; letter-spacing:.06em; text-transform:uppercase; color:#777f78; }
 
         .editorial-about { display:grid; grid-template-columns:minmax(300px,.75fr) minmax(0,1.25fr); gap:clamp(3rem,7vw,8rem); align-items:center; }
         .editorial-about-photo { width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center top; filter:saturate(.75) contrast(1.02); }
-        .editorial-about > div > p { max-width:670px; color:#5a645c; font-family:'Crimson Pro',serif; font-size:1.3rem; line-height:1.65; }
+        .editorial-about > div > p { max-width:670px; color:#5a645c; font-family: 'Crimson Pro',serif; font-size: 1.3rem; line-height:1.65; }
         .editorial-about .cta-buttons { align-items:center; }
 
         .lab-status { position:fixed; z-index:900; right:1.2rem; bottom:1.5rem; width:165px; display:flex; flex-direction:column; gap:.2rem; padding:1rem; background:rgba(243,241,234,.88); border:1px solid rgba(31,90,56,.16); backdrop-filter:blur(10px); color:#465148; font: .62rem/1.5 'IBM Plex Mono'; letter-spacing:.04em; pointer-events:none; }
-        .lab-status-code { color:var(--forest); }.lab-status-rule { height:1px; background:rgba(31,90,56,.22); margin:.35rem 0; }.lab-status-label { font-size:.56rem; color:#8a8f8b; letter-spacing:.14em; }.lab-status strong { font-weight:400; color:#263b2d; }
+        .lab-status-code { color:var(--forest); }.lab-status-rule { height:1px; background:rgba(31,90,56,.22); margin:.35rem 0; }.lab-status-label { font-size: .56rem; color:#8a8f8b; letter-spacing:.14em; }.lab-status strong { font-weight: 400; color:#263b2d; }
 
         /* Asymmetric research index */
         #projects .projects-grid { grid-template-columns:repeat(12,1fr); gap:1rem; }
@@ -3322,33 +3317,33 @@
         #projects .project-card[data-project="salk"] h3, #projects .project-card[data-project="p53"] h3, #projects .project-card[data-project="creativity"] h3 { color:white; }
         #projects .project-card[data-project="salk"] .project-summary, #projects .project-card[data-project="p53"] .project-summary, #projects .project-card[data-project="creativity"] .project-summary { color:rgba(255,255,255,.72); }
         #projects .project-card::before { width:100%; height:2px; background:linear-gradient(90deg,var(--accent),var(--forest)); }
-        #projects .project-card h3 { font-family:'Fraunces',serif; font-size:clamp(1.6rem,2.6vw,2.6rem); font-weight:300; line-height:1.08; }
+        #projects .project-card h3 { font-family: 'Fraunces',serif; font-size: clamp(1.6rem,2.6vw,2.6rem); font-weight: 300; line-height:1.08; }
         #projects .project-tags { margin-top:1.3rem; }
-        #projects .tag { border-radius:0; background:transparent; border:1px solid currentColor; opacity:.72; font-family:'IBM Plex Mono'; font-size:.63rem; }
+        #projects .tag { border-radius:0; background:transparent; border:1px solid currentColor; opacity:.72; font-family: 'IBM Plex Mono'; font-size: .63rem; }
         #academic-selected .focus-grid { grid-template-columns:repeat(12,1fr); gap:1rem; }
         #academic-selected .focus-card-link { grid-column:span 4; }
         #academic-selected .focus-card { min-height:330px; border-radius:0; box-shadow:none; padding:2rem; justify-content:flex-end; }
         #academic-selected .focus-card-link:first-child { grid-column:span 6; }
         #academic-selected .focus-card-link:nth-child(2) { grid-column:span 6; }
         #academic-selected .focus-card-link:nth-child(3) { grid-column:span 12; }
-        #academic-selected .focus-card h3 { font:300 clamp(1.7rem,2.7vw,2.8rem)/1.05 'Fraunces'; }
+        #academic-selected .focus-card h3 { font: 300 clamp(1.7rem,2.7vw,2.8rem)/1.05 'Fraunces'; }
 
         .method-spectrum { padding:2.5rem; border:1px solid rgba(31,90,56,.16); background:#f7f4ed; }
-        .spectrum-axis { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:1rem; font:.68rem 'IBM Plex Mono'; letter-spacing:.12em; color:#647067; }
+        .spectrum-axis { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:1rem; font: .68rem 'IBM Plex Mono'; letter-spacing:.12em; color:#647067; }
         .spectrum-axis i { height:1px; background:linear-gradient(90deg,#b27b48,var(--forest)); position:relative; }
-        .spectrum-axis i::after { content:'→'; position:absolute; right:-1px; top:-.75rem; color:var(--forest); font-style:normal; }
+        .spectrum-axis i::after { content:'→'; position:absolute; right:-1px; top:-.75rem; color:var(--forest); font-style: normal; }
         .spectrum-stages { display:grid; grid-template-columns:repeat(4,1fr); margin-top:2.5rem; }
         .spectrum-stages article { min-height:200px; padding:1.4rem; border-left:1px solid rgba(31,90,56,.14); }
         .spectrum-stages article:first-child { border-left:0; padding-left:0; }
-        .spectrum-stages article > span { font:.66rem 'IBM Plex Mono'; color:#9a7656; }
-        .spectrum-stages h4 { margin:.75rem 0!important; font:400 1.15rem 'Fraunces'!important; color:#23382a!important; }
-        .spectrum-stages p { font-size:.82rem; line-height:1.55; color:#626c64; }
-        .spectrum-foundation { margin:1rem 0 0; padding-top:1.5rem; border-top:1px solid rgba(31,90,56,.14); font:.72rem/1.8 'IBM Plex Mono'; color:#626c64; }
+        .spectrum-stages article > span { font: .66rem 'IBM Plex Mono'; color:#9a7656; }
+        .spectrum-stages h4 { margin:.75rem 0!important; font: 400 1.15rem 'Fraunces'!important; color:#23382a!important; }
+        .spectrum-stages p { font-size: .82rem; line-height:1.55; color:#626c64; }
+        .spectrum-foundation { margin:1rem 0 0; padding-top:1.5rem; border-top:1px solid rgba(31,90,56,.14); font: .72rem/1.8 'IBM Plex Mono'; color:#626c64; }
         .spectrum-foundation span { color:var(--forest); margin-right:1rem; }
 
         /* Editorial field-note index */
         #reflections > .container { max-width:1160px; }
-        #reflections > .container > h2 { font-family:'Fraunces',serif; font-size:clamp(3rem,6vw,6rem); font-weight:300; letter-spacing:-.05em; }
+        #reflections > .container > h2 { font-family: 'Fraunces',serif; font-size: clamp(3rem,6vw,6rem); font-weight: 300; letter-spacing:-.05em; }
         #reflections .research-section { border-top:1px solid rgba(31,90,56,.2); }
         #reflections .writing-item { min-height:0; margin:0; padding:2rem 0; border:0; border-bottom:1px solid rgba(31,90,56,.17); border-radius:0; box-shadow:none; background:transparent; display:grid; grid-template-columns:72px 1fr 180px; gap:1.5rem; }
         #reflections .writing-item::before { content:counter(field-note,decimal-leading-zero); position:static; width:auto; height:auto; background:none; font: .72rem 'IBM Plex Mono'; color:#7b827c; }
@@ -3357,9 +3352,9 @@
         #reflections .writing-item:hover { transform:none; padding-left:.7rem; }
         #reflections .writing-item .writing-text { order:2; }
         #reflections .writing-item .reflection-thumb { order:3; width:180px; height:105px; border-radius:0; filter:saturate(.72); }
-        #reflections .writing-item h4 { font:300 clamp(1.55rem,2.6vw,2.6rem) 'Fraunces'; color:#203527; }
-        #reflections .writing-item .reflection-mood { padding:0; border:0; background:none; border-radius:0; font:.66rem 'IBM Plex Mono'; letter-spacing:.09em; text-transform:uppercase; color:#7a6652; }
-        #reflections .writing-item p { font-family:'Crimson Pro',serif; font-size:1.15rem; max-width:680px; }
+        #reflections .writing-item h4 { font: 300 clamp(1.55rem,2.6vw,2.6rem) 'Fraunces'; color:#203527; }
+        #reflections .writing-item .reflection-mood { padding:0; border:0; background:none; border-radius:0; font: .66rem 'IBM Plex Mono'; letter-spacing:.09em; text-transform:uppercase; color:#7a6652; }
+        #reflections .writing-item p { font-family: 'Crimson Pro',serif; font-size: 1.15rem; max-width:680px; }
 
         @media (max-width: 980px) {
             .editorial-hero { grid-template-columns:1fr; padding-top:9rem; }
@@ -3381,7 +3376,7 @@
 
         @media (max-width: 720px) {
             .editorial-hero { padding:8rem 0 4rem; }
-            .editorial-hero-copy h1 { font-size:clamp(3rem,15vw,4.8rem); }
+            .editorial-hero-copy h1 { font-size: clamp(3rem,15vw,4.8rem); }
             .hero-constellation { min-height:310px; }
             .scale-section,.home-research,.research-map,.home-notes,.editorial-about { padding:5rem 0; }
             .editorial-section-head--split { align-items:flex-start; flex-direction:column; }
@@ -3671,7 +3666,7 @@
         .hero-observation-axis button:hover::before,
         .hero-observation-axis button:focus-visible::before,
         .hero-observation-axis button.is-active::before { background:#d6b17c; transform:scale(1.35); }
-        .hero-observation-readout { min-height:1.5em; margin:.65rem 0 0!important; color:#d6b17c!important; font:.68rem 'IBM Plex Mono',monospace!important; letter-spacing:.04em; }
+        .hero-observation-readout { min-height:1.5em; margin:.65rem 0 0!important; color:#d6b17c!important; font: .68rem 'IBM Plex Mono',monospace!important; letter-spacing:.04em; }
 
         body[data-page="home"] nav,
         body:has(#home.active) nav { background: rgba(14,52,35,.95); border-bottom-color: rgba(244,240,229,.12); }
@@ -3716,7 +3711,7 @@
         .reflection-figure { margin: 2.2rem 0; }
         .reflection-figure--portrait { max-width: 560px; }
         .reflection-figure .reflection-photo { margin: 0; width: 100%; max-height: 720px; object-fit: cover; object-position: center; }
-        .reflection-figure figcaption { margin-top:.7rem; color:#7b817c; font:.68rem/1.5 'IBM Plex Mono',monospace; letter-spacing:.035em; }
+        .reflection-figure figcaption { margin-top:.7rem; color:#7b817c; font: .68rem/1.5 'IBM Plex Mono',monospace; letter-spacing:.035em; }
 
         @media (prefers-reduced-motion: reduce), (hover: none) {
             #home .editorial-project.is-pointer-active { transform:none; }
@@ -3756,7 +3751,7 @@
             font: 500 clamp(1.55rem, 3.1vw, 2.75rem)/1.12 'Inter', sans-serif!important;
             letter-spacing: -.035em;
         }
-        #home .hero-thesis em { color:#9a663b; font-family:'Fraunces',serif; font-weight:300; }
+        #home .hero-thesis em { color:#9a663b; font-family: 'Fraunces',serif; font-weight: 300; }
         #home .hero-summary {
             max-width: 620px!important;
             margin-bottom: 2rem;
@@ -3788,8 +3783,8 @@
         body:has(#home.active) nav a.is-current { color:#173d2a; box-shadow:inset 0 -1px 0 #9a663b; }
 
         @media (max-width:720px) {
-            #home .editorial-hero-copy h1 { font-size:clamp(4.2rem,20vw,6rem); }
-            #home .hero-thesis { font-size:clamp(1.45rem,7vw,2rem)!important; }
+            #home .editorial-hero-copy h1 { font-size: clamp(4.2rem,20vw,6rem); }
+            #home .hero-thesis { font-size: clamp(1.45rem,7vw,2rem)!important; }
             .hero-observation-axis button { border-top-color:rgba(23,61,42,.2); }
         }
 
@@ -3808,7 +3803,7 @@
             position:absolute;
             top:17%;
             color:rgba(255,255,255,.48);
-            font:500 .58rem 'IBM Plex Mono',monospace;
+            font: 500 .58rem 'IBM Plex Mono',monospace;
             letter-spacing:.09em;
             text-transform:uppercase;
             opacity:.35;
@@ -3865,7 +3860,7 @@
             clip-path:polygon(0 47%,100% 0,100% 100%);
             opacity:0;
         }
-        .experiment-label { position:absolute; top:26px; color:#637067; font:.65rem 'IBM Plex Mono',monospace; letter-spacing:.08em; text-transform:uppercase; }
+        .experiment-label { position:absolute; top:26px; color:#637067; font: .65rem 'IBM Plex Mono',monospace; letter-spacing:.08em; text-transform:uppercase; }
         .experiment-label--one{left:8%}.experiment-label--two{left:42%}.experiment-label--three{right:8%}
         .project-detail.active .experiment-rat { animation:ratExperimentSequence 5.2s cubic-bezier(.45,0,.25,1) infinite; }
         .project-detail.active .experiment-sight { animation:ratSightSequence 5.2s ease infinite; }
@@ -3881,7 +3876,7 @@
 
         @media (max-width:720px) {
             .rat-experiment-visual { height:240px; }
-            .experiment-label { font-size:.55rem; }
+            .experiment-label { font-size: .55rem; }
         }
         @media (prefers-reduced-motion:reduce) {
             .editorial-project--lead:hover .fp-rat .rat-body,
@@ -3937,13 +3932,13 @@
             --brand-ink: #1d3024;
             --brand-muted: #667168;
         }
-        body { font-family:'Inter',sans-serif; color:var(--brand-ink); background:var(--brand-cream); }
-        h1,h2,h3,.home-panel-title { font-family:'Fraunces',serif; }
+        body { font-family: 'Inter',sans-serif; color:var(--brand-ink); background:var(--brand-cream); }
+        h1,h2,h3,.home-panel-title { font-family: 'Fraunces',serif; }
         .editorial-index,.mono,.tag,.filter-tag,.reflection-mood,
         .hero-observation-label,.hero-observation-axis button,.hero-observation-readout {
-            font-family:'IBM Plex Mono',monospace;
+            font-family: 'IBM Plex Mono',monospace;
         }
-        .btn { font-family:'Inter',sans-serif; font-weight:600; letter-spacing:-.01em; }
+        .btn { font-family: 'Inter',sans-serif; font-weight: 600; letter-spacing:-.01em; }
 
         #home .editorial-hero { color:var(--brand-cream); }
         #home .editorial-hero::before {
@@ -4002,7 +3997,7 @@
             top:2.3rem;
             right:.25rem;
             color:var(--brand-green);
-            font:.6rem 'IBM Plex Mono',monospace;
+            font: .6rem 'IBM Plex Mono',monospace;
             letter-spacing:.08em;
             opacity:0;
             transform:translateX(-5px);
@@ -4019,7 +4014,7 @@
             display:block;
             margin-top:.9rem;
             color:var(--brand-green);
-            font:.6rem 'IBM Plex Mono',monospace;
+            font: .6rem 'IBM Plex Mono',monospace;
             letter-spacing:.08em;
             opacity:0;
             transform:translateY(4px);
@@ -4029,7 +4024,7 @@
         #reflections .writing-item:focus-visible .writing-text::after { opacity:.75; transform:none; }
         #reflections .writing-item .reflection-thumb { transition:filter .25s ease,transform .25s ease; }
         #reflections .writing-item:hover .reflection-thumb { filter:saturate(.95); transform:scale(1.025); }
-        .detail-content > p { font-family:'Crimson Pro',serif; font-size:1.18rem; line-height:1.72; }
+        .detail-content > p { font-family: 'Crimson Pro',serif; font-size: 1.18rem; line-height:1.72; }
 
         @media (max-width:760px) {
             #projects .project-card::after { display:none; }
@@ -4056,9 +4051,9 @@
             background:radial-gradient(circle 380px at var(--hero-x) var(--hero-y),rgba(255,255,255,.78),transparent 72%);
         }
         #home .editorial-hero-copy { max-width:820px; }
-        #home .editorial-hero-copy h1 { color:var(--brand-green-deep); font-size:clamp(5.6rem,9vw,8.6rem); }
+        #home .editorial-hero-copy h1 { color:var(--brand-green-deep); font-size: clamp(5.6rem,9vw,8.6rem); }
         #home .editorial-hero .editorial-index { color:rgba(23,61,44,.58); }
-        #home .hero-thesis { max-width:760px!important; color:var(--brand-green)!important; font-size:clamp(1.5rem,2.6vw,2.35rem)!important; }
+        #home .hero-thesis { max-width:760px!important; color:var(--brand-green)!important; font-size: clamp(1.5rem,2.6vw,2.35rem)!important; }
         #home .hero-thesis em { color:#a66e3f; }
         #home .hero-summary { max-width:580px!important; color:rgba(29,48,36,.7)!important; }
         #home .editorial-hero .btn-primary { background:var(--brand-green); color:#fffaf0; border-color:var(--brand-green); }
@@ -4093,7 +4088,7 @@
             box-shadow:0 24px 70px rgba(23,61,44,.14);
         }
         .hero-observation-head { display:flex; justify-content:space-between; gap:1rem; }
-        .hero-observation-label,.hero-observation-code { color:rgba(245,241,231,.62); font:.59rem 'IBM Plex Mono',monospace; letter-spacing:.12em; }
+        .hero-observation-label,.hero-observation-code { color:rgba(245,241,231,.62); font: .59rem 'IBM Plex Mono',monospace; letter-spacing:.12em; }
         .hero-observation-axis { display:grid; grid-template-columns:1fr; border-top:1px solid rgba(245,241,231,.28); }
         .hero-observation-axis button {
             display:grid;
@@ -4104,13 +4099,13 @@
             border-top:0;
             border-bottom:1px solid rgba(245,241,231,.18);
             color:rgba(245,241,231,.76);
-            font-size:.72rem;
+            font-size: .72rem;
         }
         .hero-observation-axis button::before { left:auto; right:0; top:50%; transform:translateY(-50%); background:var(--brand-green); }
         .hero-observation-axis button:hover::before,
         .hero-observation-axis button:focus-visible::before,
         .hero-observation-axis button.is-active::before { transform:translateY(-50%) scale(1.35); }
-        .hero-observation-axis button span { color:rgba(245,241,231,.4); font-size:.58rem; }
+        .hero-observation-axis button span { color:rgba(245,241,231,.4); font-size: .58rem; }
         .hero-observation-readout { min-height:3em; margin:0!important; color:#e2b27c!important; line-height:1.55!important; }
 
         @media (max-width:980px) {
@@ -4119,61 +4114,58 @@
         }
         @media (max-width:720px) {
             #home .editorial-hero { padding:8rem 0 5rem; gap:3.5rem; }
-            #home .editorial-hero-copy h1 { font-size:clamp(4.4rem,20vw,6.1rem); }
+            #home .editorial-hero-copy h1 { font-size: clamp(4.4rem,20vw,6.1rem); }
             #home .hero-observation { min-height:390px; padding:1.5rem; }
         }
 
-        /* Homepage chapters: one composed viewport at a time */
-        html.home-snap { scroll-snap-type:y mandatory; scroll-padding-top:72px; }
-        html.home-snap body { overscroll-behavior-y:contain; }
-        html.home-snap #home .editorial-hero,
-        html.home-snap #home .home-research,
-        html.home-snap #home .editorial-about {
+        /* Viewport-sized chapters without forcing the reader to a snap point. */
+        html.home-chapters { scroll-snap-type:none; scroll-padding-top:72px; }
+        html.home-chapters body { overscroll-behavior-y:auto; }
+        html.home-chapters #home .editorial-hero,
+        html.home-chapters #home .home-research,
+        html.home-chapters #home .editorial-about {
             min-height:calc(100svh - 72px);
-            scroll-snap-align:start;
-            scroll-snap-stop:always;
+            scroll-snap-align:none;
+            scroll-snap-stop:normal;
         }
-        html.home-snap #home .home-research {
+        html.home-chapters #home .home-research {
             display:flex;
             flex-direction:column;
             justify-content:center;
             padding:clamp(3.5rem,6vh,5.5rem) 0;
         }
-        html.home-snap #home .home-research .editorial-section-head { margin-bottom:clamp(1.5rem,3vh,2.5rem); }
-        html.home-snap #home .editorial-projects { grid-template-columns:repeat(12,1fr); gap:1rem; }
-        html.home-snap #home .editorial-project--lead,
-        html.home-snap #home .editorial-project--p53,
-        html.home-snap #home .editorial-project--neural {
+        html.home-chapters #home .home-research .editorial-section-head { margin-bottom:clamp(1.5rem,3vh,2.5rem); }
+        html.home-chapters #home .editorial-projects { grid-template-columns:repeat(12,1fr); gap:1rem; }
+        html.home-chapters #home .editorial-project--lead,
+        html.home-chapters #home .editorial-project--p53,
+        html.home-chapters #home .editorial-project--neural {
             min-height:clamp(340px,48vh,470px);
         }
-        html.home-snap #home .editorial-project--lead { grid-column:span 5; }
-        html.home-snap #home .editorial-project--p53 { grid-column:span 3; }
-        html.home-snap #home .editorial-project--neural { grid-column:span 4; }
-        html.home-snap #home .editorial-project--neural .fingerprint { left:0; width:100%; }
-        html.home-snap #home .editorial-project--neural h3,
-        html.home-snap #home .editorial-project--neural p,
-        html.home-snap #home .editorial-project--neural .editorial-index { max-width:100%; }
-        html.home-snap #home .editorial-project h3 { font-size:clamp(1.65rem,2.5vw,2.7rem); }
-        html.home-snap #home .editorial-about {
+        html.home-chapters #home .editorial-project--lead { grid-column:span 5; }
+        html.home-chapters #home .editorial-project--p53 { grid-column:span 3; }
+        html.home-chapters #home .editorial-project--neural { grid-column:span 4; }
+        html.home-chapters #home .editorial-project--neural .fingerprint { left:0; width:100%; }
+        html.home-chapters #home .editorial-project--neural h3,
+        html.home-chapters #home .editorial-project--neural p,
+        html.home-chapters #home .editorial-project--neural .editorial-index { max-width:100%; }
+        html.home-chapters #home .editorial-project h3 { font-size: clamp(1.65rem,2.5vw,2.7rem); }
+        html.home-chapters #home .editorial-about {
             display:grid;
             align-content:center;
             padding:clamp(4rem,7vh,6rem) 0;
         }
-        html.home-snap #home .editorial-section-head h2,
-        html.home-snap #home .editorial-about > div,
-        html.home-snap #home .editorial-about-photo {
+        html.home-chapters #home .editorial-about-photo {
             transform:translate3d(0,var(--parallax-y,0px),0);
-            transition:transform .08s linear;
-            will-change:transform;
+            transition:none;
         }
-        html.home-snap footer { scroll-snap-align:end; }
+        html.home-chapters footer { scroll-snap-align:none; }
 
         @media (max-width:980px) {
-            html.home-snap { scroll-snap-type:y proximity; }
-            html.home-snap #home .editorial-hero { min-height:calc(100svh - 64px); }
-            html.home-snap #home .home-research,
-            html.home-snap #home .editorial-about { min-height:calc(100svh - 64px); }
-            html.home-snap #home .editorial-projects {
+            html.home-chapters { scroll-snap-type:none; }
+            html.home-chapters #home .editorial-hero { min-height:calc(100svh - 64px); }
+            html.home-chapters #home .home-research,
+            html.home-chapters #home .editorial-about { min-height:calc(100svh - 64px); }
+            html.home-chapters #home .editorial-projects {
                 display:flex;
                 gap:1rem;
                 overflow-x:auto;
@@ -4181,10 +4173,10 @@
                 scrollbar-width:none;
                 padding-bottom:1rem;
             }
-            html.home-snap #home .editorial-projects::-webkit-scrollbar { display:none; }
-            html.home-snap #home .editorial-project--lead,
-            html.home-snap #home .editorial-project--p53,
-            html.home-snap #home .editorial-project--neural {
+            html.home-chapters #home .editorial-projects::-webkit-scrollbar { display:none; }
+            html.home-chapters #home .editorial-project--lead,
+            html.home-chapters #home .editorial-project--p53,
+            html.home-chapters #home .editorial-project--neural {
                 flex:0 0 min(82vw,560px);
                 min-height:430px;
                 margin:0;
@@ -4192,26 +4184,29 @@
             }
         }
         @media (max-width:720px) {
-            html.home-snap { scroll-padding-top:64px; }
-            html.home-snap #home .home-research { padding:4rem 0; }
-            html.home-snap #home .editorial-project--lead,
-            html.home-snap #home .editorial-project--p53,
-            html.home-snap #home .editorial-project--neural { flex-basis:86vw; min-height:390px; }
+            html.home-chapters { scroll-padding-top:64px; }
+            html.home-chapters #home .home-research { padding:4rem 0; }
+            html.home-chapters #home .editorial-project--lead,
+            html.home-chapters #home .editorial-project--p53,
+            html.home-chapters #home .editorial-project--neural { flex-basis:86vw; min-height:390px; }
         }
         @media (prefers-reduced-motion:reduce) {
-            html.home-snap { scroll-behavior:auto; }
-            html.home-snap #home .editorial-section-head h2,
-            html.home-snap #home .editorial-about > div,
-            html.home-snap #home .editorial-about-photo { transform:none!important; transition:none; }
+            html.home-chapters { scroll-behavior:auto; }
+            html.home-chapters #home .editorial-section-head h2,
+            html.home-chapters #home .editorial-about > div,
+            html.home-chapters #home .editorial-about-photo { transform:none!important; transition:none; }
         }
     </style>
-    <link rel="stylesheet" href="assets/site-refinements.css">
-    <link rel="stylesheet" href="assets/field-notes-index.css">
+    <link rel="stylesheet" href="assets/site-refinements.css?v=20260928-depth">
+    <link rel="stylesheet" href="assets/field-notes-index.css?v=20260928-font-restore">
+    <link rel="stylesheet" href="assets/research-explorers.css?v=20260928-font-restore">
+    <link rel="stylesheet" href="assets/site-system.css?v=20260928-name-bold">
+    <link rel="stylesheet" href="assets/trajectory.css?v=20260928-readable">
 </head>
 <body>
     <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
     <div class="scroll-orb" id="scroll-orb" aria-hidden="true"></div>
-    <div class="parallax-wash" data-parallax data-parallax-fixed data-parallax-speed="0.018" data-parallax-max="36" aria-hidden="true"></div>
+    <div class="parallax-wash" aria-hidden="true"></div>
     <!-- Navigation -->
     <nav aria-label="Primary">
         <div class="container">
@@ -4229,6 +4224,7 @@
     <section id="home" class="page-section active hero editorial-home">
         <div class="container">
             <header class="editorial-hero">
+                <div class="hero-depth-grid" aria-hidden="true"></div>
                 <div class="editorial-hero-copy">
                     <span class="editorial-index">BIOLOGY · MATHEMATICS · AI &nbsp;/&nbsp; WESLEYAN 2027</span>
                     <h1>Keming Liu</h1>
@@ -4306,7 +4302,7 @@
     <section id="projects" class="page-section">
         <div class="container">
             <h2>Research</h2>
-            <p class="section-intro">Research across molecular systems, neural circuits, behavior, and interpretable models—connected by an interest in the mechanisms behind observed patterns.</p>
+            <p class="section-intro">Across molecules, neural circuits, and behavior, I use computational models to ask what observed patterns can—and cannot—tell us about biological systems.</p>
 
             <div class="academic-layout">
                 <div class="academic-main">
@@ -4390,147 +4386,200 @@
                 </div>
             </div>
 
+            <div id="academic-more" class="academic-anchor">
+            <div class="section-block reveal">
+                <div class="section-text" style="margin-bottom: calc(var(--spacing) * 2);">
+                    <span class="editorial-index">PROJECT INDEX / 01–07</span>
+                    <h3 class="home-panel-title">Questions behind the work.</h3>
+                </div>
+            </div>
+
+            <div class="projects-grid">
+                <div class="project-card reveal" data-categories="neuro ml python" data-project="salk">
+                    <p class="project-context">Salk Institute / Virtual-rat behavior</p>
+                    <h3>Is the virtual rat using vision to cross the gap?</h3>
+                    <dl class="project-brief">
+                        <div><dt>Approach</dt><dd>Vary visual input, gap geometry, rewards, and evaluation conditions.</dd></div>
+                        <div><dt>My contribution</dt><dd>Policy training, Gaussian visual-noise tests, and reward-design experiments.</dd></div>
+                    </dl>
+                    <span class="project-open-cue">Explore the question &amp; task design <span aria-hidden="true">↗</span></span>
+                    <div class="project-tags">
+                        <span class="tag">RL</span>
+                        <span class="tag">Behavior</span>
+                        <span class="tag">Python</span>
+                    </div>
+                </div>
+
+                <div class="project-card project-card--visual reveal" data-categories="neuro python" data-project="vta-pfc">
+                    <p class="project-context">Neural dynamics</p>
+                    <figure class="project-plate project-plate--signals">
+                        <svg viewBox="0 0 480 230" role="img" aria-label="Illustrative VTA and PFC waveforms, not recorded neural data">
+                            <g class="plate-guides" fill="none" stroke="currentColor">
+                                <path d="M54 68H462M54 158H462M112 32V192M202 32V192M292 32V192M382 32V192"/>
+                            </g>
+                            <rect class="signal-window" x="225" y="30" width="60" height="164" rx="2"/>
+                            <g class="plate-labels"><text x="0" y="72">VTA</text><text x="0" y="162">PFC</text></g>
+                            <path class="signal-trace signal-trace--vta" d="M54 68C64 68 66 42 75 44S87 100 97 91S108 48 120 53S135 90 145 78S158 28 171 46S184 112 197 87S210 34 223 57S237 96 249 68S261 25 274 48S287 112 300 86S313 40 326 58S339 93 352 73S365 41 378 53S391 98 404 79S418 42 431 58S447 83 462 68"/>
+                            <path class="signal-trace signal-trace--pfc" d="M54 158C67 158 70 142 82 146S96 181 108 173S121 130 134 143S148 184 161 163S174 130 187 149S200 189 213 169S226 127 239 145S252 185 265 163S278 126 291 146S304 192 317 172S330 137 343 149S356 180 369 165S382 134 395 145S408 184 421 172S444 146 462 158"/>
+                            <path class="plate-axis" d="M54 207H462"/><text class="plate-labels" x="54" y="224">TIME →</text>
+                        </svg>
+                        <figcaption>Signal study <span>Illustration · not data</span></figcaption>
+                    </figure>
+                    <h3>Reading neural <br>coordination.</h3>
+                    <p class="project-deck">VTA–PFC activity during social interaction and ethanol exposure.</p>
+                    <span class="project-open-cue">View research <span aria-hidden="true">↗</span></span>
+                </div>
+
+                <div class="project-card project-card--visual reveal" data-categories="ml python" data-project="creativity">
+                    <p class="project-context">Model interpretation</p>
+                    <figure class="project-plate project-plate--tokens">
+                        <svg viewBox="0 0 480 230" role="img" aria-label="Conceptual token-to-attribution graphic; colors are illustrative, not model scores">
+                            <text class="plate-labels" x="0" y="23">TEXT / TOKENS</text>
+                            <g class="token-source" fill="none" stroke="currentColor">
+                                <rect x="0" y="43" width="62" height="30" rx="3"/><rect x="72" y="43" width="94" height="30" rx="3"/><rect x="176" y="43" width="45" height="30" rx="3"/><rect x="231" y="43" width="78" height="30" rx="3"/><rect x="319" y="43" width="47" height="30" rx="3"/><rect x="376" y="43" width="104" height="30" rx="3"/>
+                            </g>
+                            <g class="token-links" fill="none" stroke="currentColor"><path d="M31 80V137M119 80V137M198 80V137M270 80V137M342 80V137M428 80V137"/></g>
+                            <g class="token-attribution">
+                                <rect x="0" y="145" width="62" height="30" rx="3" fill="#b8c8b6"/><rect x="72" y="145" width="94" height="30" rx="3" fill="#315944"/><rect x="176" y="145" width="45" height="30" rx="3" fill="#d5c9b6"/><rect x="231" y="145" width="78" height="30" rx="3" fill="#a97851"/><rect x="319" y="145" width="47" height="30" rx="3" fill="#879f85"/><rect x="376" y="145" width="104" height="30" rx="3" fill="#496b50"/>
+                            </g>
+                            <text class="plate-labels" x="0" y="224">TOKEN-LEVEL ATTRIBUTION</text>
+                        </svg>
+                        <figcaption>Looking inside a score <span>Illustration · not data</span></figcaption>
+                    </figure>
+                    <h3>What shapes a <br>creativity score?</h3>
+                    <p class="project-deck">Token-level SHAP analysis across three transformer models.</p>
+                    <span class="project-open-cue">View research <span aria-hidden="true">↗</span></span>
+                </div>
+
+                <div class="project-card reveal" data-categories="ml python" data-project="covid">
+                    <p class="project-context">AI4ALL Ignite / Respiratory audio</p>
+                    <h3>Can cough recordings support COVID-19 classification?</h3>
+                    <dl class="project-brief">
+                        <div><dt>Approach</dt><dd>CNN-BiGRU classification with five-fold evaluation.</dd></div>
+                        <div><dt>My contribution</dt><dd>Multi-dataset audio preprocessing and classifier development.</dd></div>
+                    </dl>
+                    <span class="project-open-cue">Explore the question <span aria-hidden="true">↗</span></span>
+                    <div class="project-tags">
+                        <span class="tag">ML</span>
+                        <span class="tag">Audio</span>
+                        <span class="tag">CNN-BiGRU</span>
+                        <span class="tag">Python</span>
+                    </div>
+                </div>
+
+                <div class="project-card reveal" data-categories="neuro" data-project="capsaicin">
+                    <p class="project-context">Nanjing University / Experimental biology</p>
+                    <h3>Can capsaicin reduce anxiety-like behavior in stressed mice?</h3>
+                    <dl class="project-brief">
+                        <div><dt>Approach</dt><dd>Combine behavioral assays with oxidative-stress measurements.</dd></div>
+                        <div><dt>My contribution</dt><dd>A chronic-stress model, behavioral testing, and ROS fluorescence analysis.</dd></div>
+                    </dl>
+                    <span class="project-open-cue">Explore the question <span aria-hidden="true">↗</span></span>
+                    <div class="project-tags">
+                        <span class="tag">Neuro</span>
+                        <span class="tag">Behavior</span>
+                        <span class="tag">ANOVA</span>
+                    </div>
+                </div>
+
+                <div class="project-card project-card--visual reveal" data-categories="compbio" data-project="p53">
+                    <p class="project-context">Molecular mechanisms / Thesis in progress</p>
+                    <figure class="project-plate project-plate--mutation">
+                        <svg viewBox="0 0 480 230" role="img" aria-label="Conceptual comparison of an unchanged sequence and a single-site substitution, not an actual p53 sequence or structure">
+                            <text class="plate-labels" x="0" y="24">ONE SITE / A DIFFERENT RESIDUE</text>
+                            <path class="plate-axis" d="M20 85H460M20 157H460M244 94V145"/>
+                            <g class="residue-chain" fill="#96a88b" stroke="#ede9de" stroke-width="5">
+                                <circle cx="28" cy="85" r="10"/><circle cx="100" cy="85" r="10"/><circle cx="172" cy="85" r="10"/><circle cx="244" cy="85" r="10"/><circle cx="316" cy="85" r="10"/><circle cx="388" cy="85" r="10"/><circle cx="460" cy="85" r="10"/>
+                                <circle cx="28" cy="157" r="10"/><circle cx="100" cy="157" r="10"/><circle cx="172" cy="157" r="10"/><circle cx="316" cy="157" r="10"/><circle cx="388" cy="157" r="10"/><circle cx="460" cy="157" r="10"/>
+                            </g>
+                            <circle class="mutation-ring" cx="244" cy="157" r="24" fill="none" stroke="#a97851" opacity=".4"/><circle cx="244" cy="157" r="10" fill="#a97851"/>
+                            <text class="plate-labels" x="0" y="224">SEQUENCE → ENERGETIC QUESTIONS</text>
+                        </svg>
+                        <figcaption>Computational mutagenesis <span>Schematic · not a structure</span></figcaption>
+                    </figure>
+                    <h3>A mutation.<br>A molecular question.</h3>
+                    <p class="project-deck">Energetic constraints on the p53 cancer mutational landscape.</p>
+                    <span class="project-open-cue">View thesis <span aria-hidden="true">↗</span></span>
+                </div>
+
+                <div class="project-card project-card--visual reveal" data-categories="python compbio" data-project="boolean">
+                    <p class="project-context">Genetic networks</p>
+                    <figure class="project-plate project-plate--network">
+                        <svg viewBox="0 0 480 230" role="img" aria-label="A three-node copy-rule cycle used in the interactive toy example">
+                            <defs><marker id="network-arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="#7a8c70"/></marker></defs>
+                            <g fill="none" stroke="#7a8c70" stroke-width="1.2" marker-end="url(#network-arrow)"><path d="M255 55Q338 55 340 131"/><path d="M316 163Q240 206 166 163"/><path d="M143 131Q146 56 224 53"/></g>
+                            <g stroke="#4e6b50" stroke-width="1.3"><circle cx="240" cy="48" r="21" fill="#315944"/><circle cx="340" cy="154" r="21" fill="#e9ede2"/><circle cx="140" cy="154" r="21" fill="#e9ede2"/></g>
+                            <g font-family="IBM Plex Mono, monospace" font-size="13" text-anchor="middle"><text x="240" y="53" fill="#fff">1</text><text x="340" y="159" fill="#315944">0</text><text x="140" y="159" fill="#315944">0</text></g>
+                            <text class="plate-labels" x="0" y="224">LOCAL RULES / COLLECTIVE STATES</text>
+                        </svg>
+                        <figcaption>Explore a state cycle <span>Toy model · not results</span></figcaption>
+                    </figure>
+                    <h3>Small rules.<br>Collective behavior.</h3>
+                    <p class="project-deck">Boolean networks, attractor states, and sensitivity to change.</p>
+                    <span class="project-open-cue">Explore the model <span aria-hidden="true">↗</span></span>
+                </div>
+            </div>
+            </div>
+
             <div id="academic-background" class="timeline-section reveal academic-anchor" style="margin-top: calc(var(--spacing) * 6);">
-                <h3>Research and Training Background</h3>
-                <p class="section-intro" style="margin-bottom: calc(var(--spacing) * 4); max-width: 62ch;">This is the path behind the current work: lab placements, training programs, and the environments where I learned to move between experimental detail, analysis, and research communication.</p>
+                <h3>Research &amp; training</h3>
+                <p class="section-intro" style="margin-bottom: calc(var(--spacing) * 4); max-width: 62ch;">Explore the labs and training behind the work. Select an experience to follow its story.</p>
                 <div class="timeline-themes">
                     <details class="timeline-theme reveal" open>
                         <summary class="timeline-theme-title">
-                            <img src="images/icons/icon_research.png" alt="Research icon" style="width:18px;height:18px;margin-right:8px;vertical-align:middle;">
                             Research
                         </summary>
                         <div class="timeline">
-                            <div class="timeline-node" data-node="7">
-                                <div class="node-header">
-                                    <div class="node-year">Mar 2022 to Oct 2022</div>
-                                    <div class="node-title">Zhuang Lab | Nanjing University</div>
-                                    <div class="node-summary">Mouse stress model, behavioral assays, and ROS analysis linking capsaicin treatment to reduced anxiety-like behavior.</div>
-                                </div>
-                                <div class="node-detail">
-                                    <div class="node-detail-inner">
-                                        <strong>Project: Remission of Anxiety by Capsaicin Treatment</strong><br>
-                                        Investigated whether capsaicin could mitigate anxiety-like behavior and oxidative stress in a chronic-stress mouse model. Established a 21-day restraint-stress paradigm and evaluated treatment effects using Elevated Plus Maze and Open Field assays alongside ROS fluorescence measurements. Presented the work at the Jiangsu High School Students’ Science Symposium in October 2023.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="timeline-node" data-node="8">
-                                <div class="node-header">
-                                    <div class="node-year">Jul to Aug 2023</div>
-                                    <div class="node-title">Pu Lab | Chinese Academy of Sciences</div>
-                                    <div class="node-summary">Wet-lab training in gene editing workflows, including plasmid construction and purification.</div>
-                                </div>
-                                <div class="node-detail">
-                                    <div class="node-detail-inner">
-                                        Interned at the Gene Editing &amp; Functional Screening Lab in Shanghai. Assisted in conducting experiments and acquiring laboratory techniques, including plasmid construction and purification, which enhanced my understanding of gene editing.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="timeline-node" data-node="9">
-                                <div class="node-header">
-                                    <div class="node-year">Mar to Jul 2024</div>
-                                    <div class="node-title">Mandalaywala CAD Lab | Boston University</div>
-                                    <div class="node-summary">Participant interviews and mixed qualitative-quantitative data work for developmental social cognition research.</div>
-                                </div>
-                                <div class="node-detail">
-                                    <div class="node-detail-inner">
-                                        Contributed to a cross-cultural developmental study of how children in the United States and China perceive social hierarchy and mobility. Recruited and conducted 10-minute structured interviews with 50+ Chinese children ages 3–6.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="timeline-node" data-node="10">
-                                <div class="node-header">
-                                    <div class="node-year">Mar to Dec 2025</div>
-                                    <div class="node-title">Melón Lab | Wesleyan University</div>
-                                    <div class="node-summary">LFP pipeline-building across PSD, PAC, coherence, and Granger causality to study social behavior and ethanol effects.</div>
-                                </div>
-                                <div class="node-detail">
-                                    <div class="node-detail-inner">
-                                        <strong>Project: Statistical Approaches for Neural Oscillation and Social Behavior Analysis in the VTA</strong><br>
-                                        Analyzed approximately 8 hours of VTA-PFC local field potential recordings from 24 mice using MATLAB and R. Integrated coherence, phase-amplitude coupling, Granger causality, and mixed-effects modeling to quantify ethanol-related changes in directional circuit communication. Identified reduced theta-band (4–12 Hz) VTA→PFC Granger causality while PFC→VTA connectivity remained comparatively stable. Presented this work at the Wesleyan Summer Experience Presentation in July 2025 and Research Pathways Showcase in January 2026.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="timeline-node" data-node="11">
-                                <div class="node-header">
-                                    <div class="node-year">Sept 2025 to Present</div>
-                                    <div class="node-title">Machine Psychometrics &amp; Computational Creativity Lab | Wesleyan University</div>
-                                    <div class="node-summary">Token-level SHAP analysis on HPC systems to examine what automated creativity-scoring models treat as original.</div>
-                                </div>
-                                <div class="node-detail">
-                                    <div class="node-detail-inner">
-                                        Analyzed 3 transformer-based models across 5,510 responses and 162,686 tokens. Independently developed an HPC-based SHAP pipeline using up to 500 model evaluations per response, then tested associations with token frequency, semantic distance, length, and spelling. Found that rarity alone did not explain originality attributions; semantic distance and token length also correlated with SHAP scores across creativity domains. Contributed analyses and figures to a manuscript in preparation and presented the work at Data Insights in March 2026.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="timeline-node" data-node="16">
-                                <div class="node-header">
-                                    <div class="node-year">Jun to Aug 2026</div>
-                                    <div class="node-title">Talmo Lab | Salk Institute for Biological Studies</div>
-                                    <div class="node-summary">Reinforcement-learning models of gap crossing and stopping behavior in a physically simulated rodent.</div>
-                                </div>
-                                <div class="node-detail">
-                                    <div class="node-detail-inner">
-                                        <strong>Summer Undergraduate Research Fellow, Center for AI and Research Computing</strong><br>
-                                        Selected as 1 of 10 Salk SURF fellows. Trained and diagnosed reinforcement-learning policies across 237 experimental runs, varied crossing conditions across 17 gap widths, and designed reward schedules for uncrossable-gap trials. Used visual-ablation and starting-position experiments to test visual control against positional memorization. Presented “Eliciting Deliberation Before a Gap Jump in a Virtual Rat” at the Salk SURF Capstone and Talmo Lab research meeting.
-                                    </div>
-                                </div>
-                            </div>
+                            <details class="timeline-node" data-node="16">
+<summary class="node-header"><span class="node-year"><span class="node-year-large">2026</span><span class="node-date">Jun to Aug 2026</span></span><span class="node-heading"><strong class="node-title">Talmo Lab</strong><span class="node-institution">Salk Institute for Biological Studies</span><span class="node-summary">Reinforcement-learning models of gap crossing and stopping behavior in a physically simulated rodent.</span></span><span class="node-toggle" aria-hidden="true"></span></summary>
+<div class="node-detail"><div class="node-detail-inner"><strong>Summer Undergraduate Research Fellow, Center for AI and Research Computing</strong><br>
+                                        Selected as 1 of 10 Salk SURF fellows. Trained and diagnosed reinforcement-learning policies across 237 experimental runs, varied crossing conditions across 17 gap widths, and designed reward schedules for uncrossable-gap trials. Used Gaussian noise added to visual observations and starting-position experiments to test visual sensitivity and positional memorization. Presented “Eliciting Deliberation Before a Gap Jump in a Virtual Rat” at the Salk SURF Capstone and Talmo Lab research meeting.</div></div>
+</details>
+<details class="timeline-node" data-node="11">
+<summary class="node-header"><span class="node-year"><span class="node-year-large">2025</span><span class="node-date">Sept 2025 to Present</span></span><span class="node-heading"><strong class="node-title">Machine Psychometrics &amp; Computational Creativity Lab</strong><span class="node-institution">Wesleyan University</span><span class="node-summary">Token-level SHAP analysis on HPC systems to examine what automated creativity-scoring models treat as original.</span></span><span class="node-toggle" aria-hidden="true"></span></summary>
+<div class="node-detail"><div class="node-detail-inner">Analyzed 3 transformer-based models across 5,510 responses and 162,686 tokens. Independently developed an HPC-based SHAP pipeline using up to 500 model evaluations per response, then tested associations with token frequency, semantic distance, length, and spelling. Found that rarity alone did not explain originality attributions; semantic distance and token length also correlated with SHAP scores across creativity domains. Contributed analyses and figures to a manuscript in preparation and presented the work at Data Insights in March 2026.</div></div>
+</details>
+<details class="timeline-node" data-node="10">
+<summary class="node-header"><span class="node-year"><span class="node-year-large">2025</span><span class="node-date">Mar to Dec 2025</span></span><span class="node-heading"><strong class="node-title">Melón Lab</strong><span class="node-institution">Wesleyan University</span><span class="node-summary">LFP pipeline-building across PSD, PAC, coherence, and Granger causality to study social behavior and ethanol effects.</span></span><span class="node-toggle" aria-hidden="true"></span></summary>
+<div class="node-detail"><div class="node-detail-inner"><strong>Project: Statistical Approaches for Neural Oscillation and Social Behavior Analysis in the VTA</strong><br>
+                                        Analyzed approximately 8 hours of VTA-PFC local field potential recordings from 24 mice using MATLAB and R. Integrated coherence, phase-amplitude coupling, Granger causality, and mixed-effects modeling to quantify ethanol-related changes in directional circuit communication. Identified reduced theta-band (4–12 Hz) VTA→PFC Granger causality while PFC→VTA connectivity remained comparatively stable. Presented this work at the Wesleyan Summer Experience Presentation in July 2025 and Research Pathways Showcase in January 2026.</div></div>
+</details>
+<details class="timeline-node" data-node="9">
+<summary class="node-header"><span class="node-year"><span class="node-year-large">2024</span><span class="node-date">Mar to Jul 2024</span></span><span class="node-heading"><strong class="node-title">Mandalaywala CAD Lab</strong><span class="node-institution">Boston University</span><span class="node-summary">Participant interviews and mixed qualitative-quantitative data work for developmental social cognition research.</span></span><span class="node-toggle" aria-hidden="true"></span></summary>
+<div class="node-detail"><div class="node-detail-inner">Contributed to a cross-cultural developmental study of how children in the United States and China perceive social hierarchy and mobility. Recruited and conducted 10-minute structured interviews with 50+ Chinese children ages 3–6.</div></div>
+</details>
+<details class="timeline-node" data-node="8">
+<summary class="node-header"><span class="node-year"><span class="node-year-large">2023</span><span class="node-date">Jul to Aug 2023</span></span><span class="node-heading"><strong class="node-title">Pu Lab</strong><span class="node-institution">Chinese Academy of Sciences</span><span class="node-summary">Wet-lab training in gene editing workflows, including plasmid construction and purification.</span></span><span class="node-toggle" aria-hidden="true"></span></summary>
+<div class="node-detail"><div class="node-detail-inner">Interned at the Gene Editing &amp; Functional Screening Lab in Shanghai. Assisted in conducting experiments and acquiring laboratory techniques, including plasmid construction and purification, which enhanced my understanding of gene editing.</div></div>
+</details>
+<details class="timeline-node" data-node="7">
+<summary class="node-header"><span class="node-year"><span class="node-year-large">2022</span><span class="node-date">Mar 2022 to Oct 2022</span></span><span class="node-heading"><strong class="node-title">Zhuang Lab</strong><span class="node-institution">Nanjing University</span><span class="node-summary">Mouse stress model, behavioral assays, and ROS analysis linking capsaicin treatment to reduced anxiety-like behavior.</span></span><span class="node-toggle" aria-hidden="true"></span></summary>
+<div class="node-detail"><div class="node-detail-inner"><strong>Project: Remission of Anxiety by Capsaicin Treatment</strong><br>
+                                        Investigated whether capsaicin could mitigate anxiety-like behavior and oxidative stress in a chronic-stress mouse model. Established a 21-day restraint-stress paradigm and evaluated treatment effects using Elevated Plus Maze and Open Field assays alongside ROS fluorescence measurements. Presented the work at the Jiangsu High School Students’ Science Symposium in October 2023.</div></div>
+</details>
                         </div>
                     </details>
                     <details class="timeline-theme reveal">
                         <summary class="timeline-theme-title">
-                            <img src="images/icons/icon_training.png" alt="Training and education icon" style="width:18px;height:18px;margin-right:8px;vertical-align:middle;">
                             Training &amp; Education
                         </summary>
                         <div class="timeline">
-                            <div class="timeline-node" data-node="12">
-                                <div class="node-header">
-                                    <div class="node-year">Sep 2024 to May 2027</div>
-                                    <div class="node-title">Started at Wesleyan University</div>
-                                    <div class="node-summary">Majors in Biology, Mathematics, and Integrative Sciences, with a senior thesis on energetic constraints in the p53 cancer mutational landscape.</div>
-                                </div>
-                                <div class="node-detail">
-                                    <div class="node-detail-inner">
-                                        Bachelor of Arts with majors in Biology, Mathematics, and Integrative Sciences, expected May 2027. GPA: 3.65/4.00. <strong>Senior thesis:</strong> <em>Energetic Constraints on the p53 Cancer Mutational Landscape</em>, advised by Kelly M. Thayer. <strong>Selected coursework:</strong> Real Analysis, Abstract Algebra, Discrete Mathematics, Bioinformatics, Genetics, Neurobiology of Neurological Disorders, and Developmental Biology of the Nervous System. <strong>Honors and funding:</strong> Kevin Sanborn Summer Research Grant, Salk SURF, Hazel QAC Summer Research Apprenticeship, Dean’s List (Fall 2024, Spring 2025, Fall 2025), AFS Global STEM Academies Full Scholarship, and YINGCAIJIHUA.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="timeline-node" data-node="13">
-                                <div class="node-header">
-                                    <div class="node-year">Aug 2025</div>
-                                    <div class="node-title">Neuromatch Academy | Deep Learning Scholar</div>
-                                    <div class="node-summary">Intensive deep learning training culminating in LSTM-based motor-intention decoding on cortical recordings.</div>
-                                </div>
-                                <div class="node-detail">
-                                    <div class="node-detail-inner">
-                                        Collaborated in a 4-person team to develop a 3-stage LSTM decoder using 567-dimensional MOp/MOs neural activity aligned to 3 behavioral events. Preprocessed cortical spike trains and generated raster plots and PSTHs to characterize neural dynamics and create model inputs for left-versus-right movement classification.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="timeline-node" data-node="14">
-                                <div class="node-header">
-                                    <div class="node-year">Sep 2025 to Mar 2026</div>
-                                    <div class="node-title">AI4ALL Ignite | Student Trainee</div>
-                                    <div class="node-summary">CNN-BiGRU cough-audio classification with multi-dataset preprocessing, five-fold evaluation, and class-imbalance analysis.</div>
-                                </div>
-                                <div class="node-detail">
-                                    <div class="node-detail-inner">
-                                        Developed a 430K-parameter CNN-BiGRU classifier for COVID-19 detection from respiratory audio. Integrated 3 public datasets and built a Python pipeline for audio-quality filtering, augmentation, and spectral feature extraction. Across 5 folds and 6,624 samples, the model achieved 0.926 PR-AUC, 90.6% COVID-positive recall, and 0.892 F1 despite substantial class imbalance.
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="timeline-node" data-node="15">
-                                <div class="node-header">
-                                    <div class="node-year">May 2027</div>
-                                    <div class="node-title">Graduation & Beyond</div>
-                                    <div class="node-summary">Preparing for graduate study in computational neuroscience with an emphasis on neural data, behavior, and interpretability.</div>
-                                </div>
-                                <div class="node-detail">
-                                    <div class="node-detail-inner">
-                                        Graduating in May 2027. I am interested in graduate work that keeps neural data, behavior, and interpretability in the same frame.
-                                    </div>
-                                </div>
-                            </div>
+                            <details class="timeline-node" data-node="15">
+<summary class="node-header"><span class="node-year"><span class="node-year-large">2027</span><span class="node-date">May 2027</span></span><span class="node-heading"><strong class="node-title">Graduation & Beyond</strong><span class="node-summary">Preparing for graduate study in computational neuroscience with an emphasis on neural data, behavior, and interpretability.</span></span><span class="node-toggle" aria-hidden="true"></span></summary>
+<div class="node-detail"><div class="node-detail-inner">Graduating in May 2027. I am interested in graduate work that keeps neural data, behavior, and interpretability in the same frame.</div></div>
+</details>
+<details class="timeline-node" data-node="14">
+<summary class="node-header"><span class="node-year"><span class="node-year-large">2025</span><span class="node-date">Sep 2025 to Mar 2026</span></span><span class="node-heading"><strong class="node-title">AI4ALL Ignite</strong><span class="node-institution">Student Trainee</span><span class="node-summary">CNN-BiGRU cough-audio classification with multi-dataset preprocessing, five-fold evaluation, and class-imbalance analysis.</span></span><span class="node-toggle" aria-hidden="true"></span></summary>
+<div class="node-detail"><div class="node-detail-inner">Developed a 430K-parameter CNN-BiGRU classifier for COVID-19 detection from respiratory audio. Integrated 3 public datasets and built a Python pipeline for audio-quality filtering, augmentation, and spectral feature extraction. Across 5 folds and 6,624 samples, the model achieved 0.926 PR-AUC, 90.6% COVID-positive recall, and 0.892 F1 despite substantial class imbalance.</div></div>
+</details>
+<details class="timeline-node" data-node="13">
+<summary class="node-header"><span class="node-year"><span class="node-year-large">2025</span><span class="node-date">Aug 2025</span></span><span class="node-heading"><strong class="node-title">Neuromatch Academy</strong><span class="node-institution">Deep Learning Scholar</span><span class="node-summary">Intensive deep learning training culminating in LSTM-based motor-intention decoding on cortical recordings.</span></span><span class="node-toggle" aria-hidden="true"></span></summary>
+<div class="node-detail"><div class="node-detail-inner">Collaborated in a 4-person team to develop a 3-stage LSTM decoder using 567-dimensional MOp/MOs neural activity aligned to 3 behavioral events. Preprocessed cortical spike trains and generated raster plots and PSTHs to characterize neural dynamics and create model inputs for left-versus-right movement classification.</div></div>
+</details>
+<details class="timeline-node" data-node="12">
+<summary class="node-header"><span class="node-year"><span class="node-year-large">2024</span><span class="node-date">Sep 2024 to May 2027</span></span><span class="node-heading"><strong class="node-title">Started at Wesleyan University</strong><span class="node-summary">Majors in Biology, Mathematics, and Integrative Sciences, with a senior thesis on energetic constraints in the p53 cancer mutational landscape.</span></span><span class="node-toggle" aria-hidden="true"></span></summary>
+<div class="node-detail"><div class="node-detail-inner">Bachelor of Arts with majors in Biology, Mathematics, and Integrative Sciences, expected May 2027. GPA: 3.65/4.00. <strong>Senior thesis:</strong> <em>Energetic Constraints on the p53 Cancer Mutational Landscape</em>, advised by Kelly M. Thayer. <strong>Selected coursework:</strong> Real Analysis, Abstract Algebra, Discrete Mathematics, Bioinformatics, Genetics, Neurobiology of Neurological Disorders, and Developmental Biology of the Nervous System. <strong>Honors and funding:</strong> Kevin Sanborn Summer Research Grant, Salk SURF, Hazel QAC Summer Research Apprenticeship, Dean’s List (Fall 2024, Spring 2025, Fall 2025), AFS Global STEM Academies Full Scholarship, and YINGCAIJIHUA.</div></div>
+</details>
                         </div>
                     </details>
                 </div>
@@ -4553,98 +4602,6 @@
                 </div>
             </div>
 
-            <div id="academic-more" class="academic-anchor">
-            <div class="section-block reveal">
-                <div class="section-text" style="margin-bottom: calc(var(--spacing) * 2);">
-                    <span class="editorial-index">PROJECT INDEX / 01–07</span>
-                    <h3 class="home-panel-title">Research projects</h3>
-                    <p class="section-intro" style="margin-bottom: 0; max-width: 62ch;">Selected and supporting work across computational biology, neuroscience, behavior, and interpretable machine learning. Open a project for its question, approach, and research context.</p>
-                </div>
-            </div>
-
-            <div class="project-filters">
-                <button class="filter-tag active" data-filter="all">All</button>
-                <button class="filter-tag" data-filter="neuro">Neuro</button>
-                <button class="filter-tag" data-filter="ml">ML</button>
-                <button class="filter-tag" data-filter="python">Python</button>
-                <button class="filter-tag" data-filter="compbio">CompBio</button>
-            </div>
-
-            <div class="projects-grid">
-                <div class="project-card reveal" data-categories="neuro ml python" data-project="salk">
-                    <h3><span class="project-card-icon ml">ML</span>Virtual-Rat Gap Crossing</h3>
-                    <p class="project-summary">Reinforcement-learning experiments separating visual control, positional memorization, and stopping behavior in a physically simulated rodent.</p>
-                    <div class="project-tags">
-                        <span class="tag">RL</span>
-                        <span class="tag">Behavior</span>
-                        <span class="tag">Python</span>
-                    </div>
-                </div>
-
-                <div class="project-card reveal" data-categories="neuro python" data-project="vta-pfc">
-                    <h3><span class="project-card-icon neuro">N</span>Neural Oscillation and Social Interaction</h3>
-                    <p class="project-summary">LFP analysis of theta-band VTA→PFC communication during social interaction and ethanol exposure.</p>
-                    <div class="project-tags">
-                        <span class="tag">Neuro</span>
-                        <span class="tag">Coherence</span>
-                        <span class="tag">PAC</span>
-                        <span class="tag">Python</span>
-                    </div>
-                </div>
-
-                <div class="project-card reveal" data-categories="ml python" data-project="creativity">
-                    <h3><span class="project-card-icon ml">ML</span>Interpretable ML for Creativity</h3>
-                    <p class="project-summary">Token-level SHAP analysis across three transformer models to identify linguistic contributors to automated originality scores.</p>
-                    <div class="project-tags">
-                        <span class="tag">ML</span>
-                        <span class="tag">SHAP</span>
-                        <span class="tag">NLP</span>
-                        <span class="tag">Python</span>
-                    </div>
-                </div>
-
-                <div class="project-card reveal" data-categories="ml python" data-project="covid">
-                    <h3><span class="project-card-icon ml">ML</span>COVID-19 Cough Classification</h3>
-                    <p class="project-summary">A 430K-parameter CNN-BiGRU classifier evaluated across five folds and 6,624 respiratory-audio samples.</p>
-                    <div class="project-tags">
-                        <span class="tag">ML</span>
-                        <span class="tag">Audio</span>
-                        <span class="tag">CNN-BiGRU</span>
-                        <span class="tag">Python</span>
-                    </div>
-                </div>
-
-                <div class="project-card reveal" data-categories="neuro" data-project="capsaicin">
-                    <h3><span class="project-card-icon neuro">N</span>Capsaicin Anxiolytic Effects</h3>
-                    <p class="project-summary">A 21-day stress model combining behavioral assays with ROS fluorescence measurements to evaluate capsaicin effects.</p>
-                    <div class="project-tags">
-                        <span class="tag">Neuro</span>
-                        <span class="tag">Behavior</span>
-                        <span class="tag">ANOVA</span>
-                    </div>
-                </div>
-
-                <div class="project-card reveal" data-categories="compbio" data-project="p53">
-                    <h3><span class="project-card-icon compbio">CB</span>Energetic Constraints on p53 Mutations</h3>
-                    <p class="project-summary">A senior thesis integrating computational mutagenesis with cancer mutation data to study the p53 mutational landscape.</p>
-                    <div class="project-tags">
-                        <span class="tag">CompBio</span>
-                        <span class="tag">Cancer</span>
-                        <span class="tag">Thesis</span>
-                    </div>
-                </div>
-
-                <div class="project-card reveal" data-categories="python compbio" data-project="boolean">
-                    <h3><span class="project-card-icon compbio">CB</span>Boolean Genetic Networks</h3>
-                    <p class="project-summary">Kauffman-network mutation-sensitivity simulations with an emphasis on computational efficiency.</p>
-                    <div class="project-tags">
-                        <span class="tag">CompBio</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">Simulation</span>
-                    </div>
-                </div>
-            </div>
-            </div>
                 </div>
 
                 <aside class="academic-sidebar" aria-label="Academic page sections">
@@ -4669,33 +4626,40 @@
             <h1>Virtual-Rat Gap Crossing</h1>
 
             <div class="highlight-box">
-                <p><strong>Problem:</strong> What does a reinforcement-learning policy use to cross gaps, and can it learn when not to jump?</p>
+                <p><strong>Question:</strong> What does a reinforcement-learning policy use to cross gaps, and can it learn when not to jump?</p>
                 <p><strong>Approach:</strong> Varied rewards, visual input, gap width, starting position, and evaluation conditions in a physically simulated rodent.</p>
             </div>
 
-            <div class="rat-experiment-visual" aria-label="Conceptual animation of the virtual rat task sequence">
-                <span class="experiment-platform experiment-platform--left"></span>
-                <span class="experiment-platform experiment-platform--right"></span>
-                <span class="experiment-rat"></span>
-                <span class="experiment-sight"></span>
-                <span class="experiment-label experiment-label--one">01 / approach</span>
-                <span class="experiment-label experiment-label--two">02 / evaluate</span>
-                <span class="experiment-label experiment-label--three">03 / act</span>
-            </div>
-            <p class="reflection-caption">Conceptual task sequence showing approach, visual evaluation, and action selection. This is not a result plot.</p>
+            <section class="research-explorer rat-explorer" aria-labelledby="rat-explorer-title">
+                <header class="explorer-heading"><span class="explorer-kicker">Interactive / Visual-noise sensitivity</span><h2 id="rat-explorer-title">Same scene.<br><em>Noisier visual input.</em></h2><p>I added Gaussian noise to the virtual rat’s visual observations to test sensitivity to visual perturbation. Explore the image transformation below.</p></header>
+                <div class="explorer-disclaimer">Synthetic images · illustrative noise strengths · no behavioral results</div>
+                <div class="rat-image-grid">
+                    <figure><figcaption>Clean synthetic scene</figcaption><canvas id="rat-clean-image" width="360" height="200" role="img" aria-label="Clean synthetic gap scene, not an experimental camera frame">A synthetic scene showing two platforms separated by a gap.</canvas></figure>
+                    <figure><figcaption>Same scene + Gaussian noise</figcaption><canvas id="rat-noisy-image" width="360" height="200" role="img" aria-label="The same synthetic scene with medium illustrative Gaussian noise">The same scene with additive Gaussian noise; visual input is not removed.</canvas></figure>
+                </div>
+                <div class="rat-controls">
+                    <div class="rat-gap-control"><label for="rat-noise">Gaussian noise <output id="rat-noise-output" for="rat-noise">Medium</output></label><input id="rat-noise" type="range" min="0" max="3" step="1" value="2" aria-describedby="rat-noise-help"><div class="rat-range-labels" aria-hidden="true"><span>None</span><span>More noise</span></div></div>
+                    <div class="rat-gap-control"><label for="rat-gap">Gap width <output id="rat-gap-output" for="rat-gap">20 cm</output></label><input id="rat-gap" type="range" min="12" max="28" step="1" value="20" aria-describedby="rat-gap-help"><div class="rat-range-labels" aria-hidden="true"><span>12 cm</span><span>28 cm</span></div></div>
+                </div>
+                <p id="rat-noise-help" class="explorer-footnote">Demo only: Gaussian noise is added to pixel values and clipped to the display range. The image and noise strengths are illustrative—not experimental frames or the study’s calibrated noise levels.</p>
+                <p id="rat-gap-help" class="explorer-footnote">The 12–28 cm range matches the project’s gap settings. Geometry is schematic, not to scale.</p>
+                <div class="explorer-reading"><span class="explorer-kicker">What this manipulation asks</span><p id="rat-condition-question">How sensitive is gap-crossing behavior to Gaussian noise added to the visual observations?</p><p id="rat-condition-limit">The visual scene remains present; its pixel values are perturbed. This illustration shows the input manipulation, not the policy’s response.</p></div>
+                <div class="explorer-bottom"><p>For a visual comparison, keep the gap fixed and change the noise strength.</p><button type="button" id="rat-reset">Reset illustration ↺</button></div>
+                <noscript><p>Enable JavaScript to view the synthetic images and adjust the illustrative Gaussian noise. This demonstration does not show study data.</p></noscript>
+            </section>
 
-            <h4>My Role</h4>
+            <h4>My Contribution</h4>
             <ul>
                 <li>Trained and diagnosed reinforcement-learning policies across 237 experimental runs</li>
                 <li>Systematically varied 17 gap widths from 12 to 28 cm to characterize the task boundary</li>
                 <li>Designed a correct-rejection reward and dense-to-sparse reward schedules for uncrossable-gap trials</li>
-                <li>Designed visual-ablation and starting-position experiments across 6 Gaussian-noise levels, 3 visual conditions, and 3 starting distances</li>
+                <li>Added Gaussian noise to visual observations and varied starting positions; evaluations covered 6 noise levels, 3 visual conditions, and 3 starting distances</li>
                 <li>Used controlled evaluation changes to distinguish learning failures from evaluation artifacts</li>
             </ul>
 
             <h4>Research Context</h4>
             <p class="mono">Summer Undergraduate Research Fellow in the Talmo Lab and Salk Center for AI and Research Computing, June–August 2026. Selected as 1 of 10 Salk SURF fellows.</p>
-            <p>The project shifted the question from whether the virtual rat could cross a gap to what information and reward structure supported the behavior. Visual ablations and uncrossable gaps helped distinguish successful performance from the strategy the policy had actually learned.</p>
+            <p>The project shifted the question from whether the virtual rat could cross a gap to what information and reward structure supported the behavior. Gaussian visual-noise tests, starting-position changes, and uncrossable-gap conditions were used to investigate the strategy behind successful performance.</p>
 
             <h4>Presentation</h4>
             <p>Presented “Eliciting Deliberation Before a Gap Jump in a Virtual Rat” at the Salk SURF Capstone and Talmo Lab research meeting in August 2026.</p>
@@ -4708,17 +4672,42 @@
             <h1>Neural Oscillation and Social Interaction</h1>
             
             <div class="highlight-box">
-                <p><strong>Problem:</strong> How does ethanol alter VTA-PFC neural coordination during social interaction?</p>
+                <p><strong>Question:</strong> How does ethanol alter VTA-PFC neural coordination during social interaction?</p>
                 <p><strong>Approach:</strong> Analyzed approximately 8 hours of VTA-PFC LFP recordings from 24 mice using coherence, PAC, Granger causality, and mixed-effects models.</p>
                 <p><strong>Result:</strong> Ethanol reduced theta-band VTA→PFC Granger causality while PFC→VTA connectivity remained comparatively stable.</p>
             </div>
+
+            <section class="research-explorer metric-explorer" aria-labelledby="metric-explorer-title">
+                <header class="explorer-heading"><span class="explorer-kicker">Interactive / Reading neural signals</span><h2 id="metric-explorer-title">Same recordings.<br><em>Different questions.</em></h2><p>A readout is useful only when its interpretation matches the question. Select a lens to see the distinction.</p></header>
+                <div class="metric-tabs" role="tablist" aria-label="Neural signal readouts">
+                    <button type="button" role="tab" id="metric-power" aria-controls="metric-panel-power" aria-selected="true" tabindex="0">Power</button>
+                    <button type="button" role="tab" id="metric-coherence" aria-controls="metric-panel-coherence" aria-selected="false" tabindex="-1">Coherence</button>
+                    <button type="button" role="tab" id="metric-granger" aria-controls="metric-panel-granger" aria-selected="false" tabindex="-1">Granger causality</button>
+                </div>
+                <div id="metric-panel-power" class="metric-panel" role="tabpanel" aria-labelledby="metric-power" tabindex="0">
+                    <div class="metric-map" aria-hidden="true"><span class="metric-node">One signal</span><span class="metric-link">→</span><span class="metric-node metric-node--accent">Power by frequency</span></div>
+                    <dl class="metric-explanation"><div><dt>Asks</dt><dd>How is a signal’s power distributed across frequencies?</dd></div><div><dt>Does not establish</dt><dd>How two regions interact. Power describes a signal; it does not by itself measure communication.</dd></div></dl>
+                    <a class="explorer-source" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.welch.html" target="_blank" rel="noopener noreferrer">Method reference: spectral power ↗</a>
+                </div>
+                <div id="metric-panel-coherence" class="metric-panel" role="tabpanel" aria-labelledby="metric-coherence" tabindex="0" hidden>
+                    <div class="metric-map" aria-hidden="true"><span class="metric-node">Signal A</span><span class="metric-link">↔</span><span class="metric-node metric-node--accent">Signal B</span></div>
+                    <dl class="metric-explanation"><div><dt>Asks</dt><dd>How strongly are two signals linearly related at a given frequency?</dd></div><div><dt>Does not establish</dt><dd>A direction of influence. Magnitude-squared coherence is symmetric between the two signals.</dd></div></dl>
+                    <a class="explorer-source" href="https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.coherence.html" target="_blank" rel="noopener noreferrer">Method reference: coherence ↗</a>
+                </div>
+                <div id="metric-panel-granger" class="metric-panel" role="tabpanel" aria-labelledby="metric-granger" tabindex="0" hidden>
+                    <div class="metric-map" aria-hidden="true"><span class="metric-node">Past of A + B</span><span class="metric-link">→</span><span class="metric-node metric-node--accent">Predict B</span></div>
+                    <dl class="metric-explanation"><div><dt>Asks</dt><dd>Does adding A’s past improve prediction of B beyond using B’s own past?</dd></div><div><dt>Does not establish</dt><dd>A biological mechanism on its own. This is a directional prediction test within a specified model.</dd></div></dl>
+                    <a class="explorer-source" href="https://www.statsmodels.org/stable/generated/statsmodels.tsa.stattools.grangercausalitytests.html" target="_blank" rel="noopener noreferrer">Method reference: Granger tests ↗</a>
+                </div>
+                <p class="explorer-footnote">Conceptual reading guide, not a data visualization. A and B are generic signals; arrows do not depict this study’s findings.</p>
+            </section>
 
             <img src="images/projects/VTA/lab_scene.jpg"
                  alt="Cartoon lab scene for the VTA-PFC oscillation project"
                  class="project-media"
                  data-story="Cartoon view of the VTA-PFC lab setup and the analysis work behind the figures.">
 
-            <h4>My Role</h4>
+            <h4>My Contribution</h4>
             <ul>
                 <li>Analyzed VTA-PFC local field potential recordings from 24 mice using MATLAB and R</li>
                 <li>Integrated coherence, phase-amplitude coupling, and Granger causality with mixed-effects modeling</li>
@@ -4761,12 +4750,12 @@
             <h1>Interpretable ML for Creativity</h1>
             
             <div class="highlight-box">
-                <p><strong>Problem:</strong> Are creativity prediction models capturing genuine linguistic patterns or statistical artifacts?</p>
+                <p><strong>Question:</strong> Are creativity prediction models capturing genuine linguistic patterns or statistical artifacts?</p>
                 <p><strong>Approach:</strong> Developed an HPC-based token-level SHAP pipeline for three transformer-based originality-scoring models.</p>
                 <p><strong>Result:</strong> Found that token rarity alone did not explain originality attributions; semantic distance and token length also correlated with SHAP scores.</p>
             </div>
 
-            <h4>My Role</h4>
+            <h4>My Contribution</h4>
             <ul>
                 <li>Analyzed 5,510 responses and 162,686 tokens across 3 creativity domains</li>
                 <li>Independently developed an HPC-based SHAP pipeline using up to 500 model evaluations per response</li>
@@ -4859,12 +4848,12 @@
             <h1>COVID-19 Cough Classification</h1>
             
             <div class="highlight-box">
-                <p><strong>Problem:</strong> How far can cough-audio features support exploratory classification of COVID-19 status in a research setting?</p>
+                <p><strong>Question:</strong> How far can cough-audio features support exploratory classification of COVID-19 status in a research setting?</p>
                 <p><strong>Approach:</strong> A 430K-parameter CNN-BiGRU classifier with audio-quality filtering, augmentation, and spectral feature extraction across three public datasets.</p>
                 <p><strong>Result:</strong> Across 5 folds and 6,624 samples, the model achieved 0.926 PR-AUC, 90.6% COVID-positive recall, and 0.892 F1.</p>
             </div>
 
-            <h4>My Role</h4>
+            <h4>My Contribution</h4>
             <ul>
                 <li>Integrated 3 public respiratory-audio datasets</li>
                 <li>Built a Python pipeline for audio-quality filtering, augmentation, and spectral feature extraction</li>
@@ -4922,12 +4911,12 @@
             <h1>Neural Decoding of Movement Choices</h1>
             
             <div class="highlight-box">
-                <p><strong>Problem:</strong> Can we predict movement intention from pre-motor cortical activity?</p>
+                <p><strong>Question:</strong> Can we predict movement intention from pre-motor cortical activity?</p>
                 <p><strong>Approach:</strong> A three-stage LSTM decoder using 567-dimensional MOp/MOs activity aligned to three behavioral events.</p>
                 <p><strong>Result:</strong> Built a pipeline for classifying left-versus-right movement choices from cortical neural activity.</p>
             </div>
 
-            <h4>My Role</h4>
+            <h4>My Contribution</h4>
             <ul>
                 <li>Collaborated in a four-person team to develop the decoder</li>
                 <li>Preprocessed 567-dimensional MOp/MOs spike-train data aligned to three behavioral events</li>
@@ -4977,12 +4966,12 @@
             <h1>Capsaicin Anxiolytic Effects</h1>
             
             <div class="highlight-box">
-                <p><strong>Problem:</strong> Can capsaicin treatment reduce anxiety-like behavior in chronically stressed mice?</p>
+                <p><strong>Question:</strong> Can capsaicin treatment reduce anxiety-like behavior in chronically stressed mice?</p>
                 <p><strong>Approach:</strong> 21-day chronic restraint stress model with behavioral assays and oxidative stress markers.</p>
                 <p><strong>Result:</strong> The study examined whether capsaicin treatment was associated with reduced anxiety-like behavior and oxidative stress markers.</p>
             </div>
 
-            <h4>My Role</h4>
+            <h4>My Contribution</h4>
             <ul>
                 <li>Established 21-day chronic restraint stress mouse model</li>
                 <li>Conducted behavioral assays: Elevated Plus Maze (EPM) and Open Field Test</li>
@@ -5055,24 +5044,27 @@
             <h1>Boolean Genetic Networks</h1>
             
             <div class="highlight-box">
-                <p><strong>Problem:</strong> How sensitive are genetic regulatory networks to mutations across different attractor states?</p>
+                <p><strong>Question:</strong> How sensitive are genetic regulatory networks to mutations across different attractor states?</p>
                 <p><strong>Approach:</strong> Simulated Kauffman Boolean networks with mutation sensitivity analysis on local machines.</p>
                 <p><strong>Result:</strong> Explored attractor-dependent vulnerability patterns and the computational trade-offs involved in scaling the simulations.</p>
             </div>
 
-            <h4>My Role</h4>
+            <h4>My Contribution</h4>
             <ul>
                 <li>Designed and implemented Boolean network simulations (Kauffman nets)</li>
                 <li>Developed mutation sensitivity analysis across different attractor states</li>
                 <li>Optimized memory usage and computational performance for larger local runs</li>
                 <li>Experimented with basic parallelization strategies on local hardware</li>
             </ul>
-            <h4>Interactive Heatmap</h4>
-            <p class="mono">Click “Simulate mutation cascade” to see how activity spreads across a small Boolean network toy example.</p>
-            <div class="boolean-heatmap-controls">
-                <button class="btn" id="boolean-heatmap-run">Simulate mutation cascade</button>
-            </div>
-            <div class="boolean-heatmap" id="boolean-heatmap"></div>
+            <section class="research-explorer boolean-explorer" aria-labelledby="boolean-demo-title">
+                <header class="explorer-heading"><span class="explorer-kicker">Interactive / A minimal state cycle</span><h2 id="boolean-demo-title">Three nodes.<br><em>Follow one change.</em></h2></header>
+                <p class="explorer-disclaimer">Toy copy-rule network · not the study’s network or results</p>
+                <p class="explorer-footnote">At each step, all nodes update together: A copies C, B copies A, and C copies B. Toggle a starting state, then follow it through time.</p>
+                <div class="boolean-seed" role="group" aria-label="Starting node states"><button type="button" data-seed="0" aria-pressed="true">A <span>1</span></button><button type="button" data-seed="1" aria-pressed="false">B <span>0</span></button><button type="button" data-seed="2" aria-pressed="false">C <span>0</span></button></div>
+                <div class="boolean-timeline" role="img" aria-label=""></div>
+                <p class="boolean-status explorer-footnote" role="status"></p>
+                <p class="explorer-footnote">This changes an initial state, not a gene or update rule. It illustrates an attractor cycle—not biological propagation.</p>
+            </section>
             <p>What I found compelling here was how quickly a simple model can become difficult to reason about at scale, which made computational efficiency and conceptual clarity feel like part of the same problem.</p>
 
             <h4>Methods & Tools</h4>
@@ -5117,7 +5109,7 @@
                 </a>
                 <a class="fn-entry fn-inquiry note-link" href="notes/when-the-workflow-starts-to-hold/" aria-labelledby="note-index-pipelines">
                     <div class="fn-entry-meta"><span>02 / Research practice</span><span>3 min read</span></div>
-                    <div class="fn-type-study" aria-hidden="true"><span>A note on trust</span><p>A workflow can hold.<br><em>An explanation<br>still has to earn it.</em></p><span class="fn-rule-mark">↳ question / revise / return</span></div>
+                    <div class="fn-type-study fn-process-study" aria-hidden="true"><span>Research is a return path</span><svg viewBox="0 0 340 260"><path class="inquiry-orbit" d="M170 43C310 43 310 216 170 216S30 43 170 43Z"/><path class="inquiry-return" d="M63 113L53 94L76 97"/><circle cx="170" cy="43" r="5"/><circle cx="265" cy="158" r="5"/><circle cx="75" cy="158" r="5"/><text x="170" y="24">QUESTION</text><text x="268" y="185">TEST</text><text x="73" y="185">REVISE</text><text class="inquiry-center" x="170" y="126">Look again.</text></svg><span class="fn-rule-mark">A procedure can repeat. So can an assumption.</span></div>
                     <h3 id="note-index-pipelines">When the Workflow Starts to Hold</h3>
                     <p>Making an analysis repeatable is not the same as making its interpretation right.</p>
                     <span class="fn-read">Read the essay <span aria-hidden="true">↗</span></span>
@@ -5195,7 +5187,7 @@
         function showPage(pageName) {
             // Close any open project modals first
             closeProject(false);
-            document.documentElement.classList.toggle('home-snap', pageName === 'home');
+            document.documentElement.classList.toggle('home-chapters', pageName === 'home');
             
             pages.forEach(page => {
                 page.classList.remove('active');
@@ -5206,16 +5198,17 @@
                 targetPage.classList.add('active');
                 document.body.dataset.page = pageName;
                 updateNavState(pageName);
-                window.scrollTo({ top: 0, behavior: 'smooth' });
+                window.scrollTo({ top: 0, behavior: 'instant' });
             } else {
                     const homePage = document.getElementById('home');
                 if (homePage) {
                     homePage.classList.add('active');
                     document.body.dataset.page = 'home';
                     updateNavState('home');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    window.scrollTo({ top: 0, behavior: 'instant' });
                 }
             }
+            window.dispatchEvent(new Event('site:pagechange'));
         }
         
         // Attach click handlers to all links with data-page attribute
@@ -5299,47 +5292,7 @@
             }
         })();
 
-        // Subtle depth shift within snapped homepage chapters.
-        (function setupHomeChapterParallax() {
-            const targets = Array.from(document.querySelectorAll('#home .home-research, #home .editorial-about'));
-            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (!targets.length || reducedMotion) return;
-
-            let frame = null;
-            const update = () => {
-                frame = null;
-                if (document.body.dataset.page !== 'home') return;
-                const viewportCenter = window.innerHeight / 2;
-                targets.forEach(section => {
-                    const rect = section.getBoundingClientRect();
-                    const sectionCenter = rect.top + rect.height / 2;
-                    const offset = Math.max(-18, Math.min(18, (viewportCenter - sectionCenter) * .035));
-                    section.style.setProperty('--parallax-y', `${offset}px`);
-                });
-            };
-            window.addEventListener('scroll', () => {
-                if (frame === null) frame = requestAnimationFrame(update);
-            }, { passive: true });
-            window.addEventListener('resize', update);
-            update();
-        })();
-
-        // A chapter that grows beyond the available screen must remain freely readable.
-        (function setupAdaptiveChapterSnap() {
-            const chapters = Array.from(document.querySelectorAll('#home .editorial-hero, #home .home-research, #home .editorial-about'));
-            const update = () => {
-                if (document.body.dataset.page !== 'home') return;
-                const available = innerHeight - 72;
-                document.documentElement.classList.toggle('snap-relaxed',
-                    chapters.some(chapter => chapter.getBoundingClientRect().height > available + 12));
-            };
-            const observer = new ResizeObserver(update);
-            chapters.forEach(chapter => observer.observe(chapter));
-            window.addEventListener('resize', update);
-        })();
-
-        // Project filtering
-        const filterTags = document.querySelectorAll('.filter-tag');
+        // Curated project order; all seven entries remain visible.
         const projectCards = document.querySelectorAll('.project-card');
         const focusProjectLinks = document.querySelectorAll('[data-focus-project]');
         const academicSidebarLinks = document.querySelectorAll('.academic-sidebar-link');
@@ -5385,46 +5338,7 @@
             academicSections.forEach(section => academicObserver.observe(section));
         }
         
-        filterTags.forEach(tag => {
-            tag.setAttribute('aria-pressed', tag.classList.contains('active') ? 'true' : 'false');
-            tag.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const filter = tag.getAttribute('data-filter');
-                
-                // Update active state
-                filterTags.forEach(t => {
-                    t.classList.remove('active');
-                    t.setAttribute('aria-pressed', 'false');
-                });
-                tag.classList.add('active');
-                tag.setAttribute('aria-pressed', 'true');
-                document.querySelector('.projects-grid').classList.toggle('is-filtered', filter !== 'all');
-                
-                // Filter projects
-                projectCards.forEach(card => {
-                    const categories = card.getAttribute('data-categories');
-                    if (filter === 'all' || categories.includes(filter)) {
-                        card.style.display = '';
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
-        });
-
-        // Interactive Timeline | click to expand/collapse
-        document.querySelectorAll('.timeline-node').forEach(node => {
-            node.addEventListener('click', (e) => {
-                e.stopPropagation();
-                const wasExpanded = node.classList.contains('expanded');
-                document.querySelectorAll('.timeline-node').forEach(n => n.classList.remove('expanded'));
-                if (!wasExpanded) {
-                    node.classList.add('expanded');
-                    node.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }
-            });
-        });
+        // Timeline entries use native details/summary: keyboard access without scroll jumps.
 
         let projectReturnTarget = null;
         let projectPreviousOverflow = '';
@@ -5508,7 +5422,10 @@
             });
         }
         makeKeyboardClickable(projectCards);
-        makeKeyboardClickable(document.querySelectorAll('.timeline-node'));
+        projectCards.forEach(card => {
+            const title = document.querySelector('#project-' + card.dataset.project + ' h1');
+            card.setAttribute('aria-label', `${title.textContent}. ${card.querySelector('h3').textContent}`);
+        });
 
         // Sequential browsing follows the seven published entries, excluding retired projects.
         publishedProjects.forEach((project, index) => {
@@ -5589,20 +5506,12 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         const el = entry.target;
-                        // Stagger siblings that reveal together (e.g. cards in a grid)
-                        const siblings = el.parentElement
-                            ? Array.from(el.parentElement.children).filter(c => c.classList.contains('reveal'))
-                            : [];
-                        const idx = siblings.indexOf(el);
-                        if (idx > 0) {
-                            el.style.transitionDelay = Math.min(idx, 6) * 80 + 'ms';
-                        }
                         el.classList.add('visible');
                         revealObserver.unobserve(el);
                     }
                 });
             }, {
-                threshold: 0.15
+                threshold: 0.05
             });
 
             revealElements.forEach(el => revealObserver.observe(el));
@@ -5611,92 +5520,61 @@
             revealElements.forEach(el => el.classList.add('visible'));
         }
 
-        // Scroll progress bar + ambient drifting orb + hero cue
-        const scrollProgress = document.getElementById('scroll-progress');
-        const scrollOrb = document.getElementById('scroll-orb');
-        const scrollCue = document.getElementById('scroll-cue');
-        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        // Forest -> brass hue interpolation for the orb
-        const ORB_A = [31, 90, 56], ORB_B = [175, 122, 66];
-        const lerp = (a, b, t) => Math.round(a + (b - a) * t);
-        if (scrollProgress) {
-            let progressTicking = false;
-            const updateProgress = () => {
-                const doc = document.documentElement;
-                const scrollable = doc.scrollHeight - doc.clientHeight;
-                const top = doc.scrollTop || document.body.scrollTop;
-                const pct = scrollable > 0 ? Math.max(0, Math.min(1, top / scrollable)) : 0;
-                scrollProgress.style.width = (pct * 100) + '%';
-                if (scrollOrb && !prefersReducedMotion) {
-                    // Drift: a gentle rightward arc while moving down the page
-                    const x = 6 + Math.sin(pct * Math.PI) * 40;   // vw
-                    const y = -8 + pct * 78;                       // vh
-                    scrollOrb.style.transform = `translate3d(${x}vw, ${y}vh, 0)`;
-                    // Hue: shift from forest toward brass as you descend
-                    const r = lerp(ORB_A[0], ORB_B[0], pct),
-                          g = lerp(ORB_A[1], ORB_B[1], pct),
-                          b = lerp(ORB_A[2], ORB_B[2], pct);
-                    scrollOrb.style.background =
-                        `radial-gradient(circle at center, rgba(${r},${g},${b},0.16), rgba(${r},${g},${b},0) 68%)`;
-                }
-                if (scrollCue) scrollCue.classList.toggle('is-hidden', top > 60);
-                progressTicking = false;
-            };
-            window.addEventListener('scroll', () => {
-                if (!progressTicking) {
-                    progressTicking = true;
-                    requestAnimationFrame(updateProgress);
-                }
-            }, { passive: true });
-            // Recompute when the SPA swaps pages (content height changes)
-            window.addEventListener('resize', updateProgress, { passive: true });
-            document.querySelectorAll('a[data-page]').forEach(l =>
-                l.addEventListener('click', () => setTimeout(updateProgress, 60)));
-            updateProgress();
-        }
-
-        // Layered parallax: viewport-relative, clamped, and batched into one rAF.
-        // Disabled for reduced-motion users and small/touch-first screens.
-        (function setupParallax() {
+        // Native scrolling with composited visual layers at different depths.
+        // One event-driven frame; no wheel interception, easing loop, or snap points.
+        (function setupScrollVisuals() {
+            const progress = document.getElementById('scroll-progress');
+            const cue = document.getElementById('scroll-cue');
+            const hero = document.querySelector('#home .editorial-hero');
+            const research = document.querySelector('#home .home-research');
+            const about = document.querySelector('#home .editorial-about');
+            const photo = document.querySelector('#home .editorial-about-photo');
             const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-            const compactQuery = window.matchMedia('(max-width: 720px), (pointer: coarse)');
-            const layers = Array.from(document.querySelectorAll('[data-parallax]'));
-            if (!layers.length) return;
-
+            const compactQuery = window.matchMedia('(max-width: 980px), (pointer: coarse)');
             let frame = 0;
-            const reset = () => layers.forEach(layer => layer.style.setProperty('--parallax-y', '0px'));
-
             const render = () => {
                 frame = 0;
-                if (motionQuery.matches || compactQuery.matches) {
-                    reset();
-                    return;
+                // Read only stationary section bounds, then batch all transform-variable writes.
+                const doc = document.documentElement;
+                const top = window.scrollY;
+                const distance = doc.scrollHeight - doc.clientHeight;
+                const fraction = distance > 0 ? Math.max(0, Math.min(1, top / distance)) : 0;
+                const enabled = !motionQuery.matches
+                    && document.body.dataset.page === 'home'
+                    && !doc.classList.contains('project-open');
+                const compact = compactQuery.matches;
+                const clamp = (value, max) => Math.max(-max, Math.min(max, value));
+                const centered = rect => window.innerHeight / 2 - rect.top - rect.height / 2;
+                let cover = 0, panel = 0, figures = 0, portrait = 0;
+                if (enabled && hero) {
+                    const rect = hero.getBoundingClientRect();
+                    cover = clamp(-rect.top * (compact ? .035 : .14), compact ? 22 : 72);
+                    panel = compact ? 0 : clamp(-rect.top * .08, 40);
                 }
-
-                const viewportCenter = window.innerHeight / 2;
-                layers.forEach(layer => {
-                    const rect = layer.getBoundingClientRect();
-                    if (rect.bottom < -120 || rect.top > window.innerHeight + 120) return;
-                    const speed = Number(layer.dataset.parallaxSpeed || 0.04);
-                    const max = Number(layer.dataset.parallaxMax || 28);
-                    const distance = layer.hasAttribute('data-parallax-fixed')
-                        ? -window.scrollY
-                        : (rect.top + rect.height / 2) - viewportCenter;
-                    const offset = Math.max(-max, Math.min(max, distance * speed));
-                    layer.style.setProperty('--parallax-y', `${offset.toFixed(2)}px`);
-                });
+                if (enabled && research) {
+                    figures = clamp(centered(research.getBoundingClientRect()) * (compact ? .025 : .08), compact ? 10 : 26);
+                }
+                if (enabled && about) {
+                    portrait = clamp(centered(about.getBoundingClientRect()) * (compact ? .025 : .10), compact ? 14 : 40);
+                }
+                if (progress) progress.style.transform = `scaleX(${fraction})`;
+                if (hero) {
+                    hero.style.setProperty('--cover-depth-y', `${cover.toFixed(2)}px`);
+                    hero.style.setProperty('--panel-depth-y', `${panel.toFixed(2)}px`);
+                }
+                if (research) research.style.setProperty('--research-depth-y', `${figures.toFixed(2)}px`);
+                if (photo) photo.style.setProperty('--parallax-y', `${portrait.toFixed(2)}px`);
+                if (cue) cue.classList.toggle('is-hidden', top > 60);
             };
-
             const requestRender = () => {
                 if (!frame) frame = requestAnimationFrame(render);
             };
-
             window.addEventListener('scroll', requestRender, { passive: true });
             window.addEventListener('resize', requestRender, { passive: true });
+            window.addEventListener('site:pagechange', requestRender);
             motionQuery.addEventListener?.('change', requestRender);
             compactQuery.addEventListener?.('change', requestRender);
-            document.querySelectorAll('a[data-page]').forEach(link =>
-                link.addEventListener('click', () => requestAnimationFrame(requestRender)));
+            new ResizeObserver(requestRender).observe(document.body);
             requestRender();
         })();
 
@@ -5706,57 +5584,6 @@
                 media.classList.toggle('expanded');
             });
         });
-
-        // Boolean heatmap visualization
-        const heatmapContainer = document.getElementById('boolean-heatmap');
-        const heatmapButton = document.getElementById('boolean-heatmap-run');
-        if (heatmapContainer && heatmapButton) {
-            const size = 10; // 10x10 grid
-            const cells = [];
-            for (let i = 0; i < size * size; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'boolean-cell';
-                heatmapContainer.appendChild(cell);
-                cells.push(cell);
-            }
-
-            function runMutationCascade() {
-                // reset
-                cells.forEach(c => c.classList.remove('active', 'mutated'));
-                const mutatedIndex = Math.floor(Math.random() * cells.length);
-                cells[mutatedIndex].classList.add('mutated');
-
-                // simple spreading pattern: activate neighbors over a few steps
-                const neighborOffsets = [-1, 1, -size, size];
-                let frontier = [mutatedIndex];
-                let step = 0;
-                const maxSteps = 4;
-
-                const interval = setInterval(() => {
-                    step += 1;
-                    const nextFrontier = [];
-                    frontier.forEach(idx => {
-                        neighborOffsets.forEach(offset => {
-                            const nIdx = idx + offset;
-                            if (nIdx >= 0 && nIdx < cells.length && !cells[nIdx].classList.contains('mutated')) {
-                                cells[nIdx].classList.add('active');
-                                nextFrontier.push(nIdx);
-                            }
-                        });
-                    });
-                    frontier = nextFrontier;
-                    if (step >= maxSteps || frontier.length === 0) {
-                        clearInterval(interval);
-                    }
-                }, 220);
-            }
-
-            heatmapButton.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                runMutationCascade();
-            });
-        }
 
         // Interactive SHAP sentence example
         (function setupShapSentence() {
@@ -5891,5 +5718,7 @@
             });
         })();
     </script>
+    <script src="assets/research-explorers.js?v=20260928-visuals" defer></script>
+    <script src="assets/trajectory.js?v=20260928-atlas3" defer></script>
 </body>
 </html>

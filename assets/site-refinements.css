@@ -31,12 +31,43 @@ html.project-open { scroll-snap-type: none !important; }
 #projects .projects-grid.is-filtered { grid-auto-flow: row; }
 #projects .projects-grid.is-filtered .project-card { grid-column: span 6; }
 
-/* Preserve desktop chapters; allow long content, zoom, and small screens to flow. */
-html.home-snap.snap-relaxed { scroll-snap-type: y proximity; }
+/* Keep the chapter composition, but never pull vertical scrolling to a snap point. */
+html.home-chapters, html.home-chapters body { scroll-snap-type: none; }
+#home .home-research.reveal, #home .editorial-about.reveal {
+    opacity: 1; transform: none; transition: none; will-change: auto;
+}
+html.home-chapters #home .editorial-about-photo { transition: none; }
+
+/* Static color field + an overscanned grid: depth without repainting gradients. */
+#home .editorial-hero::before {
+    background: linear-gradient(135deg, #f3f0e7 0%, #e8eee8 58%, #f1eadf 120%);
+}
+#home .hero-depth-grid {
+    position: absolute; left: 50%; top: 0; width: 100vw; height: 100%;
+    transform: translateX(-50%); overflow: hidden; pointer-events: none; z-index: -1;
+}
+#home .hero-depth-grid::before {
+    content: ''; position: absolute; inset: -80px 0;
+    background-image: linear-gradient(rgba(33,79,58,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(33,79,58,.04) 1px, transparent 1px);
+    background-size: 80px 80px;
+    transform: translate3d(0, var(--cover-depth-y, 0px), 0);
+}
+#home .hero-observation { transform: translate3d(0, var(--panel-depth-y, 0px), 0); transition: none; }
+/* Keep hover displacement and scrolling depth on separate axes of the same transform. */
+#home .editorial-project .fingerprint,
+#home .editorial-project.is-pointer-active .fingerprint {
+    transform: translate3d(var(--shift-x, 0px), calc(var(--shift-y, 0px) + var(--research-depth-y, 0px)), 0);
+    transition: opacity .25s ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+    html.home-chapters #home .hero-depth-grid::before,
+    html.home-chapters #home .hero-observation,
+    html.home-chapters #home .editorial-project .fingerprint,
+    html.home-chapters #home .editorial-about-photo { will-change: transform; }
+}
 @media (max-width: 980px) {
-    html.home-snap, html.home-snap.snap-relaxed { scroll-snap-type: none; }
-    html.home-snap #home .editorial-projects { scroll-snap-type: x mandatory; scroll-padding: 0; padding-right: 1rem; }
-    html.home-snap #home .editorial-project { scroll-snap-align: start; }
+    html.home-chapters #home .editorial-projects { scroll-snap-type: x mandatory; scroll-padding: 0; padding-right: 1rem; }
+    html.home-chapters #home .editorial-project { scroll-snap-align: start; }
     .carousel-controls {
         display: flex; align-items: center; justify-content: space-between;
         gap: 1rem; margin-top: 1rem;
@@ -51,6 +82,9 @@ html.home-snap.snap-relaxed { scroll-snap-type: y proximity; }
     .project-stepper button strong { font-size: 1.05rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-    html.home-snap, html.home-snap.snap-relaxed { scroll-snap-type: none; scroll-behavior: auto; }
+    html.home-chapters { scroll-snap-type: none; scroll-behavior: auto; }
     #home .editorial-projects { scroll-behavior: auto; }
+    #home .hero-depth-grid::before, #home .hero-observation,
+    #home .editorial-project .fingerprint, #home .editorial-project.is-pointer-active .fingerprint,
+    html.home-chapters #home .editorial-about-photo { transform: none; will-change: auto; }
 }

@@ -1,0 +1,75 @@
+/* A date-based experience atlas; scoped to Research & training. */
+#academic-background .timeline-themes[hidden] { display: none !important; }
+#academic-background.has-trajectory > .section-intro { max-width: 55ch !important; margin-bottom: 36px !important; }
+.trajectory { display: grid; grid-template-columns: minmax(0, 1.38fr) minmax(300px, 1fr); gap: clamp(28px, 4vw, 58px); align-items: start; }
+.trajectory-map { min-width: 0; --label-width: 45%; }
+.trajectory-map-head { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #8e9f87; padding: 18px 0 24px; }
+.trajectory-kicker { font: 12px/1.6 'IBM Plex Mono', monospace; letter-spacing: .035em; text-transform: uppercase; color: #53634d; }
+.trajectory-axis { display: grid; grid-template-columns: var(--label-width) minmax(0,1fr); gap: 16px; align-items: center; padding-bottom: 14px; }
+.trajectory-axis-label { font: 13px/1.5 'Inter', sans-serif; color: #56664d; }
+.trajectory-years { position: relative; height: 22px; }
+.trajectory-years span { position: absolute; font: 12px/1.6 'IBM Plex Mono', monospace; color: #626950; }
+#academic-background .trajectory-group-title { margin: 12px 0 8px; padding-top: 18px; border-top: 1px solid #c5cebd; font: 500 14px/1.5 'Inter', sans-serif; letter-spacing: .06em; text-transform: uppercase; color: #435c45; }
+.trajectory-entry { display: grid; grid-template-columns: var(--label-width) minmax(0,1fr); gap: 16px; align-items: stretch; width: 100%; min-height: 73px; padding: 14px 0; border: 0; border-bottom: 1px solid #dbe0d2; background: transparent; text-align: left; cursor: pointer; color: #334b37; }
+.trajectory-entry-label { display: flex; flex-direction: column; gap: 5px; padding-left: 9px; border-left: 2px solid transparent; }
+.trajectory-entry-label strong { font: 500 17px/1.45 'Inter', sans-serif; }
+.trajectory-entry-label > span { font: 14px/1.55 'Inter', sans-serif; color: #53634d; }
+.trajectory-entry-label .trajectory-entry-date { color: #6b6049; font-size: 13px; }
+.trajectory-track { position: relative; min-height: 40px; background: repeating-linear-gradient(to right, #c8d0c140 0 1px, transparent 1px var(--year-step)); }
+.trajectory-bar { position: absolute; top: calc(50% - 4px); min-width: 5px; height: 8px; background: #93a588; border: 1px solid #71866a; transition: background .2s; }
+.trajectory-bar.is-point { min-width: 9px; width: 9px !important; height: 9px; transform: rotate(45deg); }
+.trajectory-bar.is-ongoing { border-right: 2px dotted #315944; background: linear-gradient(90deg, #93a588 70%, transparent); }
+.trajectory-bar.is-planned { background: linear-gradient(to right, #93a588 0 var(--completed), transparent var(--completed)), repeating-linear-gradient(135deg, #a9b59b 0 1px, transparent 1px 4px); }
+.trajectory-now { position: absolute; top: 0; bottom: 0; width: 1px; background: #a9785170; }
+.trajectory-entry:hover { background: #e9ede350; }
+.trajectory-entry[aria-pressed="true"] { background: #e5eadd; }
+.trajectory-entry[aria-pressed="true"] .trajectory-entry-label { border-color: #315944; }
+.trajectory-entry[aria-pressed="true"] .trajectory-bar:not(.is-planned):not(.is-ongoing) { background: #315944; border-color: #315944; }
+.trajectory-entry:focus-visible, .trajectory-controls button:focus-visible, .trajectory-detail:focus-visible { outline: 2px solid #a97851; outline-offset: 4px; }
+.trajectory-legend, .trajectory-map-note { font: 13px/1.7 'Inter', sans-serif; color: #53634d; margin: 18px 0 0; }
+.trajectory-map-note { margin-top: 6px; color: #7c765f; }
+.trajectory-reading { position: sticky; top: 96px; min-width: 0; }
+.trajectory-reading.is-tall { position: static; }
+.trajectory-detail { padding: 24px clamp(22px, 2.5vw, 34px) 0; border-top: 3px solid #315944; background: #e9ecdf; scroll-margin-top: 116px; }
+.trajectory-detail-meta { display: flex; justify-content: space-between; gap: 12px; }
+.trajectory-map-return { display: none; }
+.trajectory-selected-year { margin: 18px 0 10px; font: 300 64px/.9 'Fraunces', serif; letter-spacing: -.065em; color: #8b9b7b; }
+.trajectory-date { margin: 0 0 16px; font: 13px/1.7 'IBM Plex Mono', monospace; color: #746449; }
+#academic-background .trajectory-title { font: 400 clamp(30px, 2.6vw, 36px)/1.18 'Fraunces', serif; color: #263e33; letter-spacing: -.03em; margin: 0 0 14px; }
+.trajectory-institution { font: 500 15px/1.6 'Inter', sans-serif; color: #536b4f; margin: 0 0 16px; }
+.trajectory-summary { font: 400 21px/1.55 'Crimson Pro', Georgia, serif; color: #425e42; margin: 0 0 22px; }
+.trajectory-full { border-top: 1px solid #bdc7b0; border-bottom: 1px solid #bdc7b0; }
+.trajectory-full > summary { display: flex; align-items: center; justify-content: space-between; min-height: 52px; cursor: pointer; list-style: none; font: 14px 'IBM Plex Mono', monospace; color: #315944; }
+.trajectory-full > summary::-webkit-details-marker { display: none; }
+.trajectory-full > summary::after { content: '+'; font: 20px 'Inter', sans-serif; }
+.trajectory-full[open] > summary::after { content: '−'; }
+.trajectory-full > summary:focus-visible { outline: 2px solid #a97851; outline-offset: 4px; }
+.trajectory-copy { padding: 12px 0 28px; font: 400 16px/1.8 'Inter', sans-serif; color: #4b5e45; }
+.trajectory-copy strong { color: #334d36; font-weight: 500; }
+.trajectory-related { display: block; margin: 10px 0 0; min-height: 44px; border: 0; border-bottom: 1px solid #879b79; background: none; padding: 8px 0; color: #315944; cursor: pointer; font: 14px/1.5 'IBM Plex Mono', monospace; }
+.trajectory-related:focus-visible { outline: 2px solid #a97851; outline-offset: 4px; }
+.trajectory-controls { display: flex; justify-content: space-between; gap: 16px; border-top: 1px solid #bdc7b0; margin-top: 18px; padding: 8px 0; }
+.trajectory-controls button { min-height: 44px; padding: 8px 0; border: 0; background: none; color: #315944; cursor: pointer; font: 14px/1.5 'IBM Plex Mono', monospace; }
+.trajectory-controls button:disabled { opacity: .4; cursor: default; }
+.trajectory-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+@media (max-width: 980px) { .trajectory { gap: 24px; grid-template-columns: minmax(0,1fr) minmax(280px,.9fr); } .trajectory-map { --label-width: 48%; } .trajectory-years span:nth-child(even) { visibility: hidden; } }
+@media (max-width: 760px) {
+    .trajectory { display: flex; flex-direction: column; gap: 30px; }
+    .trajectory-map, .trajectory-reading { width: 100%; position: static; }
+    .trajectory-map { --label-width: 43%; }
+    .trajectory-entry { min-height: 80px; }
+    .trajectory-years span:nth-child(even) { visibility: visible; }
+    .trajectory-detail { padding: 24px 24px 0; }
+    .trajectory-map-return { display: block; min-height: 44px; margin-top: 6px; border: 0; padding: 8px 0; background: none; color: #315944; font: 14px/1.5 'IBM Plex Mono', monospace; cursor: pointer; }
+    .trajectory-selected-year { font-size: 72px; }
+    #academic-background .trajectory-title { font-size: 31px; }
+}
+@media (max-width: 540px) {
+    .trajectory-axis, .trajectory-entry { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .trajectory-entry { padding: 20px 0 12px; }
+    .trajectory-track { min-height: 28px; }
+    .trajectory-detail { padding-inline: 20px; }
+    .trajectory-detail-meta { flex-wrap: wrap; gap: 4px 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .trajectory * { transition: none !important; scroll-behavior: auto !important; } }
+@media print { #academic-background .trajectory { display: none; } #academic-background .timeline-themes[hidden] { display: block !important; } }

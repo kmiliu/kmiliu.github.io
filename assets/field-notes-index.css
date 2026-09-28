@@ -36,6 +36,14 @@
 #reflections .fn-inquiry .fn-entry-meta { margin-top: 0; }
 #reflections .fn-inquiry h3 { font-size: clamp(29px, 2.6vw, 37px); }
 #reflections .fn-rule-mark { border-top: 1px solid #829281; padding-top: 13px; }
+#reflections .fn-process-study { padding: 26px; }
+#reflections .fn-process-study svg { width: 100%; height: auto; display: block; margin: 16px 0; overflow: visible; }
+#reflections .fn-process-study svg path { fill: none; stroke: #c7cbb0; stroke-width: 1; }
+#reflections .fn-process-study svg circle { fill: #e4ca9f; }
+#reflections .fn-process-study svg text { fill: #e3e7d8; font: 9px 'IBM Plex Mono', monospace; text-anchor: middle; letter-spacing: 1px; }
+#reflections .fn-process-study svg .inquiry-center { font: italic 27px 'Crimson Pro', Georgia, serif; letter-spacing: 0; fill: #e4ca9f; }
+#reflections .inquiry-orbit { stroke-dasharray: 4 6; transition: stroke-dashoffset .7s ease; }
+#reflections .fn-inquiry:is(:hover, :focus-visible) .inquiry-orbit { stroke-dashoffset: -20; }
 #reflections .fn-encounter { grid-column: 1 / -1; display: grid; grid-template-columns: 1.12fr 1fr; gap: 7%; border-top: 1px solid #a6ada0; padding-top: 48px; align-items: center; }
 #reflections .fn-travel-frame { overflow: hidden; }
 #reflections .fn-travel-frame img { display: block; width: 100%; height: auto; transition: transform .6s ease; }
