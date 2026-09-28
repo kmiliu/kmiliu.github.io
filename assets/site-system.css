@@ -10,6 +10,7 @@
     font-family: 'Fraunces', serif;
     font-style: normal;
     font-weight: 700;
+    margin-bottom: clamp(28px, 3vw, 42px);
 }
 #academic-more .projects-grid { margin-top: 28px; }
 
