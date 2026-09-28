@@ -2461,7 +2461,7 @@
             color: var(--text);
         }
 
-        /* Collapsible (折叠区) */
+        /* Collapsible sections */
         .about-collapsible {
             margin-top: calc(var(--spacing) * 4);
         }
@@ -4205,6 +4205,8 @@
             html.home-snap #home .editorial-about-photo { transform:none!important; transition:none; }
         }
     </style>
+    <link rel="stylesheet" href="assets/site-refinements.css">
+    <link rel="stylesheet" href="assets/field-notes-index.css">
 </head>
 <body>
     <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
@@ -4243,12 +4245,15 @@
                         <span class="hero-observation-code">K.L. / 01–04</span>
                     </div>
                     <div class="hero-observation-axis">
-                        <button type="button" data-hero-caption="p53 · mutational energetics"><span>01</span>Molecule</button>
-                        <button type="button" data-hero-caption="VTA ↔ PFC · oscillatory communication"><span>02</span>Circuit</button>
-                        <button type="button" data-hero-caption="virtual rat · visually guided decisions"><span>03</span>Behavior</button>
-                        <button type="button" data-hero-caption="ML / RL · interpretation"><span>04</span>Model</button>
+                        <button type="button" class="is-active" aria-pressed="true" aria-controls="coordinate-preview" data-coordinate-project="p53" data-hero-caption="p53 · mutational energetics"><span>01</span>Molecule</button>
+                        <button type="button" aria-pressed="false" aria-controls="coordinate-preview" data-coordinate-project="vta-pfc" data-hero-caption="VTA ↔ PFC · neural oscillations"><span>02</span>Circuit</button>
+                        <button type="button" aria-pressed="false" aria-controls="coordinate-preview" data-coordinate-project="salk" data-hero-caption="Virtual rat · visually guided behavior"><span>03</span>Behavior</button>
+                        <button type="button" aria-pressed="false" aria-controls="coordinate-preview" data-coordinate-project="creativity" data-hero-caption="Creativity scoring · interpretable models"><span>04</span>Model</button>
                     </div>
-                    <p class="hero-observation-readout" aria-live="polite">Move across the scale to inspect a current question.</p>
+                    <div id="coordinate-preview">
+                        <p class="hero-observation-readout" aria-live="polite">p53 · mutational energetics</p>
+                        <a id="coordinate-project-link" class="coordinate-project-link" href="#projects" data-focus-project="p53" aria-label="Open project: p53 mutational energetics">Open project ↗</a>
+                    </div>
                 </div>
             </header>
 
@@ -4257,7 +4262,7 @@
                     <div><span class="editorial-index">SELECTED RESEARCH</span><h2 id="home-research-title">Three scales, one interest in mechanism.</h2></div>
                     <a href="#projects" data-page="projects" class="text-link">All research ↗</a>
                 </div>
-                <div class="editorial-projects">
+                <div class="editorial-projects" id="selected-projects" role="region" aria-label="Selected research projects" tabindex="0">
                     <a href="#projects" data-focus-project="salk" class="editorial-project editorial-project--lead">
                         <div class="fingerprint fp-rat" aria-hidden="true">
                             <span class="rat-track"></span><span class="rat-body"></span><span class="rat-path"></span>
@@ -4283,6 +4288,11 @@
                         <p>Frequency-specific communication between VTA and PFC under ethanol exposure.</p>
                     </a>
                 </div>
+            <div class="carousel-controls" role="group" aria-label="Browse selected research">
+                <button type="button" id="research-previous" aria-controls="selected-projects" aria-label="Previous selected project" disabled>← Previous</button>
+                <span id="research-position" role="status">1 / 3</span>
+                <button type="button" id="research-next" aria-controls="selected-projects" aria-label="Next selected project">Next →</button>
+            </div>
             </section>
 
             <section class="editorial-about reveal">
@@ -5089,112 +5099,44 @@
 
     <section id="reflections" class="page-section">
         <div class="container">
-            <span class="editorial-index">FIELD NOTES / 01–04</span>
-            <h2>Notes from outside the results section.</h2>
-            <p class="section-intro">Research, art, travel, and the quieter habits of attention that shape how I work.</p>
-
-            <div class="research-section">
-                <div class="writing-item clickable-card reveal" data-modal="modal-writing-pipelines">
-                    <div class="writing-text">
-                        <span class="reflection-mood">lab brain, tidy hands</span>
-                        <h4>When the Workflow Starts to Hold</h4>
-                        <p>I like the point when an analysis stops depending on memory and starts becoming something another person could follow.</p>
-                    </div>
-                    <img src="images/reflections/mastering-machine-1.jpg" alt="Reflection on making sense of complex questions" class="reflection-thumb">
+            <header class="fn-masthead">
+                <div class="fn-edition"><span>Keming Liu / A personal notebook</span><span>Art · Inquiry · Encounter</span></div>
+                <div class="fn-heading-row">
+                    <h2>Field <em>Notes</em><span class="fn-asterisk" aria-hidden="true">✳</span></h2>
+                    <p>On making things,<br> questioning them,<br> and being changed by others.</p>
                 </div>
-
-                <div class="writing-item clickable-card reveal" data-modal="modal-writing-drawing">
-                    <div class="writing-text">
-                        <span class="reflection-mood">less grip, more flow</span>
-                        <h4>Learning to Loosen My Grip</h4>
-                        <p>Art and music keep teaching me the same lesson: sometimes things get better the second I stop squeezing them so hard.</p>
+                <div class="fn-index-line"><span>Three essays. Three ways of paying attention.</span><span aria-hidden="true">Scroll to explore ↓</span></div>
+            </header>
+            <div class="fn-collection">
+                <a class="fn-entry fn-art note-link" href="notes/learning-to-loosen-my-grip/" aria-labelledby="note-index-drawing">
+                    <div class="fn-art-frame"><img src="images/reflections/arts-in-the-flow-3.jpg" alt="A colored drawing of a reclining figure" width="1100" height="825"><span class="fn-image-label" aria-hidden="true">A study in form, light &amp; shadow</span></div>
+                    <div class="fn-entry-meta"><span>01 / Art &amp; learning</span><span>3 min read</span></div>
+                    <h3 id="note-index-drawing">Learning to<br> <em>Loosen My Grip</em></h3>
+                    <p>What if working harder is part of what makes a drawing stiff?</p>
+                    <span class="fn-read">Read the essay <span aria-hidden="true">↗</span></span>
+                </a>
+                <a class="fn-entry fn-inquiry note-link" href="notes/when-the-workflow-starts-to-hold/" aria-labelledby="note-index-pipelines">
+                    <div class="fn-entry-meta"><span>02 / Research practice</span><span>3 min read</span></div>
+                    <div class="fn-type-study" aria-hidden="true"><span>A note on trust</span><p>A workflow can hold.<br><em>An explanation<br>still has to earn it.</em></p><span class="fn-rule-mark">↳ question / revise / return</span></div>
+                    <h3 id="note-index-pipelines">When the Workflow Starts to Hold</h3>
+                    <p>Making an analysis repeatable is not the same as making its interpretation right.</p>
+                    <span class="fn-read">Read the essay <span aria-hidden="true">↗</span></span>
+                </a>
+                <a class="fn-entry fn-encounter note-link" href="notes/things-people-carry-for-one-another/" aria-labelledby="note-index-strangers">
+                    <div class="fn-travel-frame"><img src="images/reflections/people-carry-cover.jpg" alt="Keming with fellow travelers and local guides in the Amazon rainforest" width="1600" height="1200" loading="lazy"></div>
+                    <div class="fn-travel-copy">
+                        <div class="fn-entry-meta"><span>03 / Travel &amp; belonging</span><span>4 min read</span></div>
+                        <h3 id="note-index-strangers">Things People Carry<br> <em>for One Another</em></h3>
+                        <p>A returned phone. A table in the rainforest. A bracelet that outlasted the encounter.</p>
+                        <span class="fn-read">Read the essay <span aria-hidden="true">↗</span></span>
+                        <span class="fn-fragment">They did not solve anything for me.<br> They simply stayed.</span>
+                        <span class="fn-fragment-credit">From my travel journal</span>
                     </div>
-                    <img src="images/reflections/arts-in-the-flow-1.jpg" alt="Arts in the Flow reflection" class="reflection-thumb">
-                </div>
-
-                <div class="writing-item clickable-card reveal" data-modal="modal-writing-multitask">
-                    <div class="writing-text">
-                        <span class="reflection-mood">many tabs open</span>
-                        <h4>Learning My Own Rhythm</h4>
-                        <p>I seem to do well when several lines of thought are open at once, as long as they still add up to a shape I can trust.</p>
-                    </div>
-                    <img src="images/reflections/mastering-machine-2.jpg" alt="Multitasking reflection" class="reflection-thumb">
-                </div>
-
-                <div class="writing-item clickable-card reveal" data-modal="modal-writing-strangers">
-                    <div class="writing-text">
-                        <span class="reflection-mood">small kindness travels</span>
-                        <h4>Things People Carry for One Another</h4>
-                        <p>Some of the people I remember most are the ones who entered a day briefly and made it easier.</p>
-                    </div>
-                    <img src="images/reflections/people-carry-cover.jpg" alt="Keming with fellow travelers and local guides in the Amazon rainforest" class="reflection-thumb">
-                </div>
+                </a>
             </div>
+            <p class="fn-colophon">Written between the work. Not everything needs to become a result.</p>
         </div>
     </section>
-
-    <!-- Reflection Detail Modals -->
-    <div id="modal-writing-multitask" class="detail-modal">
-        <div class="detail-content">
-            <button class="detail-close" data-close aria-label="Close">×</button>
-            <h1>Learning My Own Rhythm</h1>
-            <p>At Wesleyan, I started noticing that I rarely learn in a single lane for very long. My semesters have often included science, mathematics, art, music, and language work all at once, alongside jobs, mentoring, and projects that asked for different kinds of attention.</p>
-            <p>At first, I mostly experienced that range as pressure. I wanted to do everything well, and I tended to respond by tightening up. Over time, I have become more interested in a different question: not how to fit more in, but how to keep different commitments in conversation without flattening any of them.</p>
-            <p>That shift has changed how I think about busyness. I still like full days, but I care more now about whether the pace has structure. When it does, moving between research, teaching, and creative work feels less like fragmentation and more like a way of keeping my mind awake.</p>
-            <p>I work best with some range in my life, as long as the range still has form. That has become one of the quiet conditions for doing my strongest work.</p>
-        </div>
-    </div>
-
-    <div id="modal-writing-pipelines" class="detail-modal">
-        <div class="detail-content">
-            <button class="detail-close" data-close aria-label="Close">×</button>
-            <h1>When the Workflow Starts to Hold</h1>
-            <img src="images/reflections/mastering-machine-1.jpg" alt="Workflow and analysis setup for neuroscience and machine learning projects" class="reflection-photo" onerror="this.style.display='none'">
-            <p>I usually know a workflow is improving when I stop being afraid to touch it. At the beginning of an analysis, one change can break something three steps later, and part of the logic may still live only in my memory. I like finding those fragile points and slowly making the path easier to follow, rerun, and revise.</p>
-            <p>In my neuroscience work, an analysis can move through Brainstorm, MATLAB, Python, and R before it becomes a figure. The difficult part is not simply getting each method to run. It is keeping track of what changed between steps and whether the final result still answers the biological question that started the analysis. When I revise a pipeline, I keep returning to that thread.</p>
-            <img src="images/reflections/mastering-machine-2.jpg" alt="Presenting Statistical Approaches for Neural Oscillation and Social Behavior Analysis project" class="reflection-photo" onerror="this.style.display='none'">
-            <p class="reflection-caption">Presenting “Statistical Approaches for Neural Oscillation and Social Behavior Analysis in the Ventral Tegmental Area” at Exley Science Center, Wesleyan University, Middletown, CT</p>
-            <p>I approach machine-learning results in a similar way. A score alone does not tell me enough; I want to know what the model seems to be using, how stable that pattern is, and what the figure might tempt a reader to conclude too quickly. Interpretation changes what I check, not just how I describe the result afterward.</p>
-            <p>This is also where design enters my research. While making a figure or poster, I think about what someone will notice first, what comparison should be easy, and what needs more explanation. Alignment, spacing, hierarchy, and color are small choices, but together they can reveal whether I understand the analysis well enough to guide another person through it.</p>
-        </div>
-    </div>
-
-    <div id="modal-writing-drawing" class="detail-modal">
-        <div class="detail-content">
-            <button class="detail-close" data-close aria-label="Close">×</button>
-            <h1>Arts in the Flow</h1>
-            <img src="images/reflections/arts-in-the-flow-1.jpg" alt="Self-portrait assignment in drawing class" class="reflection-photo" onerror="this.style.display='none'">
-            <p>When I first came to Wesleyan, I signed up for Drawing I without having done anything close to serious drawing before. I thought drawing was mostly about control: getting every line right, correcting mistakes, and working until the picture looked “perfect.” Then we were assigned a life-size self-portrait, and I threw myself into it.</p>
-            <p>I spent hours moving between the mirror and the huge sheet of paper. Sometimes I erased the same part of my face five or six times because it still did not look right. I was working hard, but I was also fighting with the drawing. At the time, those felt like the same thing.</p>
-            <p>One day, my professor came by, looked at what I was doing, and said softly, "It's not about how much time you spend or how many details you fix. It's about the flow of the whole drawing." That stopped me.</p>
-            <p>I stepped back. Instead of returning immediately to the face, I looked at how the lines connected and how the figure occupied the page. The drawing was still imperfect, but it became less stiff. It finally had some air in it.</p>
-            <img src="images/reflections/arts-in-the-flow-3.jpg" alt="Jazz vocal practice and improvisation reflection" class="reflection-photo" onerror="this.style.display='none'">
-            <p>Later, in private jazz vocal lessons, I ran into the same problem. During improvisation, I tried to plan the notes that would sound “right,” and the result sounded rigid. My professor asked me to stop constructing the phrase and let it come out more naturally. I understood the instruction before I could actually follow it.</p>
-            <p>I still have a competitive streak, and I still dislike leaving something in a state of “not good enough.” Stepping back does not come naturally to me. But drawing and singing have made me more willing to notice when effort has turned into gripping—and to leave a little room for something I did not plan.</p>
-        </div>
-    </div>
-
-    <div id="modal-writing-strangers" class="detail-modal">
-        <div class="detail-content">
-            <button class="detail-close" data-close aria-label="Close">×</button>
-            <h1>Things People Carry for One Another</h1>
-            <figure class="reflection-figure reflection-figure--cover">
-                <img src="images/reflections/people-carry-cover.jpg" alt="Keming with fellow travelers and local guides in the Amazon rainforest" class="reflection-photo">
-                <figcaption>With fellow travelers and local guides in the Amazon rainforest.</figcaption>
-            </figure>
-            <p>On the afternoon I finished my abstract algebra final, I walked out of the classroom feeling emptied out by the semester. I graded some assignments, bought a drink, and started heading home to pack for Peru. Outside Allbritton, I realized that my phone was gone.</p>
-            <p>I retraced my steps and then ran home to open Find My. Someone had found the phone and brought it to Olin Library. I never learned who. A stranger had noticed something I lost, carried it across campus, and left it somewhere I could find it again.</p>
-            <p>A few days later, during a layover in Lima, I saw another Chinese traveler struggling to communicate with airport staff about her missing bag. I stopped to translate and helped her figure out where it had gone. While we were looking, I kept thinking that if my mother were alone and anxious in an unfamiliar airport, I would hope someone nearby would do the same for her.</p>
-            <p>On a later flight, I sat beside an older couple. We talked for a while, and before leaving, the woman opened her bag and showed me several bracelets she had made. She asked me to choose one. I picked the bracelet that said “Journey,” and she handed it to me as casually as if people gave handmade objects to strangers every day.</p>
-            <p>These encounters were small. I did not become close friends with any of these people, and most of us never exchanged contact information. Still, I remember them as clearly as some of the places I traveled to.</p>
-            <p>The returned phone, the recovered bag, and the bracelet did not carry the weight of lifelong relationships. They mattered precisely because nobody was obligated to do anything. For a few minutes, one person noticed what another person needed and decided to help carry it.</p>
-            <figure class="reflection-figure reflection-figure--portrait">
-                <img src="images/reflections/journey-bracelet.jpg" alt="Keming wearing the Journey bracelet given to her by a fellow traveler" class="reflection-photo">
-                <figcaption>The “Journey” bracelet, given to me by a fellow traveler.</figcaption>
-            </figure>
-            <p>I still have the bracelet. It reminds me that many days are held together by people who enter them briefly and then disappear.</p>
-        </div>
-    </div>
 
     <!-- Contact Section -->
     <section id="contact" class="page-section">
@@ -5252,8 +5194,7 @@
         
         function showPage(pageName) {
             // Close any open project modals first
-            closeProject();
-            closeDetails();
+            closeProject(false);
             document.documentElement.classList.toggle('home-snap', pageName === 'home');
             
             pages.forEach(page => {
@@ -5267,7 +5208,7 @@
                 updateNavState(pageName);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
-                const homePage = document.getElementById('home');
+                    const homePage = document.getElementById('home');
                 if (homePage) {
                     homePage.classList.add('active');
                     document.body.dataset.page = 'home';
@@ -5292,7 +5233,7 @@
         
         // Handle browser back/forward buttons
         window.addEventListener('popstate', (e) => {
-            const pageName = e.state?.page || 'home';
+            const pageName = e.state?.page || window.location.hash.slice(1) || 'home';
             showPage(pageName);
         });
         
@@ -5306,13 +5247,21 @@
         (function setupEditorialInteractions() {
             const hero = document.querySelector('#home .editorial-hero');
             const readout = document.querySelector('.hero-observation-readout');
+            const projectLink = document.getElementById('coordinate-project-link');
             const coordinateButtons = Array.from(document.querySelectorAll('[data-hero-caption]'));
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             coordinateButtons.forEach(button => {
                 const activate = () => {
-                    coordinateButtons.forEach(item => item.classList.toggle('is-active', item === button));
+                    coordinateButtons.forEach(item => {
+                        item.classList.toggle('is-active', item === button);
+                        item.setAttribute('aria-pressed', item === button ? 'true' : 'false');
+                    });
                     if (readout) readout.textContent = button.dataset.heroCaption || '';
+                    if (projectLink) {
+                        projectLink.dataset.focusProject = button.dataset.coordinateProject;
+                        projectLink.setAttribute('aria-label', 'Open project: ' + button.dataset.heroCaption);
+                    }
                 };
                 button.addEventListener('mouseenter', activate);
                 button.addEventListener('focus', activate);
@@ -5375,6 +5324,20 @@
             update();
         })();
 
+        // A chapter that grows beyond the available screen must remain freely readable.
+        (function setupAdaptiveChapterSnap() {
+            const chapters = Array.from(document.querySelectorAll('#home .editorial-hero, #home .home-research, #home .editorial-about'));
+            const update = () => {
+                if (document.body.dataset.page !== 'home') return;
+                const available = innerHeight - 72;
+                document.documentElement.classList.toggle('snap-relaxed',
+                    chapters.some(chapter => chapter.getBoundingClientRect().height > available + 12));
+            };
+            const observer = new ResizeObserver(update);
+            chapters.forEach(chapter => observer.observe(chapter));
+            window.addEventListener('resize', update);
+        })();
+
         // Project filtering
         const filterTags = document.querySelectorAll('.filter-tag');
         const projectCards = document.querySelectorAll('.project-card');
@@ -5423,20 +5386,26 @@
         }
         
         filterTags.forEach(tag => {
+            tag.setAttribute('aria-pressed', tag.classList.contains('active') ? 'true' : 'false');
             tag.addEventListener('click', (e) => {
                 e.preventDefault();
                 e.stopPropagation();
                 const filter = tag.getAttribute('data-filter');
                 
                 // Update active state
-                filterTags.forEach(t => t.classList.remove('active'));
+                filterTags.forEach(t => {
+                    t.classList.remove('active');
+                    t.setAttribute('aria-pressed', 'false');
+                });
                 tag.classList.add('active');
+                tag.setAttribute('aria-pressed', 'true');
+                document.querySelector('.projects-grid').classList.toggle('is-filtered', filter !== 'all');
                 
                 // Filter projects
                 projectCards.forEach(card => {
                     const categories = card.getAttribute('data-categories');
                     if (filter === 'all' || categories.includes(filter)) {
-                        card.style.display = 'block';
+                        card.style.display = '';
                     } else {
                         card.style.display = 'none';
                     }
@@ -5457,59 +5426,80 @@
             });
         });
 
-        function openProjectModal(projectId) {
-            const modal = document.getElementById(`project-${projectId}`);
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            }
+        let projectReturnTarget = null;
+        let projectPreviousOverflow = '';
+        const publishedProjects = Array.from(projectCards).map(card => ({
+            id: card.dataset.project,
+            title: card.querySelector('h3').textContent.replace(/^(ML|CB|N)/, '').trim()
+        }));
+        // Use detail headings so decorative card badges never become part of a title.
+        publishedProjects.forEach(project => {
+            project.title = document.querySelector('#project-' + project.id + ' h1').textContent;
+        });
+
+        function setProjectBackgroundInert(value) {
+            document.querySelectorAll('.page-section, body > nav, body > footer').forEach(el => {
+                el.inert = value;
+            });
+            document.documentElement.classList.toggle('project-open', value);
         }
 
-        // Homepage focus cards -> matching project detail
+        function openProjectModal(projectId, trigger) {
+            const modal = document.getElementById('project-' + projectId);
+            if (!modal || !publishedProjects.some(project => project.id === projectId)) return;
+            const existing = document.querySelector('.project-detail.active');
+            if (!existing) {
+                projectReturnTarget = trigger || document.activeElement;
+                projectPreviousOverflow = document.body.style.overflow;
+            }
+            document.querySelectorAll('.project-detail.active').forEach(other => {
+                other.classList.remove('active');
+            });
+            setProjectBackgroundInert(true);
+            modal.classList.add('active');
+            modal.scrollTop = 0;
+            document.body.style.overflow = 'hidden';
+            const close = modal.querySelector('.close-btn');
+            if (close) close.textContent = document.body.dataset.page === 'home'
+                ? '← Back to homepage' : '← Back to research';
+            const title = modal.querySelector('h1');
+            title.setAttribute('tabindex', '-1');
+            requestAnimationFrame(() => {
+                if (modal.classList.contains('active')) title.focus({ preventScroll: true });
+            });
+        }
+
+        // Open in place; closing returns to the same card and scroll position.
         focusProjectLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
-                const projectId = link.getAttribute('data-focus-project');
-                showPage('projects');
-                history.pushState({ page: 'projects' }, '', '#projects');
-                if (projectId) {
-                    requestAnimationFrame(() => openProjectModal(projectId));
-                }
+                openProjectModal(link.dataset.focusProject, link);
             });
         });
-
-        // Project detail modal
         projectCards.forEach(card => {
             card.addEventListener('click', (e) => {
                 e.preventDefault();
-                e.stopPropagation();
-                const projectId = card.getAttribute('data-project');
-                openProjectModal(projectId);
+                openProjectModal(card.dataset.project, card);
             });
         });
 
-        function closeProject() {
-            const modals = document.querySelectorAll('.project-detail');
-            modals.forEach(modal => {
-                modal.classList.remove('active');
-            });
-            document.body.style.overflow = 'auto';
+        function closeProject(restoreFocus = true) {
+            const wasOpen = document.querySelector('.project-detail.active');
+            document.querySelectorAll('.project-detail.active').forEach(modal => modal.classList.remove('active'));
+            setProjectBackgroundInert(false);
+            if (!wasOpen) return;
+            document.body.style.overflow = projectPreviousOverflow;
+            const target = projectReturnTarget;
+            projectReturnTarget = null;
+            if (restoreFocus && target && target.isConnected) target.focus({ preventScroll: true });
         }
 
-        // Research/Writing detail modals
-        const detailCards = document.querySelectorAll('.clickable-card');
-        const detailModals = document.querySelectorAll('.detail-modal');
-        const timelineNodes = document.querySelectorAll('.timeline-node');
-
-        function makeKeyboardClickable(elements, opensModal = false) {
+        function makeKeyboardClickable(elements) {
             elements.forEach(el => {
                 el.setAttribute('tabindex', '0');
                 el.setAttribute('role', 'button');
-                if (opensModal) {
-                    el.setAttribute('aria-haspopup', 'dialog');
-                }
-                el.addEventListener('keydown', (e) => {
+                if (el.dataset.project) el.setAttribute('aria-haspopup', 'dialog');
+                el.addEventListener('keydown', e => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         el.click();
@@ -5517,73 +5507,80 @@
                 });
             });
         }
+        makeKeyboardClickable(projectCards);
+        makeKeyboardClickable(document.querySelectorAll('.timeline-node'));
 
-        makeKeyboardClickable(projectCards, true);
-        makeKeyboardClickable(detailCards, true);
-        makeKeyboardClickable(timelineNodes);
-
-        function closeDetails() {
-            detailModals.forEach(modal => modal.classList.remove('active'));
-            document.body.style.overflow = 'auto';
-        }
-
-        // Experience reel: tap/click to pause on touch devices
-        const brandMarquee = document.querySelector('.brand-marquee');
-        if (brandMarquee) {
-            brandMarquee.addEventListener('click', () => {
-                brandMarquee.classList.toggle('is-paused');
+        // Sequential browsing follows the seven published entries, excluding retired projects.
+        publishedProjects.forEach((project, index) => {
+            const modal = document.getElementById('project-' + project.id);
+            const stepper = document.createElement('div');
+            stepper.className = 'project-stepper';
+            stepper.setAttribute('role', 'group');
+            stepper.setAttribute('aria-label', 'Browse research projects');
+            [-1, 1].forEach(direction => {
+                const destination = publishedProjects[index + direction];
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = direction < 0 ? 'project-previous' : 'project-next';
+                const label = document.createElement('span');
+                label.textContent = direction < 0 ? '← Previous project' : 'Next project →';
+                const title = document.createElement('strong');
+                title.textContent = destination ? destination.title
+                    : (direction < 0 ? 'First project' : 'Last project');
+                button.append(label, title);
+                button.disabled = !destination;
+                if (destination) button.addEventListener('click', () => openProjectModal(destination.id));
+                stepper.append(button);
             });
-        }
-
-
-        detailCards.forEach(card => {
-            card.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                const modalId = card.getAttribute('data-modal');
-                const modal = document.getElementById(modalId);
-                if (modal) {
-                    closeDetails();
-                    closeProject();
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                }
-            });
+            modal.querySelector('.project-content').append(stepper);
         });
-
-        detailModals.forEach(modal => {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeDetails();
-                }
-            });
-        });
-
-        document.querySelectorAll('.detail-close').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                closeDetails();
-            });
-        });
-        
-        // Attach close button handlers
         document.querySelectorAll('.close-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                closeProject();
-                closeDetails();
-            });
+            btn.addEventListener('click', () => closeProject());
+        });
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeProject();
         });
 
-        // Close modal on Escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeProject();
-                closeDetails();
+        (function setupResearchCarousel() {
+            const track = document.getElementById('selected-projects');
+            const previous = document.getElementById('research-previous');
+            const next = document.getElementById('research-next');
+            const position = document.getElementById('research-position');
+            const cards = Array.from(track.querySelectorAll('.editorial-project'));
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+            let activeIndex = 0;
+            function refresh() {
+                const left = track.getBoundingClientRect().left;
+                let distance = Infinity;
+                cards.forEach((card, index) => {
+                    const candidate = Math.abs(card.getBoundingClientRect().left - left);
+                    if (candidate < distance) { distance = candidate; activeIndex = index; }
+                });
+                previous.disabled = activeIndex === 0;
+                next.disabled = activeIndex === cards.length - 1;
+                position.textContent = (activeIndex + 1) + ' / ' + cards.length;
             }
-        });
+            function move(direction) {
+                const index = Math.max(0, Math.min(cards.length - 1, activeIndex + direction));
+                const target = cards[index];
+                track.scrollTo({
+                    left: track.scrollLeft + target.getBoundingClientRect().left - track.getBoundingClientRect().left,
+                    behavior: reducedMotion.matches ? 'instant' : 'smooth'
+                });
+            }
+            previous.addEventListener('click', () => move(-1));
+            next.addEventListener('click', () => move(1));
+            track.addEventListener('scroll', refresh, { passive: true });
+            track.addEventListener('keydown', e => {
+                if (e.target !== track) return;
+                if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    move(e.key === 'ArrowRight' ? 1 : -1);
+                }
+            });
+            new ResizeObserver(refresh).observe(track);
+            refresh();
+        })();
 
         // Scroll reveal animations
         const revealElements = document.querySelectorAll('.reveal');
@@ -5868,55 +5865,29 @@
             });
         })();
 
-        // --- Modal accessibility: dialog semantics + focus management ---
+        // Dialog semantics and keyboard containment; focus restoration is handled on close.
         (function setupModalA11y() {
-            const dialogs = Array.from(document.querySelectorAll('.detail-modal, .project-detail'));
-            if (!dialogs.length) return;
-            const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, video[controls], [tabindex]:not([tabindex="-1"])';
-            const isOpen = (d) => d.classList.contains('active');
-
-            dialogs.forEach(d => {
-                d.setAttribute('role', 'dialog');
-                d.setAttribute('aria-modal', 'true');
-                const h1 = d.querySelector('h1');
-                if (h1) {
-                    if (!h1.id) h1.id = d.id + '-title';
-                    d.setAttribute('aria-labelledby', h1.id);
-                }
+            const dialogs = Array.from(document.querySelectorAll('.project-detail'));
+            const selector = 'a[href], button:not([disabled]), textarea, input, select, video[controls], [tabindex]:not([tabindex="-1"])';
+            dialogs.forEach(dialog => {
+                dialog.setAttribute('role', 'dialog');
+                dialog.setAttribute('aria-modal', 'true');
+                const title = dialog.querySelector('h1');
+                title.id = dialog.id + '-title';
+                dialog.setAttribute('aria-labelledby', title.id);
             });
-
-            // Remember what opened a dialog so focus can return there on close
-            let lastTrigger = null;
-            document.addEventListener('pointerdown', (e) => {
-                const t = e.target.closest('.clickable-card, .project-card, .focus-card-link, [data-project]');
-                if (t) lastTrigger = t;
-            }, true);
-
-            // Move focus in on open, return focus on close
-            const obs = new MutationObserver((muts) => {
-                muts.forEach(m => {
-                    const d = m.target;
-                    if (isOpen(d)) {
-                        const target = d.querySelector('.detail-close, .close-btn') || d;
-                        setTimeout(() => target.focus({ preventScroll: true }), 40);
-                    } else if (lastTrigger) {
-                        const t = lastTrigger; lastTrigger = null;
-                        setTimeout(() => { if (t && t.focus) t.focus({ preventScroll: true }); }, 40);
-                    }
-                });
-            });
-            dialogs.forEach(d => obs.observe(d, { attributes: true, attributeFilter: ['class'] }));
-
-            // Trap Tab within the open dialog
-            document.addEventListener('keydown', (e) => {
+            document.addEventListener('keydown', e => {
                 if (e.key !== 'Tab') return;
-                const open = dialogs.find(isOpen);
+                const open = dialogs.find(dialog => dialog.classList.contains('active'));
                 if (!open) return;
-                const f = Array.from(open.querySelectorAll(FOCUSABLE)).filter(el => el.offsetParent !== null);
-                if (!f.length) return;
-                const first = f[0], last = f[f.length - 1];
-                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+                const controls = Array.from(open.querySelectorAll(selector)).filter(el => el.getClientRects().length > 0);
+                if (!controls.length) return;
+                const first = controls[0], last = controls[controls.length - 1];
+                if (e.shiftKey && (document.activeElement === first || !controls.includes(document.activeElement))) {
+                    e.preventDefault(); last.focus();
+                } else if (!e.shiftKey && (document.activeElement === last || !controls.includes(document.activeElement))) {
+                    e.preventDefault(); first.focus();
+                }
             });
         })();
     </script>

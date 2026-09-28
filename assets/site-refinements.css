@@ -1,0 +1,56 @@
+/* Research navigation refinements; Field Notes uses its own stylesheets. */
+
+/* Make the research coordinates a route into a specific project. */
+#coordinate-preview { min-height: 6rem; }
+#home .coordinate-project-link {
+    display: inline-flex; align-items: center; min-height: 44px;
+    color: #f5f1e7; font: .7rem 'IBM Plex Mono', monospace;
+    text-underline-offset: .4em;
+}
+#home .coordinate-project-link:hover { color: #e2b27c; }
+#home .hero-observation a:focus-visible,
+#home .hero-observation button:focus-visible { outline-color: #f5f1e7; }
+#selected-projects:focus-visible { outline: 2px solid #214f3a; outline-offset: 4px; }
+.carousel-controls { display: none; }
+
+/* Read and browse project details without losing the page underneath. */
+html.project-open { scroll-snap-type: none !important; }
+.project-detail .project-content h1:focus { outline: none; }
+.project-stepper {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    border-top: 1px solid #cbd2c6; margin-top: 3.5rem; padding-top: 1.5rem;
+}
+.project-stepper button {
+    display: block; background: transparent; border: 0;
+    padding: 1rem 0; text-align: left; color: #214f3a; cursor: pointer;
+}
+.project-stepper button span { display: block; font: .65rem 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .7rem; }
+.project-stepper button strong { display: block; font: 400 1.3rem/1.3 'Fraunces', serif; }
+.project-stepper button:hover:not(:disabled) strong { text-decoration: underline; text-underline-offset: .2em; }
+.project-stepper button:disabled { color: #697068; opacity: .65; cursor: default; }
+#projects .projects-grid.is-filtered { grid-auto-flow: row; }
+#projects .projects-grid.is-filtered .project-card { grid-column: span 6; }
+
+/* Preserve desktop chapters; allow long content, zoom, and small screens to flow. */
+html.home-snap.snap-relaxed { scroll-snap-type: y proximity; }
+@media (max-width: 980px) {
+    html.home-snap, html.home-snap.snap-relaxed { scroll-snap-type: none; }
+    html.home-snap #home .editorial-projects { scroll-snap-type: x mandatory; scroll-padding: 0; padding-right: 1rem; }
+    html.home-snap #home .editorial-project { scroll-snap-align: start; }
+    .carousel-controls {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 1rem; margin-top: 1rem;
+    }
+    .carousel-controls button { min-height: 44px; padding: .5rem .75rem; background: transparent; border: 1px solid #9cae9d; color: #214f3a; font: .72rem 'Inter', sans-serif; cursor: pointer; }
+    .carousel-controls button:disabled { opacity: .45; cursor: default; }
+    .carousel-controls button:hover:not(:disabled) { background: #dce5dd; }
+    .carousel-controls span { color: #59665e; font: .7rem 'IBM Plex Mono', monospace; }
+}
+@media (max-width: 600px) {
+    .project-stepper { gap: 1.1rem; }
+    .project-stepper button strong { font-size: 1.05rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    html.home-snap, html.home-snap.snap-relaxed { scroll-snap-type: none; scroll-behavior: auto; }
+    #home .editorial-projects { scroll-behavior: auto; }
+}

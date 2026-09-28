@@ -1,0 +1,120 @@
+/* Field Notes: an editorial reading room using the site's existing type families. */
+:root { --note-paper:#f4f0e7; --note-ink:#263e33; --note-muted:#626958; --note-rule:#b7baab; --note-accent:#985536; }
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:90px; }
+body { margin:0; background:var(--note-paper); color:var(--note-ink); font-family:'Inter',sans-serif; }
+::selection { background:#dcd6ad; color:#263e33; }
+a { color:inherit; text-underline-offset:.25em; }
+a:hover { color:var(--note-accent); }
+a:focus-visible, button:focus-visible, summary:focus-visible { outline:2px solid var(--note-accent); outline-offset:5px; }
+.skip-link { position:fixed; top:-6rem; left:1rem; padding:1rem; background:white; z-index:20; }
+.skip-link:focus { top:.5rem; }
+.note-site-header { max-width:1240px; margin:auto; padding:23px 40px; display:flex; justify-content:space-between; align-items:center; gap:24px; border-bottom:1px solid var(--note-rule); }
+.note-logo { font:400 18px 'Fraunces',serif; text-decoration:none; white-space:nowrap; }
+.note-site-header nav { display:flex; gap:clamp(16px,3vw,40px); }
+.note-site-header nav a { font:10px 'IBM Plex Mono',monospace; letter-spacing:.06em; text-transform:uppercase; text-decoration:none; padding:10px 0; }
+.note-site-header [aria-current] { border-bottom:1px solid var(--note-ink); }
+main { max-width:1240px; margin:auto; padding:30px 40px 0; }
+.note-back { font:11px 'IBM Plex Mono',monospace; text-decoration:none; color:var(--note-muted); display:inline-flex; min-height:44px; align-items:center; }
+.note-header { margin:42px 0 72px; max-width:940px; }
+.note-meta { font:10px/1.7 'IBM Plex Mono',monospace; letter-spacing:.06em; text-transform:uppercase; color:var(--note-muted); }
+.note-meta span { padding:0 .65rem; }
+h1 { max-width:19ch; margin:25px 0; font:300 clamp(48px,6vw,80px)/1.04 'Fraunces',serif; letter-spacing:-.055em; text-wrap:balance; }
+h1 em, .note-pullquote em { font-family:'Crimson Pro',Georgia,serif; font-weight:400; font-size:1.13em; }
+.note-deck { max-width:39ch; font:400 23px/1.45 'Crimson Pro',Georgia,serif; color:#5a6555; }
+.note-byline { margin-top:28px; font:10px/1.6 'IBM Plex Mono',monospace; color:var(--note-muted); }
+.note-header--split { max-width:none; display:grid; grid-template-columns:1fr 1fr; gap:6%; align-items:center; }
+.note-header--split h1 { font-size:clamp(46px,5.4vw,74px); }
+figure { margin:0; }
+.note-opening-art { padding:18px 18px 0; background:#e5dece; }
+.note-opening-art img { width:100%; height:auto; display:block; }
+figcaption { padding:12px 0 17px; color:var(--note-muted); font:10px/1.7 'IBM Plex Mono',monospace; }
+.note-body { font:400 23px/1.65 'Crimson Pro',Georgia,serif; }
+.note-chapter { display:grid; grid-template-columns:180px minmax(0,680px); column-gap:60px; margin:0 0 56px; }
+.note-margin { padding-top:6px; }
+.note-margin > span { display:block; border-top:1px solid var(--note-rule); padding-top:13px; font:10px/1.7 'IBM Plex Mono',monospace; color:var(--note-accent); text-transform:uppercase; }
+.note-margin h2 { margin:14px 0 0; max-width:17ch; font:400 21px/1.35 'Fraunces',serif; letter-spacing:-.02em; }
+.note-prose > p { margin:0 0 1.25em; }
+.note-prose > p:last-child { margin-bottom:0; }
+.note-chapter:first-child .note-prose > p:first-child::first-letter { float:left; font:300 4em/.85 'Fraunces',serif; padding:7px 10px 0 0; color:var(--note-accent); }
+.note-pullquote { margin:68px 0 76px 180px; padding:0 0 0 60px; border-left:1px solid var(--note-accent); }
+.note-pullquote p { margin:0; font:300 clamp(32px,4.4vw,57px)/1.14 'Fraunces',serif; letter-spacing:-.035em; }
+.note-pullquote em { color:var(--note-accent); }
+.note-wide-figure { width:min(100%,820px); margin:64px auto 72px; }
+.note-wide-figure img { width:100%; height:auto; display:block; }
+.note-cover { margin:0 0 72px; }
+.note-cover img { display:block; width:100%; max-height:680px; object-fit:contain; height:auto; background:#e5e4d7; }
+.note-keepsake { display:grid; grid-template-columns:minmax(0,340px) minmax(0,1fr); gap:9%; margin:64px auto; max-width:930px; align-items:center; }
+.note-keepsake img { width:100%; height:auto; display:block; }
+.note-journal-excerpt { color:var(--note-accent); font:italic 400 clamp(26px,2.6vw,35px)/1.35 'Crimson Pro',Georgia,serif; max-width:27ch; margin:26px 0; }
+.note-journal { margin-top:28px; border-top:1px solid var(--note-rule); border-bottom:1px solid var(--note-rule); }
+.note-journal summary { padding:16px 0; min-height:48px; cursor:pointer; display:flex; justify-content:space-between; gap:20px; font:10px/1.6 'IBM Plex Mono',monospace; }
+.note-journal summary::-webkit-details-marker { display:none; }
+.note-journal summary > span { transition:transform .2s; }
+.note-journal[open] summary > span { transform:rotate(45deg); }
+.note-journal div { padding-bottom:8px; }
+.note-journal p { font:400 21px/1.6 'Crimson Pro',Georgia,serif; margin:0 0 16px; }
+.note-coda { max-width:680px; margin:60px 0 0 240px; }
+.note-coda > p { margin:0; }
+.note-pagination { display:grid; grid-template-columns:1fr 1fr; gap:50px; margin:80px 0 0; padding:30px 0; border-top:1px solid var(--note-rule); }
+.note-pagination a { text-decoration:none; padding:8px 0; }
+.note-pagination span { display:block; margin-bottom:16px; font:10px/1.6 'IBM Plex Mono',monospace; text-transform:uppercase; color:var(--note-muted); }
+.note-pagination strong { display:block; max-width:25ch; font:300 30px/1.2 'Fraunces',serif; letter-spacing:-.025em; }
+.note-pagination a:hover strong { text-decoration:underline; text-decoration-thickness:1px; }
+.note-footer { max-width:1240px; margin:40px auto 0; padding:28px 40px; border-top:1px solid var(--note-rule); display:flex; justify-content:space-between; gap:16px; font-size:11px; color:var(--note-muted); }
+.note-progress { position:fixed; z-index:10; inset:0 0 auto; height:3px; pointer-events:none; background:var(--note-accent); transform-origin:left; transform:scaleX(0); }
+.note-image-button { display:block; width:100%; position:relative; padding:0; background:transparent; border:0; cursor:zoom-in; }
+.note-image-button > span { display:block; position:absolute; right:10px; bottom:10px; padding:9px 12px; background:var(--note-paper); color:var(--note-ink); font:10px 'IBM Plex Mono',monospace; box-shadow:0 0 0 1px #263e3320; }
+.note-image-dialog { border:0; padding:18px; width:min(1100px,94vw); max-height:94dvh; background:var(--note-paper); color:var(--note-ink); }
+.note-image-dialog::backdrop { background:#18281fe8; }
+.note-image-dialog form { display:flex; justify-content:flex-end; margin-bottom:14px; }
+.note-image-dialog button { min-height:44px; border:1px solid var(--note-rule); background:none; padding:8px 16px; color:inherit; cursor:pointer; font:11px 'IBM Plex Mono',monospace; }
+.note-image-dialog img { display:block; max-width:100%; width:auto; height:auto; max-height:calc(88dvh - 140px); margin:auto; object-fit:contain; }
+.note-image-dialog p { font:11px/1.7 'Inter',sans-serif; margin:14px 0 0; }
+@media (max-width:980px) {
+    .note-chapter { grid-template-columns:145px minmax(0,1fr); column-gap:35px; }
+    .note-pullquote { margin-left:145px; padding-left:35px; }
+    .note-coda { margin-left:180px; }
+    .note-header--split { gap:4%; }
+    .note-header--split h1 { font-size:49px; }
+}
+@media (max-width:720px) {
+    .note-site-header { padding:16px 22px; gap:15px; flex-wrap:wrap; }
+    .note-site-header nav { gap:20px; }
+    .note-site-header nav a { font-size:9px; }
+    main { padding:20px 24px 0; }
+    .note-header { margin:30px 0 45px; }
+    h1, .note-header--split h1 { font-size:clamp(44px,8.5vw,62px); max-width:19ch; }
+    .note-deck { font-size:22px; }
+    .note-header--split { display:block; }
+    .note-opening-art { margin-top:32px; }
+    .note-body { font-size:21px; line-height:1.65; }
+    .note-chapter { display:block; margin-bottom:42px; }
+    .note-margin { margin-bottom:22px; }
+    .note-margin h2 { max-width:28ch; margin-top:10px; font-size:22px; }
+    .note-pullquote { margin:44px 0; padding-left:22px; }
+    .note-pullquote p { font-size:clamp(32px,6vw,44px); }
+    .note-cover, .note-wide-figure { margin-bottom:40px; }
+    .note-keepsake { gap:30px; margin:40px 0; grid-template-columns:1fr; }
+    .note-keepsake figure { max-width:340px; }
+    .note-journal-excerpt { font-size:29px; }
+    .note-coda { margin:42px 0 0; }
+    .note-pagination { gap:30px; margin-top:54px; }
+    .note-pagination strong { font-size:24px; }
+    .note-footer { padding:24px; margin-top:20px; }
+}
+@media (max-width:420px) {
+    .note-site-header { gap:8px; }
+    .note-pagination { grid-template-columns:1fr; }
+    .note-pagination a + a { border-top:1px solid var(--note-rule); padding-top:24px; }
+}
+@media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *, *::before, *::after { transition:none !important; animation:none !important; } }
+@media print {
+    .note-site-header, .note-back, .note-pagination, .note-footer, .skip-link, .note-progress, .note-image-button > span { display:none; }
+    body { background:white; color:black; }
+    main { padding:0; max-width:none; }
+    .note-header { margin-top:0; }
+    .note-chapter { display:block; }
+    .note-pullquote, .note-coda { margin-left:0; }
+    figure, .note-margin { break-inside:avoid; }
+}
