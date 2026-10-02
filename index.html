@@ -4197,7 +4197,7 @@
             html.home-chapters #home .editorial-about-photo { transform:none!important; transition:none; }
         }
     </style>
-    <link rel="stylesheet" href="assets/site-refinements.css?v=20260928-depth">
+    <link rel="stylesheet" href="assets/site-refinements.css?v=20261002-project-return">
     <link rel="stylesheet" href="assets/field-notes-index.css?v=20260928-font-restore">
     <link rel="stylesheet" href="assets/research-explorers.css?v=20260928-font-restore">
     <link rel="stylesheet" href="assets/site-system.css?v=20260928-name-spacing">
@@ -4629,6 +4629,12 @@
                 <p><strong>Question:</strong> What does a reinforcement-learning policy use to cross gaps, and can it learn when not to jump?</p>
                 <p><strong>Approach:</strong> Varied rewards, visual input, gap width, starting position, and evaluation conditions in a physically simulated rodent.</p>
             </div>
+
+            <figure class="project-photo-figure project-photo-figure--lead">
+                <img src="images/projects/talmo/salk-surf-fellows-and-staff-2026.jpg"
+                     alt="Salk SURF fellows and program staff posed on the central staircase at the Salk Institute">
+                <figcaption><span>Salk Institute · La Jolla, California</span>With the 2026 Salk SURF fellows and program staff.</figcaption>
+            </figure>
 
             <section class="research-explorer rat-explorer" aria-labelledby="rat-explorer-title">
                 <header class="explorer-heading"><span class="explorer-kicker">Interactive / Visual-noise sensitivity</span><h2 id="rat-explorer-title">Same scene.<br><em>Noisier visual input.</em></h2><p>I added Gaussian noise to the virtual rat’s visual observations to test sensitivity to visual perturbation. Explore the image transformation below.</p></header>
@@ -5341,6 +5347,7 @@
         // Timeline entries use native details/summary: keyboard access without scroll jumps.
 
         let projectReturnTarget = null;
+        let projectReturnPage = 'projects';
         let projectPreviousOverflow = '';
         const publishedProjects = Array.from(projectCards).map(card => ({
             id: card.dataset.project,
@@ -5364,6 +5371,8 @@
             const existing = document.querySelector('.project-detail.active');
             if (!existing) {
                 projectReturnTarget = trigger || document.activeElement;
+                projectReturnPage = trigger?.closest('#home') ? 'home'
+                    : (trigger?.closest('#projects') ? 'projects' : (document.body.dataset.page || 'projects'));
                 projectPreviousOverflow = document.body.style.overflow;
             }
             document.querySelectorAll('.project-detail.active').forEach(other => {
@@ -5374,7 +5383,7 @@
             modal.scrollTop = 0;
             document.body.style.overflow = 'hidden';
             const close = modal.querySelector('.close-btn');
-            if (close) close.textContent = document.body.dataset.page === 'home'
+            if (close) close.textContent = projectReturnPage === 'home'
                 ? '← Back to homepage' : '← Back to research';
             const title = modal.querySelector('h1');
             title.setAttribute('tabindex', '-1');
@@ -5403,6 +5412,20 @@
             setProjectBackgroundInert(false);
             if (!wasOpen) return;
             document.body.style.overflow = projectPreviousOverflow;
+            if (restoreFocus) {
+                const destination = document.getElementById(projectReturnPage) ? projectReturnPage : 'projects';
+                const destinationPage = document.getElementById(destination);
+                if (!destinationPage.classList.contains('active')) {
+                    pages.forEach(page => page.classList.toggle('active', page === destinationPage));
+                    document.body.dataset.page = destination;
+                    document.documentElement.classList.toggle('home-chapters', destination === 'home');
+                    updateNavState(destination);
+                }
+                const destinationHash = `#${destination}`;
+                if (window.location.hash !== destinationHash) {
+                    history.replaceState({ page: destination }, '', destinationHash);
+                }
+            }
             const target = projectReturnTarget;
             projectReturnTarget = null;
             if (restoreFocus && target && target.isConnected) target.focus({ preventScroll: true });
@@ -5452,7 +5475,12 @@
             modal.querySelector('.project-content').append(stepper);
         });
         document.querySelectorAll('.close-btn').forEach(btn => {
-            btn.addEventListener('click', () => closeProject());
+            btn.type = 'button';
+            btn.addEventListener('click', event => {
+                event.preventDefault();
+                event.stopPropagation();
+                closeProject();
+            });
         });
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape') closeProject();
